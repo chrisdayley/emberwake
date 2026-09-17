@@ -15,3 +15,12 @@
 @media(max-width:750px) and (orientation:landscape){.camp-main{padding-left:4%;padding-right:4%;gap:12px}.expedition-panel{width:275px}.camp-intro h1{font-size:62px}.camp-intro>p{font-size:11px}.topbar nav{gap:13px}.topbar nav button{font-size:11px}.wordmark{font-size:16px;letter-spacing:1px}.header-right{gap:9px}.wordmark>span{display:inline}.hud-left>div{width:100px}.hud-right{gap:9px}}
 
 @media(max-height:560px) and (orientation:landscape){.camp-shell.home{padding-bottom:0}.camp-main{height:calc(100% - 76px);padding-top:0;padding-bottom:0}.expedition-panel{align-self:center}}
+/* Treasure rewards stay compact and readable in phone landscape. */
+.modal.treasure{max-width:650px;border-color:#ad8543;background:radial-gradient(ellipse at 50% 0,#44361c 0,transparent 65%),#142522;text-align:center}
+.treasure-heading{position:relative}.treasure-heading h2{margin:4px 0 8px}.treasure-art{width:90px;height:64px;margin:4px auto;background:url('sprites.png') no-repeat 66.6667% 100%;background-size:400% 300%;filter:drop-shadow(0 0 18px #fcb94755)}
+.treasure-gold{font:700 38px Georgia,serif;color:#ffda86}.treasure-gold span{font:600 12px sans-serif;letter-spacing:2px}
+.treasure-rewards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:18px 0}.treasure-reward{display:flex;align-items:center;gap:10px;padding:12px 9px;border:1px solid #79663766;background:#ffffff05;border-radius:9px;text-align:left;animation:loot-in .35s both;animation-delay:var(--reveal)}
+.treasure-reward .glyph{flex-shrink:0;width:34px;height:34px;font-size:22px}.treasure-reward b{display:block;font-size:13px}.treasure-reward small{display:block;font-size:10px;color:#b8c7b8;margin-top:5px}.treasure-reward.evolved{border-color:#ead18c;background:#facc6314}.treasure-reward.evolved small{color:#ffe393}.treasure .primary{width:100%}
+@keyframes loot-in{from{opacity:0;transform:translateY(8px) scale(.96)}to{opacity:1;transform:none}}
+@media(max-height:500px) and (orientation:landscape){.modal.treasure{padding:18px 24px;max-width:700px}.treasure-art{position:absolute;right:5px;top:12px;width:90px;height:66px}.treasure-heading h2{font-size:26px;margin:4px 0}.treasure-gold{font-size:30px}.treasure-rewards{margin:12px 0;grid-template-columns:repeat(3,1fr);gap:6px}.treasure-reward{padding:8px}.treasure-reward .glyph{width:26px;height:26px;font-size:18px}.treasure .hint{margin:7px 0 0;font-size:10px}}
+@media(prefers-reduced-motion:reduce){.treasure-reward{animation:none}}
