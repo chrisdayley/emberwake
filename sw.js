@@ -1,5 +1,5 @@
-const CACHE='emberwake-v4';
-const ASSETS=['./','./index.html','./style.css?v=4','./app.js?v=4','./engine.js?v=4','./render.js?v=4','./data.js?v=4','./forest.jpg','./ground.jpg','./sprites.png','./icon.png','./icon.svg','./manifest.webmanifest'];
+const CACHE='emberwake-v5';
+const ASSETS=['./','./index.html','./style.css?v=4','./app.js?v=5','./engine.js?v=5','./render.js?v=5','./data.js?v=4','./forest.jpg','./ground.jpg','./sprites.png','./icon.png','./icon.svg','./manifest.webmanifest'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('emberwake-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
 self.addEventListener('fetch',e=>{if(e.request.method!=='GET'||new URL(e.request.url).origin!==self.location.origin)return;e.respondWith(fetch(e.request).then(response=>{if(response.ok&&response.type==='basic'){const copy=response.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));}return response;}).catch(()=>caches.match(e.request).then(r=>r||(e.request.mode==='navigate'?caches.match('./index.html'):Response.error()))));});
