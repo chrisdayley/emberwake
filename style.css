@@ -24,3 +24,5 @@
 @keyframes loot-in{from{opacity:0;transform:translateY(8px) scale(.96)}to{opacity:1;transform:none}}
 @media(max-height:500px) and (orientation:landscape){.modal.treasure{padding:18px 24px;max-width:700px}.treasure-art{position:absolute;right:5px;top:12px;width:90px;height:66px}.treasure-heading h2{font-size:26px;margin:4px 0}.treasure-gold{font-size:30px}.treasure-rewards{margin:12px 0;grid-template-columns:repeat(3,1fr);gap:6px}.treasure-reward{padding:8px}.treasure-reward .glyph{width:26px;height:26px;font-size:18px}.treasure .hint{margin:7px 0 0;font-size:10px}}
 @media(prefers-reduced-motion:reduce){.treasure-reward{animation:none}}
+
+@media(max-height:600px) and (orientation:landscape){.loadout{display:grid;grid-template-columns:repeat(6,30px);gap:4px;bottom:12px}.loadout button{width:30px;height:29px}.loadout button>span{font-size:17px}.desktop-hint{display:none}}
