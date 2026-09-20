@@ -1,5 +1,5 @@
-const CACHE='emberwake-v7';
-const ASSETS=['./','./index.html','./style.css?v=7','./app.js?v=7','./engine.js?v=7','./render.js?v=7','./data.js?v=7','./forest.jpg','./ground.jpg','./sprites.png','./enemies-v7.png','./icon.png','./icon.svg','./manifest.webmanifest'];
+const CACHE='emberwake-v8';
+const ASSETS=['./','./index.html','./style.css?v=8','./app.js?v=8','./engine.js?v=8','./render.js?v=8','./gear.js?v=8','./gear-art.js?v=8','./equipment-ui.js?v=8','./data.js?v=8','./forest.jpg','./ground.jpg','./sprites.png','./enemies-v7.png','./icon.png','./icon.svg','./manifest.webmanifest'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('emberwake-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
 self.addEventListener('fetch',e=>{if(e.request.method!=='GET'||new URL(e.request.url).origin!==self.location.origin)return;e.respondWith(fetch(e.request).then(response=>{if(response.ok&&response.type==='basic'){const copy=response.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));}return response;}).catch(()=>caches.match(e.request).then(r=>r||(e.request.mode==='navigate'?caches.match('./index.html'):Response.error()))));});

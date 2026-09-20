@@ -1,16 +1,18 @@
 # Emberwake
 
-[Play on your phone](https://chrisdayley.github.io/emberwake/) — turn sideways.
+[Play on your phone](https://chrisdayley.github.io/emberwake/) in landscape mode.
 
-An endless survival roguelite with auto-attacking weapons and permanent character progression.
+An open-ended survival roguelite with automatic attacks, in-run upgrades, boss treasure, and persistent character progression. Keep your gold after defeat or an early return.
 
-- Reach the 30-minute dawn milestone, then keep fighting as long as you like. Finish early and keep your gold.
-- Eight weapons, each with eight ranks and a powerful evolution. Four heroes, three regions, and 67 permanent upgrade ranks.
-- Bosses every three minutes drop treasure chests with gold and three or five rewards.
-- Growing enemy hordes, tougher enemies, and detailed original fantasy artwork.
-- Drag to move, tap to dash. Keyboard: WASD/arrows, Space, Escape.
-- Progress saves in your browser. Settings includes save export/import.
+- 16 spells with rank-eight upgrades and evolutions; six weapon and six skill slots.
+- 112 collectible weapons across Common, Uncommon, Rare, Epic, Legendary, Mythic, and Godly rarities.
+- Equip each character separately. Rarer gear adds permanent equipped boosts and more elaborate visible weapon art.
+- Spend gold on character traits, spellcraft, new weapons, tempering, and rarity ascension.
+- Guardian chests always drop gear. Ancient chests sometimes do. Rare drops improve with active survival time.
+- Gradual enemy spawn growth, new monster types, and a five-shooter limit.
 
-Weapon evolutions require rank 8, their matching rank 2 passive, and a treasure chest. Once the build is maxed, levels automatically award gold and healing.
+Read the [equipment, spellcraft, and drop-rate guide](GEAR.md).
 
-Built for landscape mobile browsers. iPhone: Safari → Share → Add to Home Screen.
+Controls: drag left to move, tap Dash on the right. Desktop: WASD/arrows, Space to dash, Escape to pause. The game pauses for upgrades and treasure.
+
+Progress is saved in this browser on this device. Export/import backups in Settings to move it. Equipment and permanent upgrades apply to new expeditions; resumed runs keep their original build.
