@@ -51,9 +51,9 @@ export const META=[
  {id:'reroll',name:'New paths',icon:'⟳',desc:'+1 free upgrade reroll each run',max:3,cost:95}
 ];
 export const REGIONS=[
- {id:'ashwood',name:'The Ashwood',desc:'Fireflies, old roots, and things that should stay asleep.',tag:'A good place to begin',color:'#94d1b4',need:0},
- {id:'hollow',name:'Violet Hollow',desc:'Faster hunters. More gold. The stars are watching.',tag:'+15% enemy speed · +25% gold',color:'#c0a6ee',need:1},
- {id:'cinder',name:'Cinder Wastes',desc:'Harder-hitting hordes under a broken, burning sky.',tag:'+25% enemy health · +50% gold',color:'#edb28e',need:3}
+ {id:'ashwood',name:'The Ashwood',desc:'Open forest clearings. After ten minutes, awaken shrines and dodge hunting roots.',tag:'Open woodland · Hunting roots after 10:00',color:'#94d1b4',unlockedBy:null},
+ {id:'hollow',name:'Violet Hollow',desc:'Ruined courtyards, narrow passages, and shifting rift fields. Follow the gaps between stone walls.',tag:'Ruined courtyards · Shifting rifts · +25% gold',color:'#c0a6ee',unlockedBy:'ashwood'},
+ {id:'cinder',name:'Cinder Wastes',desc:'Basalt causeways cross flowing lava. Use the bridges and escape falling embers.',tag:'Lava channels · Safe bridges · +50% gold',color:'#edb28e',unlockedBy:'hollow'}
 ];
 export const MILESTONES=[
  {id:'firstblood',name:'First sparks',desc:'Defeat 50 enemies in total',stat:'kills',target:50,reward:35},
@@ -69,9 +69,9 @@ export const MILESTONES=[
  {id:'loyal',name:'Back to the fire',desc:'Play 5 expeditions',stat:'runs',target:5,reward:100},
  {id:'level',name:'Fully awake',desc:'Reach level 20 in a run',stat:'bestLevel',target:20,reward:100}
 ];
-export const byId=id=>[...WEAPONS,...PASSIVES].find(x=>x.id===id);
+export const byId=id=>[...WEAPONS,...PASSIVES,...RELICS].find(x=>x.id===id);
 export const costOf=(u,rank)=>Math.round(u.cost*Math.pow(1.43,rank));
-export function freshSave(){return {version:1,gold:0,spent:0,inventory:{'bolt:0':{level:0}},equipment:{ranger:'bolt:0'},spellcraft:{},spellSpent:0,meta:{},heroes:['ranger'],hero:'ranger',region:'ashwood',stats:{kills:0,runs:0,wins:0,bestTime:0,bestLevel:0,evolutions:0},claimed:[],settings:{sound:true,fx:0.6,shake:false,joystick:'floating'},history:[],run:null};}
+export function freshSave(){return {version:1,gold:0,spent:0,regionBest:{},unlockedRegions:['ashwood'],inventory:{'bolt:0':{level:0}},equipment:{ranger:'bolt:0'},spellcraft:{},spellSpent:0,meta:{},heroes:['ranger'],hero:'ranger',region:'ashwood',stats:{kills:0,runs:0,wins:0,bestTime:0,bestLevel:0,evolutions:0},claimed:[],settings:{sound:true,fx:0.6,shake:false,joystick:'floating'},history:[],run:null};}
 
 export const WEAPON_SLOTS=6, PASSIVE_SLOTS=6;
 export const ENEMIES={
@@ -85,5 +85,19 @@ export const ENEMIES={
  revenant:{name:'Veil revenants',hp:115,speed:57,r:14,damage:24,xp:4,minute:5},
  juggernaut:{name:'Stone juggernauts',hp:280,speed:29,r:23,damage:32,xp:6,minute:6,knock:.15},
  leech:{name:'Thorn leeches',hp:150,speed:61,r:15,damage:25,xp:4,minute:7},
+ bulwark:{name:'Dread bulwarks',hp:850,speed:46,r:24,damage:42,xp:10,minute:10,armor:.35,knock:0},
+ stalker:{name:'Void stalkers',hp:460,speed:110,r:15,damage:34,xp:8,minute:12,knock:.25},
+ siege:{name:'Siege colossi',hp:1400,speed:34,r:28,damage:48,xp:14,minute:14,armor:.2,knock:0},
+ harbinger:{name:'Dusk harbingers',hp:1100,speed:65,r:22,damage:44,xp:12,minute:18,knock:.1},
  champion:{name:'Hollow champions',hp:210,speed:55,r:18,damage:28,xp:5,minute:8,armor:.12,knock:.4}
 };
+
+export const RELICS=[
+ {id:'ascend_power',name:'Unbound flame',icon:'✺',color:'#ffbe79',desc:'+8% all damage. Can be chosen repeatedly.',max:10000},
+ {id:'ascend_vigor',name:'Heart of the wild',icon:'♥',color:'#c4e597',desc:'+15 maximum health. Heal 15 now.',max:10000},
+ {id:'ascend_ward',name:'Ancient aegis',icon:'⬡',color:'#9fcee7',desc:'Reduce every hit by 1. Heal 10 now.',max:20},
+ {id:'ascend_flow',name:'Wayfarer’s stride',icon:'»',color:'#abedcf',desc:'+2% movement speed (up to +40%) and +12 shard pickup radius.',max:10000},
+ {id:'ascend_area',name:'Boundless horizon',icon:'◌',color:'#cbb0f5',desc:'+4% spell area (up to +80%) and +8% knockback.',max:10000},
+ {id:'ascend_regen',name:'Undying ember',icon:'≈',color:'#b9eabd',desc:'Heal 0.15 health each second. Can be chosen repeatedly.',max:10000},
+ {id:'ascend_haste',name:'Accelerant',icon:'ϟ',color:'#b0e7ff',desc:'Spells recharge 2% faster. Up to 15 ascension ranks.',max:15}
+];

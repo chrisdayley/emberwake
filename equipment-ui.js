@@ -1,7 +1,7 @@
-import {WEAPONS,HEROES} from './data.js?v=8';
-import {TIERS,FAMILIES,gearItem,equippedItem,gearPerks,gearStats,statLabel,temperCost,ascendCost,commonCost,SPELL_TRACKS,spellCost,rarityOdds} from './gear.js?v=8';
-import {gearIcon} from './gear-art.js?v=8';
-import {equippedPortrait} from './render.js?v=8';
+import {WEAPONS,HEROES} from './data.js?v=9';
+import {TIERS,FAMILIES,gearItem,equippedItem,gearPerks,gearStats,statLabel,temperCost,ascendCost,commonCost,SPELL_TRACKS,spellCost,rarityOdds} from './gear.js?v=9';
+import {gearIcon} from './gear-art.js?v=9';
+import {equippedPortrait} from './render.js?v=9';
 const money=n=>n.toLocaleString(),badge=item=>`<span class="rarity-badge" style="--rarity:${item.color}">${TIERS[item.tier].name} · ${item.tier+1} boost${item.tier?'s':''}</span>`;
 export function armory(save,selectedId,filter='owned',tierFilter='all'){
  const current=equippedItem(save),selected=gearItem(selectedId,save.inventory[selectedId]?.level||0)||current||gearItem('bolt:0'),owned=!!save.inventory[selected.id],family=FAMILIES.find(f=>f.id===selected.family),hero=HEROES.find(h=>h.id===save.hero),next=selected.family+':'+(selected.tier+1),isEquipped=current?.id===selected.id;
