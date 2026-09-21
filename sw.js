@@ -1,5 +1,5 @@
-const CACHE='emberwake-v9';
-const ASSETS=['./','./index.html','./style.css?v=9','./app.js?v=9','./engine.js?v=9','./render.js?v=9','./gear.js?v=9','./gear-art.js?v=9','./equipment-ui.js?v=9','./data.js?v=9','./world.js?v=9','./world-render.js?v=9','./expedition.js?v=9','./forest.jpg','./ground.jpg','./sprites.png','./enemies-v7.png','./icon.png','./icon.svg','./manifest.webmanifest'];
+const CACHE='emberwake-v10';
+const ASSETS=['./','./index.html','./style.css?v=10','./app.js?v=10','./engine.js?v=10','./render.js?v=10','./gear.js?v=10','./gear-art.js?v=10','./equipment-ui.js?v=10','./data.js?v=10','./world.js?v=10','./world-render.js?v=10','./expedition.js?v=10','./forest.jpg','./ground.jpg','./sprites.png','./enemies-v7.png','./icon.png','./icon.svg','./manifest.webmanifest'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('emberwake-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
 self.addEventListener('fetch',e=>{if(e.request.method!=='GET'||new URL(e.request.url).origin!==self.location.origin)return;e.respondWith(fetch(e.request).then(response=>{if(response.ok&&response.type==='basic'){const copy=response.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));}return response;}).catch(()=>caches.match(e.request).then(r=>r||(e.request.mode==='navigate'?caches.match('./index.html'):Response.error()))));});

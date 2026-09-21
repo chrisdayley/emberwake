@@ -1,4 +1,4 @@
-import {FAMILIES,TIERS} from './gear.js?v=9';
+import {FAMILIES,TIERS} from './gear.js?v=10';
 // The same silhouettes power inventory art, character previews, and held weapons.
 export function drawGear(c,item,x,y,size=70,angle=-.25,time=0){if(!item)return;const f=FAMILIES.find(f=>f.id===item.family),tier=item.tier,color=TIERS[tier].color;c.save();c.translate(x,y);c.rotate(angle);c.scale(size/90,size/90);c.lineJoin='round';c.lineCap='round';const metal=c.createLinearGradient(-16,0,16,0);metal.addColorStop(0,'#526976');metal.addColorStop(.43,tier>=3?'#fcf0dd':'#e0e7dc');metal.addColorStop(.6,color);metal.addColorStop(1,'#496675');c.strokeStyle='#111e27';c.lineWidth=3;c.fillStyle=metal;
  const line=(x1,y1,x2,y2,color,width)=>{c.strokeStyle=color;c.lineWidth=width;c.beginPath();c.moveTo(x1,y1);c.lineTo(x2,y2);c.stroke();};

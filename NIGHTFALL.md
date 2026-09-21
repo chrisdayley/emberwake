@@ -42,3 +42,15 @@ Three mint-colored shrines appear after ten minutes. Reach each one within 90 se
 - **The Ashwood:** open forest with room to kite; hunting roots begin after ten minutes. The Rootbound Titan guards its late treasure.
 - **Violet Hollow:** ruined courtyards with solid walls and open passages. Rift fields warn before activating, then damage and slow characters standing in them. Enemies move 15% faster; gold is worth 25% more. Its Overlord is the Rift Matriarch.
 - **Cinder Wastes:** glowing lava channels divide basalt lanes. Stone bridges provide safe crossings; lava damages and slows you. Enemies have 25% more health; gold is worth 50% more. Face the Furnace Tyrant and its wider ground blasts.
+
+## Refinements (September 21)
+
+Each Overlord now has a distinct attack with a dodge cue beneath its health bar:
+
+- The Titan sends staggered roots along your movement direction. Dodge sideways.
+- The Matriarch surrounds you with a rift cage, leaving a wide gap aimed away from her. Escape through it before the center bursts.
+- The Tyrant scatters delayed ember blasts with staggered detonations. Keep moving.
+
+Late rolls keep three choices even when only one normal upgrade remains. Accelerant no longer appears when all owned spells already have the minimum cooldown. Healing supplies, gold caches, and treasure relocate to safe ground, including on existing saved runs. Narrow wall gaps use nearby open ground rather than trapping loot between walls.
+
+Pause and expand **Run bonuses** to inspect combat stats, completed hunts, and every earned Ascension rank.
