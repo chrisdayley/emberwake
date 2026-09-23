@@ -1,4 +1,4 @@
-import {WEAPONS,HEROES} from './data.js?v=12';
+import {WEAPONS,HEROES} from './data.js?v=13';
 export const TIERS=[
  {name:'Common',color:'#bcc8c6',prefix:'Wayfarer'},
  {name:'Uncommon',color:'#8cdb9b',prefix:'Verdant'},

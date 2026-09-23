@@ -40,3 +40,7 @@ Violet Hollow and Cinder Wastes each feature eight exclusive enemy species and f
 ## Guarded discoveries
 
 Explore optional boss-guarded vaults, spell altars and life sanctuaries in every region. Claim gear and multi-upgrade treasure, choose bonus Ascensions, or earn healing and another revive. Follow the question-mark compass; you can retreat and return without resetting guardian health. See [DISCOVERIES.md](DISCOVERIES.md).
+
+## Regional strength progression
+
+Violet Hollow ramps enemy strength faster than Ashwood; Cinder Wastes ramps fastest. Health carries most of the increase, with gentler damage and movement gains. Bosses and guarded discoveries share the regional ramp. See [REGION-DIFFICULTY.md](REGION-DIFFICULTY.md) for tuning details.

@@ -1,4 +1,4 @@
-import {REGIONAL_ENEMIES} from './bestiary.js?v=12';
+import {REGIONAL_ENEMIES} from './bestiary.js?v=13';
 export const WEAPONS = [
  {id:'bolt',name:'Ember bolt',icon:'↗',color:'#ffc477',desc:'Seeks the nearest enemy. Reliable, piercing firepower.',base:'22 damage · fires every 0.8s',upgrade:'More damage, more bolts, deeper piercing.',evo:'Sunpiercer',pair:'power',evoDesc:'Seven blazing sunbolts pierce the horde.'},
  {id:'orbit',name:'Moon blades',icon:'✧',color:'#b6a7ff',desc:'Blades circle you and cut through nearby enemies.',base:'18 damage · 2 orbiting blades',upgrade:'Another blade and a wider, stronger orbit.',evo:'Lunar covenant',pair:'reach',evoDesc:'Twelve blades carve a circle of protection.'},
@@ -53,8 +53,8 @@ export const META=[
 ];
 export const REGIONS=[
  {id:'ashwood',name:'The Ashwood',desc:'Open forest clearings. After ten minutes, awaken shrines and dodge hunting roots.',tag:'Open woodland · Hunting roots after 10:00',color:'#94d1b4',unlockedBy:null},
- {id:'hollow',name:'Violet Hollow',desc:'Spectral masks blink between ruined courtyards. Glass spiders pounce, bell wraiths trap the ground, and four spectral guardians rule the rifts.',tag:'Ruined courtyards · Shifting rifts · +25% gold',color:'#c0a6ee',unlockedBy:'ashwood'},
- {id:'cinder',name:'Cinder Wastes',desc:'Slag slugs explode, lava rams charge, and magma worms burrow across basalt bridges. Face volcanic beasts, the Iron Archon, and the Ashen Phoenix.',tag:'Lava channels · Safe bridges · +50% gold',color:'#edb28e',unlockedBy:'hollow'}
+ {id:'hollow',name:'Violet Hollow',desc:'Spectral masks blink between ruined courtyards. Glass spiders pounce, bell wraiths trap the ground, and four spectral guardians rule the rifts.',tag:'Faster enemy growth · Shifting rifts · +25% gold',color:'#c0a6ee',unlockedBy:'ashwood'},
+ {id:'cinder',name:'Cinder Wastes',desc:'Slag slugs explode, lava rams charge, and magma worms burrow across basalt bridges. Face volcanic beasts, the Iron Archon, and the Ashen Phoenix.',tag:'Fastest enemy growth · Lava channels · +50% gold',color:'#edb28e',unlockedBy:'hollow'}
 ];
 export const MILESTONES=[
  {id:'firstblood',name:'First sparks',desc:'Defeat 50 enemies in total',stat:'kills',target:50,reward:35},

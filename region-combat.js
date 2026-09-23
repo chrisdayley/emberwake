@@ -1,11 +1,11 @@
-import {REGIONAL_ENEMIES} from './bestiary.js?v=12';
-import {safePoint} from './world.js?v=12';
+import {REGIONAL_ENEMIES} from './bestiary.js?v=13';
+import {safePoint} from './world.js?v=13';
 const TAU=Math.PI*2;
 // Shared cap covers delayed ground attacks as well as death bursts, not only bullets.
 export function regionStrike(g,e,x,y,r=45,warning=1.6,damage=24){
  if(!e.boss&&g.hazards.filter(h=>h.regional&&!h.bossAttack).length>=8)return false;
  if(g.hazards.filter(h=>h.regional).length>=28)return false;
- g.hazards.push({kind:'eruption',x,y,r,life:warning,max:warning,damage:damage+g.time/60,color:g.region==='hollow'?'#cdadff':'#ffb05e',regional:true,bossAttack:!!e.boss});return true;
+ g.hazards.push({kind:'eruption',x,y,r,life:warning,max:warning,damage:g.enemyDamage(damage+g.time/60),color:g.region==='hollow'?'#cdadff':'#ffb05e',regional:true,bossAttack:!!e.boss});return true;
 }
 export function regionalDeath(g,e){if(e.type==='slagslug')regionStrike(g,e,e.x,e.y,30,1.5,17);}
 function cue(g,e,label,duration=2.8){e.attackLabel=label;e.attackUntil=g.time+duration;}
