@@ -1,20 +1,22 @@
-# Regional difficulty — v13
+# Regional difficulty — v14
 
-Violet Hollow and Cinder Wastes now build enemy strength faster to account for accumulated permanent upgrades. The opening strength is unchanged; additional pressure grows smoothly with expedition time. It depends only on the selected region, never on equipped gear or purchased upgrades.
+Violet Hollow and Cinder Wastes now have a substantially steeper enemy strength curve. It depends only on region and elapsed expedition time, so permanent upgrades still give their full benefit.
 
-Additional multipliers relative to each region's previous balance:
+Compared with v13 enemy health in the same region:
 
-| Time | Hollow health | Cinder health | Hollow damage | Cinder damage |
-| --- | --- | --- | --- | --- |
-| Start | 1.00× | 1.00× | 1.00× | 1.00× |
-| 3 minutes | 1.36× | 1.63× | 1.06× | 1.096× |
-| 5 minutes | 1.60× | 2.05× | 1.10× | 1.16× |
-| 10 minutes | 2.20× | 3.10× | 1.20× | 1.32× |
+| Time | Hollow health increase | Cinder health increase |
+| --- | --- | --- |
+| Start | unchanged | unchanged |
+| 3 minutes | 1.86× | 2.21× |
+| 5 minutes | 2.34× | 2.80× |
+| 10 minutes | 3.41× | 4.03× |
 
-- Health gains +0.12× per minute in Hollow and +0.21× in Cinder, capping at 3.4× / 5.2× after 20 minutes. The existing endless health curve continues afterward.
-- Walking speed gains +0.4% / +0.6% per minute, capped at +14% / +22%. Dash, blink, projectile speed and attack-warning durations retain their established timings.
-- Damage gains +2% / +3.2% per minute, capped at +24% / +40%, before armor. Applies to contact, projectiles, regional ground attacks and Overlord attacks; terrain damage stays unchanged.
-- Early bosses, Overlords and newly awakened discovery guardians receive the regional health ramp. Saved living enemies and previously encountered discovery guardians keep their current health; loading never re-multiplies it.
-- Ashwood, XP awards, spawn population/rate, enemy arrival minutes, five-ranged-enemy cap, regional hazard caps and gold bonuses are unchanged.
+The regional health multiplier on the common time curve is `1 + 0.45m + 0.02m²` in Hollow and `1 + 0.75m + 0.04m²` in Cinder, with regional m capped at 30. The underlying endless health curve continues afterward. Existing regional species stats and Cinder's 1.25× base health still apply.
 
-Validation: `tests/region-ramp.test.mjs` checks actual spawning, damage delivery, minute-by-minute continuity, boss scaling, retreat and saves. Existing suites cover combat, progression, gear, regional hazards and discovery rewards. Synthetic pilots are coarse sanity checks, not physical-device playtesting.
+- Walking speed gains +1.2% / +1.8% per minute, capped at +25% / +35%.
+- Damage gains +6% / +9% per minute, capped at +65% / +100%, before armor. Applies to contact, projectiles, regional ground attacks and Overlords; terrain damage stays unchanged.
+- Early bosses and Overlords use the stronger regional health curve. Discovery guardians additionally gain 8–16× base health, +25% contact/ground attack damage, faster pursuit, and shorter attack cooldowns. Telegraph durations remain intact.
+- Existing living enemies and previously encountered discovery guardians retain their saved health. New spawns and newly awakened guardians use the revised health pools. Loading or retreat never heals a fight or repeatedly multiplies health.
+- Ashwood ordinary enemies, XP awards, horde spawn count/rate, arrival minutes, five-ranged-enemy cap, regional hazard caps and gold bonuses are unchanged.
+
+Validation: `tests/region-ramp.test.mjs`, `tests/wilds.test.mjs` and existing regression suites check actual spawned HP, delivered damage, continuity, horde bounds, save compatibility and encounters.

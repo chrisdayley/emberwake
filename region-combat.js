@@ -1,11 +1,11 @@
-import {REGIONAL_ENEMIES} from './bestiary.js?v=13';
-import {safePoint} from './world.js?v=13';
+import {REGIONAL_ENEMIES} from './bestiary.js?v=14';
+import {safePoint} from './world.js?v=14';
 const TAU=Math.PI*2;
 // Shared cap covers delayed ground attacks as well as death bursts, not only bullets.
 export function regionStrike(g,e,x,y,r=45,warning=1.6,damage=24){
  if(!e.boss&&g.hazards.filter(h=>h.regional&&!h.bossAttack).length>=8)return false;
  if(g.hazards.filter(h=>h.regional).length>=28)return false;
- g.hazards.push({kind:'eruption',x,y,r,life:warning,max:warning,damage:g.enemyDamage(damage+g.time/60),color:g.region==='hollow'?'#cdadff':'#ffb05e',regional:true,bossAttack:!!e.boss});return true;
+ g.hazards.push({kind:'eruption',x,y,r,life:warning,max:warning,damage:g.enemyDamage((damage+g.time/60)*(e.siteId?1.25:1)),color:g.region==='hollow'?'#cdadff':'#ffb05e',regional:true,bossAttack:!!e.boss});return true;
 }
 export function regionalDeath(g,e){if(e.type==='slagslug')regionStrike(g,e,e.x,e.y,30,1.5,17);}
 function cue(g,e,label,duration=2.8){e.attackLabel=label;e.attackUntil=g.time+duration;}
@@ -27,7 +27,7 @@ export function guardianAttack(g,e){
  if(b==='volcano'){cue(g,e,'CRATER SALVO · LEAVE THE CIRCLES');for(let i=0;i<4;i++){const ang=a+i*TAU/4;hit(p.x+Math.cos(ang)*95,p.y+Math.sin(ang)*95,48,1.8+i*.3);}}
  if(b==='wyrm'){cue(g,e,'MOLTEN FISSURE · CROSS THE LINE');for(let i=-2;i<=2;i++)hit(p.x+sx*i*75,p.y+sy*i*75,34,1.8+(i+2)*.18);}
  if(b==='archon'){cue(g,e,'HAMMER PRESS · KEEP MOVING',3.5);hit(p.x-sx*110,p.y-sy*110,68,1.8);hit(p.x+sx*110,p.y+sy*110,68,2.3);hit(p.x,p.y,58,2.9);}
- e.attack=e.fury?4.8:6.4;
+ e.attack=e.siteId?(e.fury?3.6:4.8):(e.fury?4.8:6.4);
 }
 // Returns movement speed override; base movement and terrain collision stay centralized.
 export function stepRegional(g,e,dt,dx,dy,d,spd){

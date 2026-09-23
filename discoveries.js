@@ -1,5 +1,5 @@
-import {safePoint} from './world.js?v=13';
-import {GUARDIANS} from './bestiary.js?v=13';
+import {safePoint} from './world.js?v=14';
+import {GUARDIANS} from './bestiary.js?v=14';
 export const DISCOVERIES={
  vault:{name:'Sealed vault',icon:'▣',color:'#ffd17e',reward:'Gold + 5 upgrades + gear'},
  altar:{name:'Spell altar',icon:'✦',color:'#cfadff',reward:'Choose an Ascension + gold'},
@@ -8,21 +8,28 @@ export const DISCOVERIES={
 const TAU=Math.PI*2;
 const hash=n=>{const x=Math.sin(n*127.1+311.7)*43758.5453;return x-Math.floor(x);};
 export function siteGuardian(region,kind){const i=['vault','altar','spring'].indexOf(kind);return GUARDIANS[region]?.[i]||['brute','juggernaut','champion'][i];}
+export const SITE_SPACING=2600;
+export function guardianHealth(g){const m=g.time/60;return (650+250*m+45*m*m)*(8+Math.min(8,m*.4))*(1+Math.min(2,g.discoveriesCleared*.15))*g.regionalStrength().health;}
 export function ensureDiscoveries(g){
- // Keep discovered places, active fights and unclaimed loot. Only forget distant,
- // unseen sites so an endless expedition never grows an unbounded map save.
- g.discoveries=g.discoveries.filter(s=>s.state!=='claimed'&&(s.discovered||Math.hypot(s.x-g.player.x,s.y-g.player.y)<2200));
- let nearby=g.discoveries.filter(s=>Math.hypot(s.x-g.player.x,s.y-g.player.y)<1800).length;
- while(nearby<3&&g.discoveries.length<12){const id=++g.discoverySerial,kind=['vault','altar','spring'][(id-1)%3],seed=id+(g.region==='hollow'?17:g.region==='cinder'?39:0);let point;
-  for(let attempt=0;attempt<16;attempt++){const angle=hash(seed+attempt*.17)*TAU,dist=700+hash(seed+4)*350+attempt*35;point=safePoint(g.region,g.player.x+Math.cos(angle)*dist,g.player.y+Math.sin(angle)*dist);if(Math.hypot(point.x-g.player.x,point.y-g.player.y)>520&&g.discoveries.every(s=>Math.hypot(point.x-s.x,point.y-s.y)>430))break;}
-  if(g.discoveries.some(s=>Math.hypot(point.x-s.x,point.y-s.y)<300))break;
-  g.discoveries.push({id,kind,...point,state:'sealed',discovered:false,guardianId:null});nearby++;
+ // Move only unseen, unencountered legacy sites. Earned loot and known fights stay put.
+ if(g.discoveryLayoutVersion!==2){g.discoveries=g.discoveries.filter(s=>s.discovered||s.state!=='sealed'||s.guardianMaxHp);g.discoveryLayoutVersion=2;}
+ const distance=s=>Math.hypot(s.x-g.player.x,s.y-g.player.y);
+ const claimed=g.discoveries.filter(s=>s.state==='claimed'&&distance(s)<9000).slice(-8);
+ const active=g.discoveries.filter(s=>s.state!=='claimed'&&(s.discovered||distance(s)<11000));
+ g.discoveries=[...active,...claimed];
+ let nearby=active.filter(s=>distance(s)<7000).length;
+ while(nearby<3&&active.length<12){const id=++g.discoverySerial,kind=['vault','altar','spring'][(id-1)%3],seed=id+(g.region==='hollow'?17:g.region==='cinder'?39:0);let point=null;
+  for(let attempt=0;attempt<48;attempt++){const angle=hash(seed+attempt*.17)*TAU,dist=3200+hash(seed+4+attempt*.31)*1600;const candidate=safePoint(g.region,g.player.x+Math.cos(angle)*dist,g.player.y+Math.sin(angle)*dist);
+   if(distance(candidate)>=3000&&g.discoveries.every(s=>Math.hypot(candidate.x-s.x,candidate.y-s.y)>=SITE_SPACING)){point=candidate;break;}}
+  // Never relax the separation rule when an area is full; explore farther instead.
+  if(!point)break;
+  const site={id,kind,...point,state:'sealed',discovered:false,guardianId:null};g.discoveries.push(site);active.push(site);nearby++;
  }
 }
 export function awakenSite(g,site){
  if(site.state!=='sealed'||g.enemies.some(e=>e.boss&&e.hp>0))return false;
- const e=g.spawn(siteGuardian(g.region,site.kind),false,true),m=g.time/60;
- e.x=site.x;e.y=site.y-55;e.siteId=site.id;e.maxHp=site.guardianMaxHp||(650+250*m+45*m*m)*(1+Math.min(2,g.discoveriesCleared*.15))*g.regionalStrength().health;e.hp=site.guardianHp??e.maxHp;e.r=34;e.speed=43*g.regionalStrength().speed;e.attack=2.5;
+ const e=g.spawn(siteGuardian(g.region,site.kind),false,true);
+ e.x=site.x;e.y=site.y-55;e.siteId=site.id;e.maxHp=site.guardianMaxHp||guardianHealth(g);e.hp=site.guardianHp??e.maxHp;e.r=34;e.speed=65*g.regionalStrength().speed;e.attack=2.5;
  e.title=({ashwood:{vault:'Vaultroot Sentinel',altar:'Runestone Keeper',spring:'Heartwood Guardian'},hollow:{vault:'Widow of the Vault',altar:'Keeper of Lost Spells',spring:'The Lifebound Monarch'},cinder:{vault:'Crater Hoardkeeper',altar:'Wyrm of the Forge',spring:'The Ember Warden'}}[g.region])[site.kind];
  site.guardianId=e.id;site.state='guarded';site.discovered=true;g.emit('warning',{text:e.title+' awakens · Defeat it to unseal the '+DISCOVERIES[site.kind].name.toLowerCase()});return true;
 }

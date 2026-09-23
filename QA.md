@@ -108,3 +108,9 @@ Mobile 844×390 browser check confirmed red ground telegraph, boss rendering, sa
 - All game, arsenal, gear, ranged-cap, discovery, bestiary, refinement, Nightfall and balance suites pass; includes eight regional horde stress simulations and twenty Ashwood balance simulations.
 - Twelve additional upgraded-character regional pilots and six Cinder baseline pilots completed. The basic pilot struggles with lava navigation in both baseline and revised Cinder; it is not evidence of human completion difficulty. No physical-phone performance claim.
 - Browser camp label inspected at 667 × 375. Existing save verification and release evidence recorded separately after publishing.
+
+## v14 — harder regions, distant discoveries, stronger guardians
+
+- All game, arsenal, gear, ranged-cap, refinement, Nightfall, bestiary, discovery, regional-ramp and balance suites pass.
+- New wilds suite exercises 480 clear/explore cycles across all maps, hard spacing including cleared ground, bounded retention, stronger actual enemy/guardian HP, guardian attack pacing, legacy layout migration and retreat/save persistence.
+- Browser fixture imported on localhost only. Landscape 667 × 375 shows the distant discovery compass (3,564 units), restores the new save format and has no runtime errors. No fixture imported into production.

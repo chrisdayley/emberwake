@@ -1,4 +1,4 @@
-import {obstacles,cell,riftAt} from './world.js?v=13';
+import {obstacles,cell,riftAt} from './world.js?v=14';
 const TAU=Math.PI*2;
 export function drawWorld(c,g,b){const {left,top,right,bottom}=b;
  if(g.region!=='ashwood'){

@@ -1,7 +1,7 @@
-import {drawDiscoveries,drawDiscoveryCompass} from './discovery-render.js?v=13';
-import {REGIONAL_ENEMIES} from './bestiary.js?v=13';
-import {drawWorld,drawObjectiveArrows,enemyCrown} from './world-render.js?v=13';
-import {drawGear} from './gear-art.js?v=13';
+import {drawDiscoveries,drawDiscoveryCompass} from './discovery-render.js?v=14';
+import {REGIONAL_ENEMIES} from './bestiary.js?v=14';
+import {drawWorld,drawObjectiveArrows,enemyCrown} from './world-render.js?v=14';
+import {drawGear} from './gear-art.js?v=14';
 const TAU=Math.PI*2;
 const atlas=new Image();atlas.src='sprites.png';const enemyAtlas=new Image();enemyAtlas.src='enemies-v7.png';const regionAtlases={hollow:new Image(),cinder:new Image()};for(const [region,img]of Object.entries(regionAtlases))img.src=region+'-v11.png';export const artReady=Promise.all([atlas.decode(),enemyAtlas.decode(),...Object.values(regionAtlases).map(img=>img.decode())]).catch(()=>{});
 const enemyRects={ironhide:[12,16,495,480],reaver:[531,10,493,482],revenant:[1060,0,454,492],juggernaut:[0,496,512,512],leech:[529,510,495,494],champion:[1050,500,464,506]};
