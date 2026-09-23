@@ -114,3 +114,10 @@ Mobile 844×390 browser check confirmed red ground telegraph, boss rendering, sa
 - All game, arsenal, gear, ranged-cap, refinement, Nightfall, bestiary, discovery, regional-ramp and balance suites pass.
 - New wilds suite exercises 480 clear/explore cycles across all maps, hard spacing including cleared ground, bounded retention, stronger actual enemy/guardian HP, guardian attack pacing, legacy layout migration and retreat/save persistence.
 - Browser fixture imported on localhost only. Landscape 667 × 375 shows the distant discovery compass (3,564 units), restores the new save format and has no runtime errors. No fixture imported into production.
+
+## v15 — Cinder endgame progression check
+
+- Cinder endgame suite verifies 3.5× actual enemy/guardian/Overlord health versus v14 from minute 0 through 60, +20% damage, and no save re-multiplication.
+- Nine scripted opening pilots: starter builds fail before three minutes in all three seeds; traits alone improve survival; tempered Mythic gear plus permanent spellcraft survives all three three-minute trials without a revive. Kills: starter 67 total, equipped 1,708 total. This is a synthetic opening-window check, not proof of physical-phone or full-run difficulty.
+- Game, arsenal, gear, ranged-cap, refinement, Nightfall, bestiary, discovery, wilds and regional-ramp suites pass.
+- New endgame region label inspected at 667 × 375 with no browser errors. Production fixture imports remain prohibited in QA.

@@ -46,3 +46,5 @@ Explore optional boss-guarded vaults, spell altars and life sanctuaries in every
 Violet Hollow ramps enemy strength faster than Ashwood; Cinder Wastes ramps fastest. Health carries most of the increase, with gentler damage and movement gains. Bosses and guarded discoveries share the regional ramp. See [REGION-DIFFICULTY.md](REGION-DIFFICULTY.md) for tuning details.
 
 The v14 balance raises later-region health growth substantially, places guarded discoveries thousands of map units apart, and gives new site guardians 8–16× base health plus regional scaling. Previously found sites and fights are preserved.
+
+Cinder Wastes v15 is tuned for leveled equipment and permanent spellcraft: new enemies and guardians have 3.5× v14 health and attacks deal 20% more damage, starting immediately. The region selection labels it as endgame.

@@ -1,10 +1,10 @@
-import {stepDiscoveries,guardSite,unlockSite} from './discoveries.js?v=14';
-import {REGIONAL_ENEMIES,ROSTERS,regionalType,regionalPool} from './bestiary.js?v=14';
-import {stepRegional,regionalDeath} from './region-combat.js?v=14';
-import {resolveTerrain,lavaAt,riftAt,safePoint} from './world.js?v=14';
-import {stepWorld,stepObjective,spawnOverlord,attackOverlord} from './expedition.js?v=14';
-import {equippedItem,gearItem,gearStats,rollGear} from './gear.js?v=14';
-import {WEAPONS,PASSIVES,RELICS,HEROES,byId,ENEMIES,WEAPON_SLOTS,PASSIVE_SLOTS} from './data.js?v=14';
+import {stepDiscoveries,guardSite,unlockSite} from './discoveries.js?v=15';
+import {REGIONAL_ENEMIES,ROSTERS,regionalType,regionalPool} from './bestiary.js?v=15';
+import {stepRegional,regionalDeath} from './region-combat.js?v=15';
+import {resolveTerrain,lavaAt,riftAt,safePoint} from './world.js?v=15';
+import {stepWorld,stepObjective,spawnOverlord,attackOverlord} from './expedition.js?v=15';
+import {equippedItem,gearItem,gearStats,rollGear} from './gear.js?v=15';
+import {WEAPONS,PASSIVES,RELICS,HEROES,byId,ENEMIES,WEAPON_SLOTS,PASSIVE_SLOTS} from './data.js?v=15';
 export const MAX_RANGED_ENEMIES=5;
 const TAU=Math.PI*2,clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 export class Game {
@@ -48,7 +48,7 @@ export class Game {
  spawn(type='crawler',elite=false,boss=false){type=regionalType(this.region,type,boss,this.time);if(ENEMIES[type]?.ranged&&!boss&&this.rangedCount()>=MAX_RANGED_ENEMIES)type=ROSTERS[this.region]?.[0]||'crawler';const a=this.random()*TAU,dist=360+this.random()*150,spec=ENEMIES[type]||ENEMIES.crawler;const veteran=!!spec.region&&!boss&&this.time>=600;const hp=spec.hp*this.difficulty().health*(elite?6:1)*(boss?18:1)*(this.region==='cinder'?1.25:1)*(veteran?1+Math.min(5,(this.time/60-10)*.12):1);const e={id:this.nextId++,type,x:this.player.x+Math.cos(a)*dist,y:this.player.y+Math.sin(a)*dist,hp,maxHp:hp,r:boss?(spec.region?spec.r:35):elite?21:spec.r,speed:spec.speed*this.difficulty().speed*(this.region==='hollow'?1.15:1),elite,boss,slow:0,flash:0,attack:1+this.random()*3,phase:0};if(boss&&spec.region)e.title=spec.name;Object.assign(e,safePoint(this.region,e.x,e.y));this.enemies.push(e);return e;}
  // Region tiers reward permanent progression without scaling against the player's gear.
  // Smooth, bounded extra multipliers preserve the original spawn curve and warning times.
- regionalStrength(){const m=Math.max(0,this.time/60),h=Math.min(30,m);if(this.region==='hollow')return {health:1+h*.45+h*h*.02,speed:1+Math.min(.25,m*.012),damage:1+Math.min(.65,m*.06)};if(this.region==='cinder')return {health:1+h*.75+h*h*.04,speed:1+Math.min(.35,m*.018),damage:1+Math.min(1,m*.09)};return {health:1,speed:1,damage:1};}
+ regionalStrength(){const m=Math.max(0,this.time/60),h=Math.min(30,m);if(this.region==='hollow')return {health:1+h*.45+h*h*.02,speed:1+Math.min(.25,m*.012),damage:1+Math.min(.65,m*.06)};if(this.region==='cinder')return {health:3.5*(1+h*.75+h*h*.04),speed:1+Math.min(.35,m*.018),damage:1.2*(1+Math.min(1,m*.09))};return {health:1,speed:1,damage:1};}
  enemyDamage(amount){return amount*this.regionalStrength().damage;}
  difficulty(){const m=this.time/60,strength=this.regionalStrength();return {health:strength.health*(1+m*.35+m*m*.018)*(1+Math.max(0,m-10)*.18+Math.max(0,m-10)**2*.012),speed:(1+Math.min(1.05,m*.024))*strength.speed,cap:Math.min(600,Math.floor(100+m*14+Math.max(0,m-2)*6)),count:Math.min(32,2+m*.65+Math.max(0,m-2)*.1),interval:Math.max(.3,.9-m*.015),surge:false};}
  enemyType(){const m=this.time/60;if(ROSTERS[this.region]){const pool=regionalPool(this.region,m);let n=this.random()*pool.reduce((sum,[,w])=>sum+w,0);for(const [id,w]of pool){n-=w;if(n<=0)return id;}return pool[0][0];}if(m<3){const r=this.random();return m>=2&&r<.3?'shooter':m>=1&&r<.48?'brute':r<.67?'bat':'crawler';}const pool=[['crawler',3],['bat',2],['brute',2],['shooter',.8],['ironhide',3],['charger',1],['reaver',3],['revenant',3],['juggernaut',2],['leech',2],['champion',2],['bulwark',5],['stalker',4],['siege',3],['harbinger',3]].filter(([id])=>ENEMIES[id].minute<=m).map(([id,w])=>[id,w*Math.min(1,.2+Math.max(0,m-ENEMIES[id].minute)*.8)]);let r=this.random()*pool.reduce((n,[,w])=>n+w,0);for(const [id,w]of pool){r-=w;if(r<=0)return id;}return 'crawler';}

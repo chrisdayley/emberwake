@@ -1,4 +1,4 @@
-# Guarded discoveries — v14
+# Guarded discoveries — v15
 
 Every region now contains optional places worth exploring, starting immediately rather than only after ten minutes. Follow the question-mark compass to nearby unexplored sites. When you get close, the landmark reveals its reward and sleeping guardian. Approach within 135 world units to challenge it.
 
@@ -6,7 +6,7 @@ Every region now contains optional places worth exploring, starting immediately 
 - **Spell altar:** defeat its guardian for gold and a choice of three Ascensions. Available before ten minutes; no weapon or skill slots used. The chosen bonus lasts for the expedition.
 - **Life sanctuary:** defeat its guardian for full healing, +30 maximum health, an additional revive and a small gold reward. Health and revive bonuses last for the expedition.
 
-The guardians match each region's exclusive roster. They scale with elapsed time and completed discoveries. Their base health is now multiplied by 8 at the start, 10 at five minutes, and up to 16 later, before the stronger regional multiplier. At five minutes with no prior discoveries cleared: Ashwood 30,250 HP, Hollow 113,437.5 HP, Cinder 173,937.5 HP. Pursuit speed rises from 43 to 65 before region bonuses. Contact and ground strikes gain 25% damage; regional attack cooldowns fall from 6.4/4.8 seconds to 4.8/3.6 seconds (normal/enraged), while warning durations stay unchanged. A site never rewards you before its guardian is defeated. A site guardian replaces its normal chest with that site's reward, avoiding duplicate treasure.
+The guardians match each region's exclusive roster. They scale with elapsed time and completed discoveries. Their base health is now multiplied by 8 at the start, 10 at five minutes, and up to 16 later, before the stronger regional multiplier. At five minutes with no prior discoveries cleared: Ashwood 30,250 HP, Hollow 113,437.5 HP, Cinder 608,781.25 HP. Pursuit speed rises from 43 to 65 before region bonuses. Contact and ground strikes gain 25% damage; regional attack cooldowns fall from 6.4/4.8 seconds to 4.8/3.6 seconds (normal/enraged), while warning durations stay unchanged. A site never rewards you before its guardian is defeated. A site guardian replaces its normal chest with that site's reward, avoiding duplicate treasure.
 
 These fights are optional. Moving more than 480 units from the site lets you retreat: the guardian sleeps again, retaining its remaining health. Return to resume the fight. Only one boss encounter can begin at once, so a timed guardian cannot arrive on top of an active site fight. After retreating, the ordinary boss schedule can continue.
 
