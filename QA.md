@@ -121,3 +121,7 @@ Mobile 844×390 browser check confirmed red ground telegraph, boss rendering, sa
 - Nine scripted opening pilots: starter builds fail before three minutes in all three seeds; traits alone improve survival; tempered Mythic gear plus permanent spellcraft survives all three three-minute trials without a revive. Kills: starter 67 total, equipped 1,708 total. This is a synthetic opening-window check, not proof of physical-phone or full-run difficulty.
 - Game, arsenal, gear, ranged-cap, refinement, Nightfall, bestiary, discovery, wilds and regional-ramp suites pass.
 - New endgame region label inspected at 667 × 375 with no browser errors. Production fixture imports remain prohibited in QA.
+
+## Soundscape v16
+
+Automated coverage: legacy music defaults, independent mute/volume, three distinct scores and bounded intensity, pause/background/device interruption, voice limit/backlog, idempotent stop, saved purple warnings rendered red without mutation, and upgraded legacy run restoration. Game, discovery and refinement regression suites pass. Browser audio and deployment verification are recorded in DEPLOYMENT.md. Physical iPhone audio behavior has not been verified.

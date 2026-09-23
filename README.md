@@ -48,3 +48,7 @@ Violet Hollow ramps enemy strength faster than Ashwood; Cinder Wastes ramps fast
 The v14 balance raises later-region health growth substantially, places guarded discoveries thousands of map units apart, and gives new site guardians 8–16× base health plus regional scaling. Previously found sites and fights are preserved.
 
 Cinder Wastes v15 is tuned for leveled equipment and permanent spellcraft: new enemies and guardians have 3.5× v14 health and attacks deal 20% more damage, starting immediately. The region selection labels it as endgame.
+
+## Red danger markers and adaptive music
+
+Enemy AOE attacks now use red warning circles and exclamation marks. Each map has its own original soundtrack that builds with survival time. Music and sound effects have separate controls in Settings. Existing saves and combat balance are preserved. See [SOUNDSCAPE.md](SOUNDSCAPE.md).
