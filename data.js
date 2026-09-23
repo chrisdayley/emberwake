@@ -1,3 +1,4 @@
+import {REGIONAL_ENEMIES} from './bestiary.js?v=11';
 export const WEAPONS = [
  {id:'bolt',name:'Ember bolt',icon:'↗',color:'#ffc477',desc:'Seeks the nearest enemy. Reliable, piercing firepower.',base:'22 damage · fires every 0.8s',upgrade:'More damage, more bolts, deeper piercing.',evo:'Sunpiercer',pair:'power',evoDesc:'Seven blazing sunbolts pierce the horde.'},
  {id:'orbit',name:'Moon blades',icon:'✧',color:'#b6a7ff',desc:'Blades circle you and cut through nearby enemies.',base:'18 damage · 2 orbiting blades',upgrade:'Another blade and a wider, stronger orbit.',evo:'Lunar covenant',pair:'reach',evoDesc:'Twelve blades carve a circle of protection.'},
@@ -52,8 +53,8 @@ export const META=[
 ];
 export const REGIONS=[
  {id:'ashwood',name:'The Ashwood',desc:'Open forest clearings. After ten minutes, awaken shrines and dodge hunting roots.',tag:'Open woodland · Hunting roots after 10:00',color:'#94d1b4',unlockedBy:null},
- {id:'hollow',name:'Violet Hollow',desc:'Ruined courtyards, narrow passages, and shifting rift fields. Follow the gaps between stone walls.',tag:'Ruined courtyards · Shifting rifts · +25% gold',color:'#c0a6ee',unlockedBy:'ashwood'},
- {id:'cinder',name:'Cinder Wastes',desc:'Basalt causeways cross flowing lava. Use the bridges and escape falling embers.',tag:'Lava channels · Safe bridges · +50% gold',color:'#edb28e',unlockedBy:'hollow'}
+ {id:'hollow',name:'Violet Hollow',desc:'Spectral masks blink between ruined courtyards. Glass spiders pounce, bell wraiths trap the ground, and four spectral guardians rule the rifts.',tag:'Ruined courtyards · Shifting rifts · +25% gold',color:'#c0a6ee',unlockedBy:'ashwood'},
+ {id:'cinder',name:'Cinder Wastes',desc:'Slag slugs explode, lava rams charge, and magma worms burrow across basalt bridges. Face volcanic beasts, the Iron Archon, and the Ashen Phoenix.',tag:'Lava channels · Safe bridges · +50% gold',color:'#edb28e',unlockedBy:'hollow'}
 ];
 export const MILESTONES=[
  {id:'firstblood',name:'First sparks',desc:'Defeat 50 enemies in total',stat:'kills',target:50,reward:35},
@@ -75,10 +76,11 @@ export function freshSave(){return {version:1,gold:0,spent:0,regionBest:{},unloc
 
 export const WEAPON_SLOTS=6, PASSIVE_SLOTS=6;
 export const ENEMIES={
+ ...REGIONAL_ENEMIES,
  crawler:{name:'Bramble crawlers',hp:17,speed:52,r:10,damage:12,xp:1,minute:0},
  bat:{name:'Dusk bats',hp:11,speed:95,r:10,damage:12,xp:1,minute:0},
  brute:{name:'Root brutes',hp:65,speed:38,r:17,damage:20,xp:4,minute:1},
- shooter:{name:'Spore archers',hp:34,speed:42,r:10,damage:12,xp:1,minute:2},
+ shooter:{ranged:true,name:'Spore archers',hp:34,speed:42,r:10,damage:12,xp:1,minute:2},
  ironhide:{name:'Ironhide beetles',hp:130,speed:39,r:18,damage:23,xp:4,minute:3,armor:.2,knock:.35},
  charger:{name:'Horned chargers',hp:42,speed:65,r:10,damage:16,xp:2,minute:4},
  reaver:{name:'Blood reavers',hp:90,speed:82,r:13,damage:22,xp:3,minute:4},

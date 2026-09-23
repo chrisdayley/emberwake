@@ -32,3 +32,7 @@ No runtime game framework or network game dependency. Detailed original transpar
 `dist/data.js` defines progression/content. `dist/engine.js` runs combat and exposes serializable snapshots. `dist/render.js` draws the battlefield. `dist/app.js` owns menus, local saves, economy, input, and lightweight WebMCP tools.
 
 Run `node tests/game.test.mjs`, `node tests/gear.test.mjs`, `node tests/arsenal.test.mjs`, `node tests/ranged-cap.test.mjs`, and `node tests/balance.test.mjs` for combat, progression, equipment, economy, saves, drops, and wave checks. Read `GEAR.md` for the equipment system. Read `DESIGN.md` for research and `QA.md` for validation boundaries.
+
+## Regional bestiary update
+
+Violet Hollow and Cinder Wastes each feature eight exclusive enemy species and four unique boss designs. Hollow uses spectral flanks, pounces and rift traps; Cinder uses volcanic death bursts, charging beasts, burrowing worms and forge machinery. See [BESTIARY.md](BESTIARY.md) for behavior and guardian schedules. The five-enemy ranged cap and existing saved progression are preserved.
