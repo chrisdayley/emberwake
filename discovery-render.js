@@ -1,4 +1,4 @@
-import {DISCOVERIES,siteGuardian} from './discoveries.js?v=15';
+import {DISCOVERIES,siteGuardian} from './discoveries.js?v=16';
 const TAU=Math.PI*2;
 export function drawDiscoveries(c,g,b,paint){for(const s of g.discoveries){if(s.state==='claimed'||s.x<b.left-170||s.x>b.right+170||s.y<b.top-170||s.y>b.bottom+170)continue;const def=DISCOVERIES[s.kind],ready=s.state==='ready';c.save();c.translate(s.x,s.y);
  c.fillStyle=g.region==='cinder'?'#3b3028':g.region==='hollow'?'#2d2843':'#263d36';c.strokeStyle=def.color;c.lineWidth=3;c.beginPath();c.ellipse(0,8,83,43,0,0,TAU);c.fill();c.stroke();c.globalAlpha=.25;c.beginPath();c.ellipse(0,8,69,33,0,0,TAU);c.stroke();c.globalAlpha=1;

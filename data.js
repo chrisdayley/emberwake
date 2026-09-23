@@ -1,4 +1,4 @@
-import {REGIONAL_ENEMIES} from './bestiary.js?v=15';
+import {REGIONAL_ENEMIES} from './bestiary.js?v=16';
 export const WEAPONS = [
  {id:'bolt',name:'Ember bolt',icon:'↗',color:'#ffc477',desc:'Seeks the nearest enemy. Reliable, piercing firepower.',base:'22 damage · fires every 0.8s',upgrade:'More damage, more bolts, deeper piercing.',evo:'Sunpiercer',pair:'power',evoDesc:'Seven blazing sunbolts pierce the horde.'},
  {id:'orbit',name:'Moon blades',icon:'✧',color:'#b6a7ff',desc:'Blades circle you and cut through nearby enemies.',base:'18 damage · 2 orbiting blades',upgrade:'Another blade and a wider, stronger orbit.',evo:'Lunar covenant',pair:'reach',evoDesc:'Twelve blades carve a circle of protection.'},
@@ -72,7 +72,7 @@ export const MILESTONES=[
 ];
 export const byId=id=>[...WEAPONS,...PASSIVES,...RELICS].find(x=>x.id===id);
 export const costOf=(u,rank)=>Math.round(u.cost*Math.pow(1.43,rank));
-export function freshSave(){return {version:1,gold:0,spent:0,regionBest:{},unlockedRegions:['ashwood'],inventory:{'bolt:0':{level:0}},equipment:{ranger:'bolt:0'},spellcraft:{},spellSpent:0,meta:{},heroes:['ranger'],hero:'ranger',region:'ashwood',stats:{kills:0,runs:0,wins:0,bestTime:0,bestLevel:0,evolutions:0},claimed:[],settings:{sound:true,fx:0.6,shake:false,joystick:'floating'},history:[],run:null};}
+export function freshSave(){return {version:1,gold:0,spent:0,regionBest:{},unlockedRegions:['ashwood'],inventory:{'bolt:0':{level:0}},equipment:{ranger:'bolt:0'},spellcraft:{},spellSpent:0,meta:{},heroes:['ranger'],hero:'ranger',region:'ashwood',stats:{kills:0,runs:0,wins:0,bestTime:0,bestLevel:0,evolutions:0},claimed:[],settings:{sound:true,music:true,musicVolume:.4,fx:0.6,shake:false,joystick:'floating'},history:[],run:null};}
 
 export const WEAPON_SLOTS=6, PASSIVE_SLOTS=6;
 export const ENEMIES={

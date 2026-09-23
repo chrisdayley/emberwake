@@ -1,4 +1,4 @@
-import {obstacles,cell,riftAt} from './world.js?v=15';
+import {obstacles,cell,riftAt} from './world.js?v=16';
 const TAU=Math.PI*2;
 export function drawWorld(c,g,b){const {left,top,right,bottom}=b;
  if(g.region!=='ashwood'){
@@ -6,7 +6,7 @@ export function drawWorld(c,g,b){const {left,top,right,bottom}=b;
   const size=g.region==='hollow'?70:80;for(let x=Math.floor(left/size);x<=Math.floor(right/size);x++)for(let y=Math.floor(top/size);y<=Math.floor(bottom/size);y++){c.fillStyle=(x+y)%2===0?(g.region==='hollow'?'#28283d':'#323035'):(g.region==='hollow'?'#242538':'#2c2c31');c.fillRect(x*size+2,y*size+2,size-4,size-4);c.strokeStyle=g.region==='hollow'?'#44405255':'#61504744';c.strokeRect(x*size+5,y*size+5,size-10,size-10);}
  }
  if(g.region==='hollow'){
-  for(let x=Math.floor((left-280)/560);x<=Math.ceil((right-280)/560);x++)for(let y=Math.floor((top-280)/560);y<=Math.ceil((bottom-280)/560);y++){const cx=x*560+280,cy=y*560+280,r=riftAt(cx,cy,g.time);c.strokeStyle=r.active?'#ea94ff':r.warning?'#ffce87':'#685d85';c.fillStyle=r.active?'#aa56c948':r.warning?'#ba844329':'#6a568314';c.lineWidth=r.active?4:2;c.beginPath();c.arc(cx,cy,92,0,TAU);c.fill();c.stroke();c.beginPath();c.arc(cx,cy,78,0,TAU);c.stroke();for(let i=0;i<6;i++){const a=i*TAU/6+g.time*(r.active?.4:.06);c.beginPath();c.moveTo(cx+Math.cos(a)*65,cy+Math.sin(a)*65);c.lineTo(cx+Math.cos(a)*85,cy+Math.sin(a)*85);c.stroke();}if(r.warning||r.active){c.fillStyle=r.active?'#efbbff':'#ffce87';c.font='bold 12px sans-serif';c.textAlign='center';c.fillText(r.warning?'RIFT OPENING':'UNSTABLE RIFT',cx,cy+4);}}
+  for(let x=Math.floor((left-280)/560);x<=Math.ceil((right-280)/560);x++)for(let y=Math.floor((top-280)/560);y<=Math.ceil((bottom-280)/560);y++){const cx=x*560+280,cy=y*560+280,r=riftAt(cx,cy,g.time);c.strokeStyle=r.active?'#ff354d':r.warning?'#ff6979':'#685d85';c.fillStyle=r.active?'#ff354d48':r.warning?'#ff354d29':'#6a568314';c.lineWidth=r.active?4:2;c.beginPath();c.arc(cx,cy,92,0,TAU);c.fill();c.stroke();c.beginPath();c.arc(cx,cy,78,0,TAU);c.stroke();for(let i=0;i<6;i++){const a=i*TAU/6+g.time*(r.active?.4:.06);c.beginPath();c.moveTo(cx+Math.cos(a)*65,cy+Math.sin(a)*65);c.lineTo(cx+Math.cos(a)*85,cy+Math.sin(a)*85);c.stroke();}if(r.warning||r.active){c.fillStyle='#ffb7bf';c.font='bold 12px sans-serif';c.textAlign='center';c.fillText(r.warning?'RIFT OPENING':'UNSTABLE RIFT',cx,cy+4);}}
   for(const wall of obstacles(g.region,g.player.x,g.player.y)){c.fillStyle='#0a0d1966';c.fillRect(wall.x+9,wall.y+10,wall.w,wall.h);c.fillStyle='#383c51';c.fillRect(wall.x,wall.y,wall.w,wall.h);c.fillStyle='#65617d';c.fillRect(wall.x,wall.y,wall.w,5);c.fillStyle='#202334';c.fillRect(wall.x,wall.y+wall.h-7,wall.w,7);c.strokeStyle='#8d81ab55';c.lineWidth=1;c.strokeRect(wall.x+5,wall.y+7,wall.w-10,wall.h-17);c.fillStyle='#a18ac7';c.fillRect(wall.x+wall.w/2-2,wall.y+9,4,wall.h-24);}
  }
  if(g.region==='cinder'){
