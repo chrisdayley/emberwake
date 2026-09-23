@@ -1,5 +1,5 @@
-import {regionalGuardian,REGIONAL_ENEMIES} from './bestiary.js?v=11';
-import {safePoint,lavaAt,riftAt} from './world.js?v=11';
+import {regionalGuardian,REGIONAL_ENEMIES} from './bestiary.js?v=12';
+import {safePoint,lavaAt,riftAt} from './world.js?v=12';
 const TAU=Math.PI*2;
 export function strike(g,x,y,r=60,damage=55,warning=1.6,color='#ff725e'){g.hazards.push({kind:'eruption',x,y,r,life:warning,max:warning,damage,color});}
 export function spawnOverlord(g){const e=g.spawn(regionalGuardian(g.region,g.time,true)||'bulwark',false,true),m=Math.max(0,g.time/60-10);e.lateBoss=true;e.hp=e.maxHp=(95000+m*18000+m*m*1400)*(g.region==='cinder'?1.25:1);e.title=REGIONAL_ENEMIES[e.type]?.name||{ashwood:'Rootbound Titan',hollow:'Rift Matriarch',cinder:'Furnace Tyrant'}[g.region];e.r=40;e.speed=52+Math.min(30,m*1.5);e.attack=3;e.fury=false;g.nextBoss=g.time+180;g.bossSpawned=true;g.emit('warning',{text:e.title+' awakens · Watch the ground'});return e;}

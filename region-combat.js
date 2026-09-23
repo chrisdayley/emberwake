@@ -1,5 +1,5 @@
-import {REGIONAL_ENEMIES} from './bestiary.js?v=11';
-import {safePoint} from './world.js?v=11';
+import {REGIONAL_ENEMIES} from './bestiary.js?v=12';
+import {safePoint} from './world.js?v=12';
 const TAU=Math.PI*2;
 // Shared cap covers delayed ground attacks as well as death bursts, not only bullets.
 export function regionStrike(g,e,x,y,r=45,warning=1.6,damage=24){

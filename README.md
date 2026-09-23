@@ -36,3 +36,7 @@ Run `node tests/game.test.mjs`, `node tests/gear.test.mjs`, `node tests/arsenal.
 ## Regional bestiary update
 
 Violet Hollow and Cinder Wastes each feature eight exclusive enemy species and four unique boss designs. Hollow uses spectral flanks, pounces and rift traps; Cinder uses volcanic death bursts, charging beasts, burrowing worms and forge machinery. See [BESTIARY.md](BESTIARY.md) for behavior and guardian schedules. The five-enemy ranged cap and existing saved progression are preserved.
+
+## Guarded discoveries
+
+Explore optional boss-guarded vaults, spell altars and life sanctuaries in every region. Claim gear and multi-upgrade treasure, choose bonus Ascensions, or earn healing and another revive. Follow the question-mark compass; you can retreat and return without resetting guardian health. See [DISCOVERIES.md](DISCOVERIES.md).
