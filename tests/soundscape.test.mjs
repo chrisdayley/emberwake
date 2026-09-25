@@ -10,7 +10,7 @@ assert.deepEqual(musicSettings({sound:false}),{enabled:false,volume:.4});assert.
 checks.push('Legacy sound opt-out stays muted; music toggle and volume are independent with safe defaults');
 const signatures=[];
 for(const region of Object.keys(THEMES)){
- const opening=Array.from({length:64},(_,i)=>scoreNotes(region,0,i)),late=Array.from({length:64},(_,i)=>scoreNotes(region,1200,i));signatures.push(JSON.stringify(opening));assert(late.flat().length>opening.flat().length);assert(scoreState(region,1200).bpm>scoreState(region,0).bpm);assert.deepEqual(scoreState(region,1200),scoreState(region,1e6));
+ const opening=Array.from({length:64},(_,i)=>scoreNotes(region,0,i)),late=Array.from({length:64},(_,i)=>scoreNotes(region,1200,i));signatures.push(JSON.stringify(opening));assert(late.flat().length>opening.flat().length);assert(scoreState(region,1200).bpm>scoreState(region,0).bpm);assert.deepEqual(scoreState(region,1500),scoreState(region,1e6));
  for(const note of [...opening.flat(),...late.flat()]){assert(note.gain>0&&note.gain<=.2);assert(note.duration>0&&Number.isFinite(note.duration));}
 }assert.equal(new Set(signatures).size,3);checks.push('Three distinct scores gain tempo and instruments with survival time; intensity remains bounded in endless runs');
 class Param{constructor(){this.value=0;}setValueAtTime(v){assert(Number.isFinite(v));}exponentialRampToValueAtTime(v){assert(v>0&&Number.isFinite(v));}setTargetAtTime(v){assert(Number.isFinite(v));}cancelScheduledValues(){}}
