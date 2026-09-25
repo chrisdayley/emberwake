@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import vm from 'node:vm';
 import {AdaptiveMusic,THEMES,scoreState,scoreNotes,musicSettings} from '../dist/music.js';
 import {drawDanger,DANGER_RED} from '../dist/danger.js';
 import {Game} from '../dist/engine.js';
@@ -16,6 +18,22 @@ class Node{constructor(){this.gain=this.frequency=this.threshold=this.ratio=new 
 const ctx={currentTime:0,state:'running',sampleRate:8000,destination:{},createGain:()=>new Node(),createBiquadFilter:()=>new Node(),createDynamicsCompressor:()=>new Node(),createOscillator:()=>new Node(),createBufferSource:()=>new Node(),createBuffer:()=>({getChannelData:()=>new Float32Array(8000)})};
 const music=new AdaptiveMusic(ctx);music.update('ashwood',0,true,{music:true,musicVolume:.4});assert(music.status().playing);assert(music.scheduled>0);const count=music.scheduled;music.update('ashwood',0,false,{music:true});assert(!music.running);const stopCounts=[...music.voices].map(v=>v.source.stops);for(let i=0;i<120;i++)music.update('ashwood',0,false,{music:true});assert.deepEqual([...music.voices].map(v=>v.source.stops),stopCounts);music.update('ashwood',0,true,{music:false});assert.equal(music.scheduled,count);music.update('hollow',600,true,{music:true});assert.equal(music.region,'hollow');music.update('hollow',600,true,{music:true},true);assert(!music.running);ctx.currentTime=500;music.update('cinder',1200,true,{music:true});assert(music.scheduled<count+100);assert(music.voices.size<=64);ctx.state='suspended';music.update('cinder',1200,true,{music:true});assert(!music.running);
 checks.push('Scheduler pauses for menus, mute, background and suspended audio; switches regions and bounds voices/backlog');
+// Exercise the actual app-to-audio bridge: reward menus pause combat, not the score.
+ctx.currentTime=0;ctx.state='running';
+const menuMusic=new AdaptiveMusic(ctx),menuSave=freshSave(),menuGame=new Game(menuSave);
+const bridge=vm.createContext({music:menuMusic,game:menuGame,save:menuSave,document:{hidden:false}});
+vm.runInContext(readFileSync(new URL('../dist/app.js',import.meta.url),'utf8').split('\n').find(line=>line.startsWith('function updateMusic()')),bridge);
+const tick=()=>{ctx.currentTime+=.12;for(const v of [...menuMusic.voices])v.source.onended();vm.runInContext('updateMusic()',bridge);};
+for(let i=0;i<24;i++)tick();
+for(const mode of ['levelup','chest','levelup']){
+ menuGame.mode=mode;const time=menuGame.time,step=menuMusic.step,scheduled=menuMusic.scheduled;
+ for(let i=0;i<24;i++){menuGame.step(1/60,{x:1,y:0});tick();assert(menuMusic.running,'Music must keep playing in '+mode);assert(menuMusic.step>=step,'Music must not restart in '+mode);}
+ assert.equal(menuGame.time,time,'Combat remains paused while choosing rewards');assert(menuMusic.scheduled>scheduled);menuGame.mode='playing';tick();assert(menuMusic.step>step);
+}
+bridge.document.hidden=true;tick();assert(!menuMusic.running);bridge.document.hidden=false;tick();assert(menuMusic.running);
+for(const mode of ['paused','down','ended']){menuGame.mode=mode;tick();assert(!menuMusic.running);}
+bridge.game=null;tick();assert(!menuMusic.running);
+checks.push('Upgrade, Ascension and chest menus preserve the ongoing score while combat stays paused; manual pause, camp and background remain silent');
 const commands=[],canvas=new Proxy({save(){},restore(){},beginPath(){},arc(){},fill(){commands.push(['fill',this.fillStyle]);},stroke(){commands.push(['stroke',this.strokeStyle]);},strokeText(t){commands.push(['text',t]);},fillText(t){commands.push(['text',t]);}},{set(o,k,v){o[k]=v;return true;}});
 const hazards=[{kind:'eruption',x:1,y:2,r:50,life:1,max:2,color:'#cdadff'},{kind:'shot',x:2,y:3,r:6,color:'#bea1ff'},{kind:'meteor',x:1,y:2,r:50,life:1,max:2}];const before=JSON.stringify(hazards);drawDanger(canvas,hazards,1);assert.equal(JSON.stringify(hazards),before);assert(commands.some(([kind,color])=>kind==='stroke'&&color===DANGER_RED));assert(commands.some(([kind,text])=>kind==='text'&&text==='!'));assert(!JSON.stringify(commands).includes('#cdadff'));const empty=[];canvas.fill=()=>empty.push(1);canvas.stroke=()=>empty.push(1);drawDanger(canvas,[hazards[2]],1);assert.equal(empty.length,0);
 checks.push('Saved purple enemy warnings render red with ! markers, player meteors are excluded, and drawing never mutates saved hazards');
