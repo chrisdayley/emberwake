@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
-import {AdaptiveMusic,THEMES,scoreState,scoreNotes,musicSettings} from '../dist/music.js';
-import {drawDanger,DANGER_RED} from '../dist/danger.js';
-import {Game} from '../dist/engine.js';
-import {freshSave} from '../dist/data.js';
+import {AdaptiveMusic,THEMES,scoreState,scoreNotes,musicSettings} from '../music.js';
+import {drawDanger,DANGER_RED} from '../danger.js';
+import {Game} from '../engine.js';
+import {freshSave} from '../data.js';
 const checks=[];
 assert.deepEqual(musicSettings({sound:false}),{enabled:false,volume:.4});assert.deepEqual(musicSettings({sound:true}),{enabled:true,volume:.4});assert.deepEqual(musicSettings({sound:false,music:true,musicVolume:.7}),{enabled:true,volume:.7});assert.equal(musicSettings({musicVolume:NaN}).volume,.4);
 checks.push('Legacy sound opt-out stays muted; music toggle and volume are independent with safe defaults');
@@ -12,7 +12,7 @@ const signatures=[];
 for(const region of Object.keys(THEMES)){
  const opening=Array.from({length:64},(_,i)=>scoreNotes(region,0,i)),late=Array.from({length:64},(_,i)=>scoreNotes(region,1200,i));signatures.push(JSON.stringify(opening));assert(late.flat().length>opening.flat().length);assert(scoreState(region,1200).bpm>scoreState(region,0).bpm);assert.deepEqual(scoreState(region,1500),scoreState(region,1e6));
  for(const note of [...opening.flat(),...late.flat()]){assert(note.gain>0&&note.gain<=.2);assert(note.duration>0&&Number.isFinite(note.duration));}
-}assert.equal(new Set(signatures).size,3);checks.push('Three distinct scores gain tempo and instruments with survival time; intensity remains bounded in endless runs');
+}assert.equal(new Set(signatures).size,9);checks.push('Nine distinct scores gain tempo and instruments with survival time; intensity remains bounded in endless runs');
 class Param{constructor(){this.value=0;}setValueAtTime(v){assert(Number.isFinite(v));}exponentialRampToValueAtTime(v){assert(v>0&&Number.isFinite(v));}setTargetAtTime(v){assert(Number.isFinite(v));}cancelScheduledValues(){}}
 class Node{constructor(){this.gain=this.frequency=this.threshold=this.ratio=new Param();}connect(){}disconnect(){this.disconnected=true;}start(t){assert(t>=0);}stop(t){assert(t>=0);this.stops=(this.stops||0)+1;}}
 const ctx={currentTime:0,state:'running',sampleRate:8000,destination:{},createGain:()=>new Node(),createBiquadFilter:()=>new Node(),createDynamicsCompressor:()=>new Node(),createOscillator:()=>new Node(),createBufferSource:()=>new Node(),createBuffer:()=>({getChannelData:()=>new Float32Array(8000)})};
@@ -22,7 +22,7 @@ checks.push('Scheduler pauses for menus, mute, background and suspended audio; s
 ctx.currentTime=0;ctx.state='running';
 const menuMusic=new AdaptiveMusic(ctx),menuSave=freshSave(),menuGame=new Game(menuSave);
 const bridge=vm.createContext({music:menuMusic,game:menuGame,save:menuSave,document:{hidden:false}});
-vm.runInContext(readFileSync(new URL('../dist/app.js',import.meta.url),'utf8').split('\n').find(line=>line.startsWith('function updateMusic()')),bridge);
+vm.runInContext(readFileSync(new URL('../app.js',import.meta.url),'utf8').split('\n').find(line=>line.startsWith('function updateMusic()')),bridge);
 const tick=()=>{ctx.currentTime+=.12;for(const v of [...menuMusic.voices])v.source.onended();vm.runInContext('updateMusic()',bridge);};
 for(let i=0;i<24;i++)tick();
 for(const mode of ['levelup','chest','levelup']){

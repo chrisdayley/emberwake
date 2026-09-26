@@ -1,4 +1,5 @@
-import {obstacles,cell,riftAt} from './world.js?v=16';
+import {drawChallengeWorld} from './challenge-art.js?v=19';
+import {obstacles,cell,riftAt} from './world.js?v=19';
 const TAU=Math.PI*2;
 export function drawWorld(c,g,b){const {left,top,right,bottom}=b;
  if(g.region!=='ashwood'){
@@ -12,6 +13,7 @@ export function drawWorld(c,g,b){const {left,top,right,bottom}=b;
  if(g.region==='cinder'){
   for(let i=Math.floor((left-320)/640);i<=Math.ceil((right-320)/640);i++){const x=320+i*640;c.fillStyle='#bd452c';c.fillRect(x-52,top,104,bottom-top);c.fillStyle='#ed733b';c.fillRect(x-39,top,78,bottom-top);for(let y=Math.floor(top/35)*35;y<bottom;y+=35){c.strokeStyle='#ffbd6655';c.lineWidth=4;c.beginPath();c.moveTo(x-35,y);c.quadraticCurveTo(x,y+Math.sin(g.time+y)*9,x+35,y+5);c.stroke();}for(let j=Math.floor(top/520)-1;j<=Math.ceil(bottom/520);j++){const y=j*520;c.fillStyle='#48434a';c.fillRect(x-70,y-68,140,136);c.strokeStyle='#9b8170';c.lineWidth=3;c.strokeRect(x-70,y-68,140,136);for(let k=-2;k<=2;k++){c.strokeStyle='#24282e';c.beginPath();c.moveTo(x-68,y+k*22);c.lineTo(x+68,y+k*22);c.stroke();}c.fillStyle='#c3ad82';c.fillRect(x-64,y-63,8,8);c.fillRect(x+56,y+55,8,8);}}
  }
+ drawChallengeWorld(c,g,b);
  if(g.objective)for(const n of g.objective.nodes){c.save();c.translate(n.x,n.y);c.strokeStyle=n.taken?'#6c8b87':'#baf9e4';c.fillStyle=n.taken?'#31423f':'#366c6580';c.lineWidth=2;c.beginPath();c.ellipse(0,9,31,15,0,0,TAU);c.fill();c.stroke();c.beginPath();c.moveTo(0,-39);c.lineTo(13,-13);c.lineTo(0,2);c.lineTo(-13,-13);c.closePath();c.fillStyle=n.taken?'#597268':'#b6f4df';c.fill();if(!n.taken){c.globalAlpha=.15;c.fillStyle='#9ff3e0';c.fillRect(-3,-95,6,83);c.globalAlpha=1;}c.fillStyle=n.taken?'#7ba495':'#dbfff3';c.font='bold 11px sans-serif';c.textAlign='center';c.fillText(n.taken?'AWAKENED':'SHRINE',0,33);c.restore();}
 }
 export function drawObjectiveArrows(c,g,w,h,zoom){if(!g.objective)return;const remaining=g.objective.nodes.filter(n=>!n.taken);for(const n of remaining){const dx=(n.x-g.player.x)*zoom,dy=(n.y-g.player.y)*zoom;let x=w/2+dx,y=h/2+dy;if(x>35&&x<w-35&&y>108&&y<h-105)continue;const scale=Math.min((w/2-32)/Math.max(1,Math.abs(dx)),(h/2-108)/Math.max(1,Math.abs(dy)));x=w/2+dx*scale;y=h/2+dy*scale;c.save();c.translate(x,y);c.rotate(Math.atan2(dy,dx));c.fillStyle='#c4ffeb';c.strokeStyle='#133c39';c.lineWidth=3;c.beginPath();c.moveTo(10,0);c.lineTo(-5,-7);c.lineTo(-5,7);c.closePath();c.stroke();c.fill();c.restore();c.textAlign='center';c.font='bold 10px sans-serif';c.fillStyle='#dcfff0';c.fillText(Math.round(Math.hypot(dx,dy)/zoom)+'m',x,y+20);}}

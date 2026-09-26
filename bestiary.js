@@ -1,3 +1,5 @@
+import {CHALLENGE_ENEMIES} from './challenge.js?v=19';
+import {SPECIAL_STAGES} from './chronicle.js?v=19';
 // Every region owns its roster, guardian schedule, silhouettes and combat roles.
 const creature=(name,hp,speed,r,damage,xp,minute,behavior,extra={})=>({name,hp,speed,r,damage,xp,minute,behavior,...extra});
 const hollow={
@@ -29,8 +31,10 @@ const cinder={
  ashenphoenix:creature('The Ashen Phoenix',850,52,40,65,80,Infinity,'overlord',{guardian:true})
 };
 export const REGIONAL_ENEMIES=Object.fromEntries(Object.entries({hollow,cinder}).flatMap(([region,rows])=>Object.entries(rows).map(([id,s],index)=>[id,{...s,region,art:index,height:[40,40,49,46,66,60,67,65,122,130,136,155][index]}])));
-export const ROSTERS=Object.fromEntries(['hollow','cinder'].map(region=>[region,Object.keys(REGIONAL_ENEMIES).filter(id=>REGIONAL_ENEMIES[id].region===region&&!REGIONAL_ENEMIES[id].guardian)]));
+Object.assign(REGIONAL_ENEMIES,CHALLENGE_ENEMIES);
+export const ROSTERS=Object.fromEntries(['hollow','cinder',...SPECIAL_STAGES.map(s=>s.id)].map(region=>[region,Object.keys(REGIONAL_ENEMIES).filter(id=>REGIONAL_ENEMIES[id].region===region&&!REGIONAL_ENEMIES[id].guardian)]));
 export const GUARDIANS={hollow:['widowqueen','holloworgan','antlerking','riftmatriarch'],cinder:['cratertortoise','slagwyrm','ironarchon','ashenphoenix']};
+for(const s of SPECIAL_STAGES)GUARDIANS[s.id]=[s.id+'_4',s.id+'_5',s.id+'_4',s.id+'_5'];
 export const regionalGuardian=(region,time,late=false)=>GUARDIANS[region]?.[late?3:Math.max(0,Math.min(2,Math.floor(time/180)-1))];
 const legacy=['crawler','bat','brute','shooter','ironhide','charger','reaver','revenant','juggernaut','leech','champion','bulwark','stalker','siege','harbinger'];
 export function regionalType(region,type,boss=false,time=0,late=false){
@@ -38,6 +42,6 @@ export function regionalType(region,type,boss=false,time=0,late=false){
  if(boss)return REGIONAL_ENEMIES[type]?.guardian?type:regionalGuardian(region,time,late);
  if(REGIONAL_ENEMIES[type]?.region===region)return type;
  const slots=[0,1,2,3,4,5,5,5,6,5,7,4,5,7,7];
- return ROSTERS[region][slots[Math.max(0,legacy.indexOf(type))]];
+ return ROSTERS[region][Math.min(ROSTERS[region].length-1,slots[Math.max(0,legacy.indexOf(type))])];
 }
 export function regionalPool(region,minute){return (ROSTERS[region]||[]).filter(id=>REGIONAL_ENEMIES[id].minute<=minute).map((id,i)=>[id,(REGIONAL_ENEMIES[id].ranged?.7:i>=4?3:2)*Math.min(1,.2+Math.max(0,minute-REGIONAL_ENEMIES[id].minute)*.8)]);}

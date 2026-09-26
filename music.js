@@ -10,6 +10,8 @@ export const THEMES={
   chords:[[0,0,5,3,0,6,5,4],[5,3,6,0,3,2,4,4],[0,6,3,5,2,5,6,4],[3,5,0,2,6,3,4,0]],
   phrases:[[7,7,11,9,7,6,7,9],[7,11,12,11,9,7,6,4],[9,9,12,14,12,11,9,7],[11,9,7,6,4,6,7,9],[14,12,11,14,16,14,12,11],[12,11,9,7,9,11,12,9],[7,9,11,14,16,14,11,12],[11,9,8,6,4,6,8,7]]}
 };
+const VARIATIONS=[['frostmarch','ashwood','Lanterns in the Snow',62,80,'sine',1],['drowned','hollow','The Sunken Canticle',43,82,'sine',2],['clockwork','cinder','The Thirteenth Bell',55,108,'triangle',3],['briarheart','hollow','Thorns Remember',48,94,'triangle',4],['sunforge','cinder','Coronation of Fire',50,112,'triangle',5],['eclipse','hollow','A Crown of Nothing',38,98,'triangle',6]];
+for(const [id,base,name,root,bpm,wave,shift] of VARIATIONS){const t=THEMES[base];THEMES[id]={...t,name,root,bpm,wave,style:base,chords:t.chords.map(row=>row.map((_,i)=>row[(i+shift)%row.length])),phrases:t.phrases.map((_,i)=>t.phrases[(i+shift)%8].map((n,j)=>n+(j%3===0?shift%3-1:0)))};}
 const SCALE=[0,2,3,5,7,8,10];
 const pitch=degree=>SCALE[((degree%7)+7)%7]+12*Math.floor(degree/7);
 const SECTIONS=[
@@ -32,6 +34,7 @@ export function scoreNotes(region,seconds,step){
  const triad=[0,2,4].map(n=>t.root+pitch(degree+n));
  // Inversions and a warm sustained chord change every two bars.
  if(s===0&&local%2===0){for(let n=0;n<3;n++)add('pad',triad[n]+(n===0&&local%4===2?12:0),beat*7.7,.015+ i*.005,'triangle',{attack:.35,hold:.6,pan:(n-1)*.45});if(i>=.4)add('air',root+24,beat*6,.008,'sine',{attack:.6,hold:.4,pan:.35});}
+ region=t.style||region;
  const bassSteps=sectionIndex===3?[0,10]:region==='cinder'?[0,4,6,8,12,14]:[0,6,8,14];
  if(bassSteps.includes(s)||(i>=.16&&s===11))add('bass',root-12+(s===6||s===14?7:0),beat*(s===0?1.1:.5),.075,'triangle');
  // Eight written phrases per region, syncopated rhythms, question/answer bars and cadences.

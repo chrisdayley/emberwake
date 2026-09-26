@@ -1,4 +1,5 @@
-import {REGIONAL_ENEMIES} from './bestiary.js?v=16';
+import {EXTRA_WEAPONS,EXTRA_HEROES,SPECIAL_STAGES} from './chronicle.js?v=19';
+import {REGIONAL_ENEMIES} from './bestiary.js?v=19';
 export const WEAPONS = [
  {id:'bolt',name:'Ember bolt',icon:'↗',color:'#ffc477',desc:'Seeks the nearest enemy. Reliable, piercing firepower.',base:'22 damage · fires every 0.8s',upgrade:'More damage, more bolts, deeper piercing.',evo:'Sunpiercer',pair:'power',evoDesc:'Seven blazing sunbolts pierce the horde.'},
  {id:'orbit',name:'Moon blades',icon:'✧',color:'#b6a7ff',desc:'Blades circle you and cut through nearby enemies.',base:'18 damage · 2 orbiting blades',upgrade:'Another blade and a wider, stronger orbit.',evo:'Lunar covenant',pair:'reach',evoDesc:'Twelve blades carve a circle of protection.'},
@@ -17,6 +18,7 @@ export const WEAPONS = [
  {id:'axe',name:'Iron tempest',icon:'⚒',color:'#dfc7a8',desc:'Heavy spinning axes carve through nearby packs.',base:'36 damage · 2 axes · every 2s',upgrade:'Stronger axes, with another at ranks 4 and 7.',evo:'Titan’s fury',pair:'guard',evoDesc:'Six colossal axes cut a broad swath.'},
  {id:'tide',name:'Undertow',icon:'≋',color:'#83c9ff',desc:'An expanding wave pushes enemies back as it travels.',base:'32 damage · 190 reach · every 3.4s',upgrade:'Stronger waves travel farther and push harder.',evo:'The great flood',pair:'reach',evoDesc:'A vast, fast-recharging wave drives the horde back.'}
 ];
+WEAPONS.push(...EXTRA_WEAPONS);
 export const PASSIVES=[
  {id:'power',name:'Cinder heart',icon:'♥',color:'#ffb97c',desc:'+15% damage per rank.',max:3},
  {id:'haste',name:'Quickening',icon:'»',color:'#9bdcda',desc:'Attacks recharge 10% faster per rank.',max:3},
@@ -37,6 +39,7 @@ export const HEROES=[
  {id:'witch',name:'Lyra',title:'The stormweaver',weapon:'chain',color:'#b5b4f4',desc:'One spark is all she needs.',bonus:'+15% damage · Storm thread',cost:260},
  {id:'sage',name:'Sol',title:'The last sun',weapon:'nova',color:'#f6d894',desc:'A little light goes a long way.',bonus:'+20% experience · Hollow bell',cost:340}
 ];
+HEROES.push(...EXTRA_HEROES);
 export const META=[
  {id:'might',name:'Kindled might',icon:'ϟ',desc:'+5% damage per rank',max:8,cost:40},
  {id:'health',name:'Deep roots',icon:'♥',desc:'+10 starting health per rank',max:8,cost:35},
@@ -56,6 +59,7 @@ export const REGIONS=[
  {id:'hollow',name:'Violet Hollow',desc:'Spectral masks blink between ruined courtyards. Glass spiders pounce, bell wraiths trap the ground, and four spectral guardians rule the rifts.',tag:'Faster enemy growth · Shifting rifts · +25% gold',color:'#c0a6ee',unlockedBy:'ashwood'},
  {id:'cinder',name:'Cinder Wastes',desc:'An endgame expedition for upgraded gear and permanent spellcraft. Slag slugs explode, lava rams charge, and magma worms burrow across basalt bridges. Face volcanic beasts, the Iron Archon, and the Ashen Phoenix.',tag:'Endgame · Upgrade gear + spells · +50% gold',color:'#edb28e',unlockedBy:'hollow'}
 ];
+REGIONS.push(...SPECIAL_STAGES);
 export const MILESTONES=[
  {id:'firstblood',name:'First sparks',desc:'Defeat 50 enemies in total',stat:'kills',target:50,reward:35},
  {id:'hundred',name:'Finding your feet',desc:'Defeat 300 enemies in total',stat:'kills',target:300,reward:75},

@@ -1,5 +1,5 @@
-import {safePoint} from './world.js?v=16';
-import {GUARDIANS} from './bestiary.js?v=16';
+import {safePoint} from './world.js?v=19';
+import {GUARDIANS,REGIONAL_ENEMIES} from './bestiary.js?v=19';
 export const DISCOVERIES={
  vault:{name:'Sealed vault',icon:'▣',color:'#ffd17e',reward:'Gold + 5 upgrades + gear'},
  altar:{name:'Spell altar',icon:'✦',color:'#cfadff',reward:'Choose an Ascension + gold'},
@@ -30,7 +30,8 @@ export function awakenSite(g,site){
  if(site.state!=='sealed'||g.enemies.some(e=>e.boss&&e.hp>0))return false;
  const e=g.spawn(siteGuardian(g.region,site.kind),false,true);
  e.x=site.x;e.y=site.y-55;e.siteId=site.id;e.maxHp=site.guardianMaxHp||guardianHealth(g);e.hp=site.guardianHp??e.maxHp;e.r=34;e.speed=65*g.regionalStrength().speed;e.attack=2.5;
- e.title=({ashwood:{vault:'Vaultroot Sentinel',altar:'Runestone Keeper',spring:'Heartwood Guardian'},hollow:{vault:'Widow of the Vault',altar:'Keeper of Lost Spells',spring:'The Lifebound Monarch'},cinder:{vault:'Crater Hoardkeeper',altar:'Wyrm of the Forge',spring:'The Ember Warden'}}[g.region])[site.kind];
+ e.title=({ashwood:{vault:'Vaultroot Sentinel',altar:'Runestone Keeper',spring:'Heartwood Guardian'},hollow:{vault:'Widow of the Vault',altar:'Keeper of Lost Spells',spring:'The Lifebound Monarch'},cinder:{vault:'Crater Hoardkeeper',altar:'Wyrm of the Forge',spring:'The Ember Warden'}}[g.region]||{vault:'Keeper of the Sealed Vault',altar:'Keeper of Lost Arts',spring:'Guardian of the Captive'})[site.kind];
+ if(REGIONAL_ENEMIES[e.type]?.challenge)e.title=REGIONAL_ENEMIES[e.type].name;
  site.guardianId=e.id;site.state='guarded';site.discovered=true;g.emit('warning',{text:e.title+' awakens · Defeat it to unseal the '+DISCOVERIES[site.kind].name.toLowerCase()});return true;
 }
 export function guardSite(g,e,dt){if(!e.siteId)return false;const s=g.discoveries.find(s=>s.id===e.siteId);if(!s)return false;

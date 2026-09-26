@@ -1,4 +1,5 @@
-import {WEAPONS,HEROES} from './data.js?v=16';
+import {weaponUnlocked} from './chronicle.js?v=19';
+import {WEAPONS,HEROES} from './data.js?v=19';
 export const TIERS=[
  {name:'Common',color:'#bcc8c6',prefix:'Wayfarer'},
  {name:'Uncommon',color:'#8cdb9b',prefix:'Verdant'},
@@ -42,7 +43,7 @@ export function temperGear(save,id){const record=save.inventory?.[id],item=recor
 export function ascendGear(save,id){const record=save.inventory?.[id],item=record&&gearItem(id,record.level);if(!item||item.tier===6||save.gold<ascendCost(item))return false;const next=item.family+':'+(item.tier+1);if(save.inventory[next])return false;save.gold-=ascendCost(item);save.inventory[next]={level:item.level};delete save.inventory[id];for(const hero of Object.keys(save.equipment))if(save.equipment[hero]===id)save.equipment[hero]=next;return next;}
 export const SPELL_TRACKS=[{id:'power',name:'Potency',max:10,cost:80,growth:1.6,desc:'+4% damage per rank'},{id:'haste',name:'Fluency',max:5,cost:100,growth:1.7,desc:'2% faster recharge per rank'},{id:'opening',name:'Awakening',max:2,cost:450,growth:3.5,desc:'+1 rank when this spell is first acquired'}];
 export const spellCost=(track,n)=>Math.round(track.cost*Math.pow(track.growth,n));
-export function buySpell(save,id,trackId){ensureProgression(save);const t=SPELL_TRACKS.find(t=>t.id===trackId);if(!t||!WEAPONS.some(w=>w.id===id))return false;const n=save.spellcraft[id]?.[t.id]||0,cost=spellCost(t,n);if(n>=t.max||save.gold<cost)return false;save.gold-=cost;save.spellSpent+=cost;save.spellcraft[id]??={};save.spellcraft[id][t.id]=n+1;return true;}
+export function buySpell(save,id,trackId){ensureProgression(save);const t=SPELL_TRACKS.find(t=>t.id===trackId);if(!t||!WEAPONS.some(w=>w.id===id)||!weaponUnlocked(save,id))return false;const n=save.spellcraft[id]?.[t.id]||0,cost=spellCost(t,n);if(n>=t.max||save.gold<cost)return false;save.gold-=cost;save.spellSpent+=cost;save.spellcraft[id]??={};save.spellcraft[id][t.id]=n+1;return true;}
 const ODDS=[{m:0,w:[78,18,3.6,.38,.019,.001,0]},{m:5,w:[60,28,10,1.8,.18,.019,.001]},{m:10,w:[44,32,18,5,.9,.095,.005]},{m:20,w:[27,31,27,12,2.5,.45,.05]},{m:30,w:[18,27,30,18,5.8,1.05,.15]},{m:60,w:[8,18,31,27,12,3.4,.6]}];
 export function rarityOdds(seconds){const m=Math.max(0,Math.min(60,seconds/60)),hi=ODDS.findIndex(o=>o.m>=m);if(hi<=0)return [...ODDS[0].w];const a=ODDS[hi-1],b=ODDS[hi],t=(m-a.m)/(b.m-a.m);return a.w.map((v,i)=>v+(b.w[i]-v)*t);}
 export const gearChance=(seconds,boss=false)=>boss?1:Math.min(.65,.35+Math.max(0,seconds)/6000);

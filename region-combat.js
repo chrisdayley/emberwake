@@ -1,5 +1,6 @@
-import {REGIONAL_ENEMIES} from './bestiary.js?v=16';
-import {safePoint} from './world.js?v=16';
+import {stepChallengeEnemy} from './challenge.js?v=19';
+import {REGIONAL_ENEMIES} from './bestiary.js?v=19';
+import {safePoint} from './world.js?v=19';
 const TAU=Math.PI*2;
 // Shared cap covers delayed ground attacks as well as death bursts, not only bullets.
 export function regionStrike(g,e,x,y,r=45,warning=1.6,damage=24){
@@ -31,7 +32,7 @@ export function guardianAttack(g,e){
 }
 // Returns movement speed override; base movement and terrain collision stay centralized.
 export function stepRegional(g,e,dt,dx,dy,d,spd){
- const spec=REGIONAL_ENEMIES[e.type];if(!spec)return spd;
+ const spec=REGIONAL_ENEMIES[e.type];if(!spec)return spd;if(spec.challenge)return stepChallengeEnemy(g,e,dt,dx,dy,d,spd);
  if(e.boss){if(!e.lateBoss&&e.attack<=0)guardianAttack(g,e);return spd;}
  const b=spec.behavior,p=g.player;
  if(b==='blink'||b==='burrow'){const speed=blink(g,e,dt,b==='burrow');if(speed!==null)return speed;}
