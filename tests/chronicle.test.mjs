@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import {Game} from '../engine.js';
 import {freshSave,WEAPONS,PASSIVES,HEROES,REGIONS,META,MILESTONES,RELICS,ENEMIES,byId} from '../data.js';
-import {ensureChronicle,recordChronicle,validChronicle,EXTRA_WEAPONS,SPECIAL_STAGES,eclipseBuild,weaponUnlocked} from '../chronicle.js';
+import {ensureChronicle,recordChronicle,validChronicle,EXTRA_WEAPONS,SPECIAL_STAGES,weaponUnlocked} from '../chronicle.js';
 import {ensureProgression,validProgression,gearItem,buySpell} from '../gear.js';
 import {ensureRegions,safePoint,isSafePoint} from '../world.js';
 import {musicSettings} from '../music.js';
@@ -19,11 +19,5 @@ q.bossesKilled=1;recordChronicle(s,q);assert(s.unlockedRegions.includes('frostma
 assert(buySpell(s,'aegis','power'));checks.push('all six stage-specific rescues and weapons persist idempotently; unlocked spellcraft is purchasable');
 for(const region of SPECIAL_STAGES){const g=new Game({...s,region:region.id});for(let x=-800;x<800;x+=113)for(let y=-800;y<800;y+=137){const p=safePoint(region.id,x,y);assert(isSafePoint(region.id,p.x,p.y),`${region.id} safe ${x},${y}`);}g.time=301;for(let i=0;i<40;i++)g.spawn(region.id+'_3');assert.equal(g.rangedCount(),5);assert(g.enemies.every(e=>e.type.startsWith(region.id)));g.enemies=[];g.spawn(region.id+'_4',false,true);g.enemies[0].attack=0;g.step(.05);assert(g.hazards.some(h=>h.kind==='eruption'));assert(g.enemies.every(e=>Number.isFinite(e.hp)&&Number.isFinite(e.x)));}
 checks.push('six unique rosters and guardian attacks, five-ranged cap, safe terrain placement');
-q=new Game(s);q.time=1799.98;q.nextBoss=1e9;q.spawn('brute',false,true);q.step(.01);assert(!q.reaperSpawned);q.step(.02);assert(q.reaperSpawned);assert.equal(q.enemies.filter(e=>e.reaper).length,1);let r=q.enemies.find(e=>e.reaper);q.hit(r,1e10,'bolt');assert.equal(r.hp,r.maxHp);const snap=q.snapshot();context.validate({...s,run:snap});q=new Game(s,()=>{},snap);q.mode='playing';q.step(.01);assert.equal(q.enemies.filter(e=>e.reaper).length,1);checks.push('30:00 spawn occurs once beside an existing boss; ordinary damage blocked; save/resume preserves boss');
-const pilots=[];
-for(const ids of [['aegis','chrono'],['solar','beam'],['blood','scythe']]){
- const state=ensureProgression(freshSave());state.meta=Object.fromEntries(META.map(m=>[m.id,m.max]));state.inventory['bolt:6']={level:10};state.equipment.ranger='bolt:6';let g=new Game(state);g.rng=42;g.time=1800;g.nextCache=g.nextHeal=1e9;g.nextBoss=1e9;g.nextElite=1e9;g.nextWorldStrike=1e9;g.nextObjective=1e9;g.nextDiscoveryScan=1e9;g.spawnClock=1e9;g.lateStarted=true;g.skills=Object.fromEntries([...ids.map(id=>[id,8]),...['guard','regen','haste','reach','power','agility'].map(id=>[id,3])]);g.evolved=ids;g.relics={ascend_power:10,ascend_regen:10,ascend_vigor:10};g.player.hp=g.maxHp();spawnReaper(g);const boss=g.enemies.find(e=>e.reaper);boss.x=140;boss.y=0;let ticks=0;while(!g.reaperDefeated&&g.mode==='playing'&&ticks<18000){const p=g.player,e=boss,d=Math.hypot(e.x-p.x,e.y-p.y)||1;const radial=d<150?-.8:d>220?.8:0;let dx=(e.x-p.x)/d*radial-(e.y-p.y)/d,dy=(e.y-p.y)/d*radial+(e.x-p.x)/d;for(const h of g.hazards)if(h.kind==='eruption'&&Math.hypot(h.x-p.x,h.y-p.y)<h.r+55){dx+=(p.x-h.x)/50;dy+=(p.y-h.y)/50;}const length=Math.hypot(dx,dy);g.step(1/60,{x:dx/length,y:dy/length});if(g.mode==='levelup')g.choose(g.choices[0]);if(g.mode==='down'&&g.revives)g.revive();ticks++;}
- pilots.push({build:eclipseBuild(g),seconds:Math.round(ticks/60),won:g.reaperDefeated,health:Math.round(g.player.hp),bossHealth:Math.round(boss.hp)});assert(g.reaperDefeated,JSON.stringify(pilots.at(-1)));assert(ticks>60*15,'not an instant kill');recordChronicle(s,g);assert(s.unlockedRegions.includes('eclipse'));
-}
-checks.push('three legal evolved covenants can win through actual moving combat, without invulnerability or injected damage');
-console.log(JSON.stringify({checks,pilots},null,2));
+q=new Game(s);q.time=1799.98;q.nextBoss=1e9;q.spawn('brute',false,true);q.step(.01);assert(!q.reaperSpawned);q.step(.02);assert(q.reaperSpawned);assert.equal(q.enemies.filter(e=>e.reaper).length,1);let r=q.enemies.find(e=>e.reaper);q.hit(r,100,'bolt');assert(r.hp<r.maxHp);const wounded=r.hp;const snap=q.snapshot();context.validate({...s,run:snap});q=new Game(s,()=>{},snap);q.mode='playing';q.step(.01);assert.equal(q.enemies.filter(e=>e.reaper).length,1);checks.push('30:00 spawn occurs once beside an existing boss; ordinary damage works; save/resume preserves boss');
+console.log(JSON.stringify({checks},null,2));

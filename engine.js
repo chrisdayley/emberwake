@@ -1,12 +1,12 @@
-import {challengeStage,stepChallengeWorld,spawnReaper,reaperDamage,fireLostWeapon,challengeHazard} from './challenge.js?v=19';
-import {weaponUnlocked,eclipseBuild} from './chronicle.js?v=19';
-import {stepDiscoveries,guardSite,unlockSite} from './discoveries.js?v=19';
-import {REGIONAL_ENEMIES,ROSTERS,regionalType,regionalPool} from './bestiary.js?v=19';
-import {stepRegional,regionalDeath} from './region-combat.js?v=19';
-import {resolveTerrain,lavaAt,riftAt,safePoint} from './world.js?v=19';
-import {stepWorld,stepObjective,spawnOverlord,attackOverlord} from './expedition.js?v=19';
-import {equippedItem,gearItem,gearStats,rollGear} from './gear.js?v=19';
-import {WEAPONS,PASSIVES,RELICS,HEROES,byId,ENEMIES,WEAPON_SLOTS,PASSIVE_SLOTS} from './data.js?v=19';
+import {challengeStage,stepChallengeWorld,spawnReaper,fireLostWeapon,challengeHazard} from './challenge.js?v=20';
+import {weaponUnlocked} from './chronicle.js?v=20';
+import {stepDiscoveries,guardSite,unlockSite} from './discoveries.js?v=20';
+import {REGIONAL_ENEMIES,ROSTERS,regionalType,regionalPool} from './bestiary.js?v=20';
+import {stepRegional,regionalDeath} from './region-combat.js?v=20';
+import {resolveTerrain,lavaAt,riftAt,safePoint} from './world.js?v=20';
+import {stepWorld,stepObjective,spawnOverlord,attackOverlord} from './expedition.js?v=20';
+import {equippedItem,gearItem,gearStats,rollGear} from './gear.js?v=20';
+import {WEAPONS,PASSIVES,RELICS,HEROES,byId,ENEMIES,WEAPON_SLOTS,PASSIVE_SLOTS} from './data.js?v=20';
 export const MAX_RANGED_ENEMIES=5;
 const TAU=Math.PI*2,clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 export class Game {
@@ -27,7 +27,10 @@ export class Game {
  g(id){return this.gearBonuses[id]||0;}
  openingRank(id){return Math.min(8,1+(this.spellcraft[id]?.opening||0)+this.g('spellRanks'));}
  armor(){return (this.hero.armor||0)+this.a('ward')+this.m('armor')+this.rank('guard')+this.g('armor');}
- hurt(amount){if(this.enemies.some(e=>e.reaper&&e.hp>0)&&eclipseBuild(this))amount=Math.min(amount,Math.max(35,this.maxHp()*.25));const absorbed=Math.min(this.shield,amount);this.shield-=absorbed;this.player.hp-=amount-absorbed;this.invuln=.6;this.emit('hurt');}
+ hurt(amount){amount*=1-Math.min(.6,this.rank('guard')*.08+(this.evolved.includes('aegis')?.3:0));const absorbed=Math.min(this.shield,amount);this.shield-=absorbed;this.player.hp-=amount-absorbed;this.invuln=.6;this.emit('hurt');}
+ // Eclipse can be repeatedly frozen, with a short thaw between freezes. Ordinary
+ // foes keep their existing chill behavior; no required weapon combination.
+ chill(e,slow,freeze=0){e.slow=Math.max(e.slow||0,slow);if(e.reaper&&freeze>0&&this.time>=(e.freezeReadyAt||0)){const duration=Math.min(1.6,freeze*.55);e.frozenUntil=this.time+duration;e.freezeReadyAt=e.frozenUntil+.65;}}
  maxHp(){return 100+(this.hero.health||0)+this.a('vigor')*15+Math.round(this.g('health'))+this.m('health')*10+this.rank('vitality')*25+(this.hero.id==='warden'?35:0);}
  damage(){return (1+(this.hero.damage||0)+this.m('might')*.05+this.rank('power')*.15+this.rank('force')*.04+this.g('damage'))*(this.hero.id==='witch'?1.15:1)*(1+this.a('power')*.08);}
  area(){return 1+(this.hero.area||0)+Math.min(.8,this.a('area')*.04)+this.m('area')*.05+this.rank('reach')*.15+this.g('area');}
@@ -40,7 +43,7 @@ export class Game {
  emit(type,data={}){this.onEvent(type,data);}
  gainGold(n){this.gold+=n*this.goldBonus();}
  nearest(x=this.player.x,y=this.player.y){let nearest=null,dist=Infinity;for(const e of this.enemies){if(e.hp<=0)continue;const d=(e.x-x)**2+(e.y-y)**2;if(d<dist){dist=d;nearest=e;}}return nearest;}
- hit(e,amount,weapon,knock=0){if(e.hp<=0)return;const crit=this.random()<.05+this.rank('luck')*.1+this.g('crit');let dmg=amount*this.damage()*(1+(this.spellcraft[weapon]?.power||0)*.04)*(crit?2+this.rank('precision')*.35+this.g('critDamage'):1)*(1-(ENEMIES[e.type]?.armor||0));if(e.reaper)dmg=reaperDamage(this,e,dmg,weapon);e.hp-=dmg;e.flash=.09;this.damageDone[weapon]=(this.damageDone[weapon]||0)+Math.min(dmg,e.hp+dmg);if(this.g('leech'))this.player.hp=Math.min(this.maxHp(),this.player.hp+Math.min(dmg,e.hp+dmg)*this.g('leech'));if(knock&&!e.boss){knock*=(1+this.a('area')*.08+this.rank('force')*.3+this.g('knock'))*(ENEMIES[e.type]?.knock??1);const d=Math.hypot(e.x-this.player.x,e.y-this.player.y)||1;e.x+=(e.x-this.player.x)/d*knock;e.y+=(e.y-this.player.y)/d*knock;}
+ hit(e,amount,weapon,knock=0){if(e.hp<=0)return;const crit=this.random()<.05+this.rank('luck')*.1+this.g('crit');let dmg=amount*this.damage()*(1+(this.spellcraft[weapon]?.power||0)*.04)*(crit?2+this.rank('precision')*.35+this.g('critDamage'):1)*(1-(ENEMIES[e.type]?.armor||0));e.hp-=dmg;e.flash=.09;this.damageDone[weapon]=(this.damageDone[weapon]||0)+Math.min(dmg,e.hp+dmg);if(this.g('leech'))this.player.hp=Math.min(this.maxHp(),this.player.hp+Math.min(dmg,e.hp+dmg)*this.g('leech'));if(knock&&!e.boss){knock*=(1+this.a('area')*.08+this.rank('force')*.3+this.g('knock'))*(ENEMIES[e.type]?.knock??1);const d=Math.hypot(e.x-this.player.x,e.y-this.player.y)||1;e.x+=(e.x-this.player.x)/d*knock;e.y+=(e.y-this.player.y)/d*knock;}
   if(crit&&this.texts.length<20)this.texts.push({x:e.x,y:e.y-15,text:Math.round(dmg)+'!',life:.6,color:'#ffd57d'});
   if(e.hp<=0){if(e.reaper){this.reaperDefeated=true;this.gainGold(3000);this.emit('reaperslain');}regionalDeath(this,e);this.kills++;this.gainGold(e.boss?70:e.elite?18:.17);this.gems.push({x:e.x,y:e.y,value:e.boss?80:e.elite?22:(ENEMIES[e.type]?.xp||1),kind:'xp',born:this.time});if(e.elite){this.player.hp=Math.min(this.maxHp(),this.player.hp+15);this.emit('elite');}if((e.elite||e.boss)&&!e.siteId)this.pickups.push({...safePoint(this.region,e.x,e.y),kind:'chest',boss:e.boss,rewards:e.lateBoss?5:e.boss?(this.random()<.25+this.rank('luck')*.08?5:3):(this.random()<.15?3:1),gold:e.lateBoss?350+Math.floor(this.time/60)*20:e.boss?100+Math.floor(this.time/60)*8:35+Math.floor(this.time/60)*3});if(e.boss){this.bossDefeated=true;this.bossesKilled++;this.emit('bossdown',{site:!!e.siteId,reaper:!!e.reaper});unlockSite(this,e);}if(this.kills%100===0)this.emit('streak',{kills:this.kills});if(this.random()<.002)this.pickups.push({...safePoint(this.region,e.x,e.y),kind:'heal'});}
  }
@@ -60,7 +63,7 @@ export class Game {
   if(id==='bolt'||id==='dagger'){const dagger=id==='dagger';const n=ev?(dagger?11:7):(dagger?3+Math.floor(rank/2):1+Math.floor(rank/2));for(let i=0;i<n;i++){const a=angle+(i-(n-1)/2)*(dagger?.13:.15);this.bullets.push({x:p.x,y:p.y,vx:Math.cos(a)*(dagger?340:295),vy:Math.sin(a)*(dagger?340:295),life:1.9,r:dagger?4:6,damage:(dagger?16:22)*(1+(rank-1)*.28)*(ev?1.6:1),id,pierce:ev?7:1+Math.floor(rank/2),hit:[],color:dagger?'#d9e9c7':'#ffbf68'});}this.cd[id]=(dagger?1.1:.8)*this.haste(id)*(ev?.65:1);}
   if(id==='chain'){let t=target,seen=[],points=[{x:p.x,y:p.y}];for(let i=0;i<(ev?16:rank+2)&&t;i++){seen.push(t.id);points.push({x:t.x,y:t.y});this.hit(t,30*(1+(rank-1)*.3)*(ev?1.4:1),id);let min=210*area,next=null;for(const e of this.enemies)if(e.hp>0&&!seen.includes(e.id)){let d=Math.hypot(e.x-t.x,e.y-t.y);if(d<min){next=e;min=d;}}t=next;}this.effects.push({kind:'chain',points,color:'#a7ecff',life:.22,max:.22});this.cd[id]=(ev?1:2.2)*this.haste(id);}
   if(id==='nova'){const r=(105+(rank-1)*16)*(ev?1.7:1)*area;let count=this.enemies.filter(e=>Math.hypot(e.x-p.x,e.y-p.y)<r).length;this.aoe(p.x,p.y,r,38*(1+(rank-1)*.3),id,45);if(ev&&count>=3)p.hp=Math.min(this.maxHp(),p.hp+4);this.burst(p.x,p.y,r,'#d8e6aa');this.cd[id]=(ev?1.9:3)*this.haste(id);}
-  if(id==='frost'){const r=(110+(rank-1)*13)*(ev?1.8:1)*area;for(const e of this.enemies)if(Math.hypot(e.x-p.x,e.y-p.y)<r){e.slow=ev?3.5:1.5+rank*.2;this.hit(e,16+(rank-1)*6,id);}this.burst(p.x,p.y,r,'#91e1e9',.65);this.cd[id]=(ev?2.5:4)*this.haste(id);}
+  if(id==='frost'){const r=(110+(rank-1)*13)*(ev?1.8:1)*area;for(const e of this.enemies)if(Math.hypot(e.x-p.x,e.y-p.y)<r){this.chill(e,ev?3.5:1.5+rank*.2,ev?2.6:.5+rank*.12);this.hit(e,16+(rank-1)*6,id);}this.burst(p.x,p.y,r,'#91e1e9',.65);this.cd[id]=(ev?2.5:4)*this.haste(id);}
   if(id==='flame'){const r=(150+(rank-1)*13)*area;for(const e of this.enemies){const a=Math.atan2(e.y-p.y,e.x-p.x);const diff=Math.atan2(Math.sin(a-angle),Math.cos(a-angle));if(Math.hypot(e.x-p.x,e.y-p.y)<r&&(ev||Math.abs(diff)<.7+rank*.05))this.hit(e,36+(rank-1)*12,id);}this.effects.push({kind:'flame',x:p.x,y:p.y,r,angle,full:ev,color:'#ff9765',life:.4,max:.4});if(ev)this.effects.push({kind:'fire',x:p.x,y:p.y,r:80*area,life:2,max:2,tick:0,id});this.cd[id]=(ev?1:1.4)*this.haste(id);}
   if(id==='meteor'){for(let i=0;i<(ev?3:1);i++){const t=i===0?target:this.enemies[Math.floor(this.random()*this.enemies.length)]||target;if(t)this.hazards.push({x:t.x,y:t.y,r:(65+(rank-1)*9)*area,life:.65,max:.65,kind:'meteor',damage:65+(rank-1)*20,id});}this.cd[id]=(ev?2.2:3.2)*this.haste(id);}
   if(['spear','scythe','wisp','axe'].includes(id)){const count=id==='spear'?(ev?3:1):id==='scythe'?(ev?3:rank>=5?2:1):id==='wisp'?(ev?7:2+Math.floor((rank-1)/2)):(ev?6:2+Math.floor((rank-1)/3));const speed=id==='spear'?430:id==='wisp'?180:230;for(let i=0;i<count;i++){const a=angle+(i-(count-1)/2)*(id==='axe'?.35:.2);this.bullets.push({x:p.x,y:p.y,vx:Math.cos(a)*speed,vy:Math.sin(a)*speed,life:id==='wisp'?3.2:2.1,age:0,r:id==='axe'?10:id==='scythe'?9:5,damage:({spear:42,scythe:28,wisp:20,axe:36}[id]+(rank-1)*({spear:12,scythe:8,wisp:6,axe:10}[id]))*(ev?1.35:1),id,pierce:id==='spear'?5+rank:id==='wisp'?(ev?3:1):4+Math.floor(rank/2),hit:[],color:byId(id).color});}this.cd[id]=({spear:1.8,scythe:2,wisp:2.2,axe:2}[id])*(ev?.7:1)*this.haste(id);}
@@ -79,7 +82,7 @@ export class Game {
  reroll(){if(this.mode!=='levelup'||this.rerolls<=0)return false;this.rerolls--;this.offers();this.emit('levelup');return true;}
  revive(){if(this.mode!=='down'||this.revives<=0)return false;this.revives--;this.player.hp=this.maxHp()*.6;this.invuln=4;for(const e of this.enemies)if(Math.hypot(e.x-this.player.x,e.y-this.player.y)<200){const a=Math.atan2(e.y-this.player.y,e.x-this.player.x);e.x=this.player.x+Math.cos(a)*240;e.y=this.player.y+Math.sin(a)*240;}this.mode='playing';this.emit('revive');return true;}
  end(victory=false){if(this.mode==='ended')return;this.mode='ended';this.emit('end',{victory:victory||this.dawnReached||this.time>=1800});}
- step(dt,input={x:0,y:0}){if(this.mode!=='playing')return;dt=clamp(dt,0,.05);this.time+=dt;const p=this.player;if(this.time>=1620&&!this.reaperWarning){this.reaperWarning=true;this.emit('warning',{text:'THE LAST ECLIPSE ARRIVES AT 30:00 · Prepare an evolved covenant'});}if(this.time>=1800&&!this.reaperSpawned)spawnReaper(this);
+ step(dt,input={x:0,y:0}){if(this.mode!=='playing')return;dt=clamp(dt,0,.05);this.time+=dt;const p=this.player;if(this.time>=1620&&!this.reaperWarning){this.reaperWarning=true;this.emit('warning',{text:'THE LAST ECLIPSE ARRIVES AT 30:00 · Prepare control, defense and sustained damage'});}if(this.time>=1800&&!this.reaperSpawned)spawnReaper(this);
   if(this.time>=1800&&!this.dawnReached){this.dawnReached=true;this.emit('dawn');}
   this.invuln=Math.max(0,this.invuln-dt);this.dashCd=Math.max(0,this.dashCd-dt);this.dashing=Math.max(0,this.dashing-dt);
   p.hp=Math.min(this.maxHp(),p.hp+dt*((this.hero.regen||0)+this.m('regen')*.15+this.rank('regen')*.6+this.a('regen')*.15+this.g('regen')));if(this.g('ward')){this.wardClock+=dt;if(this.wardClock>=20){this.wardClock%=20;this.shield=this.g('ward');}}
@@ -95,7 +98,7 @@ export class Game {
   if(this.time>=this.nextHeal){const a=this.random()*TAU;this.pickups.push({...safePoint(this.region,p.x+Math.cos(a)*130,p.y+Math.sin(a)*130),kind:this.nextHeal%70===0?'magnet':'heal'});this.nextHeal+=35;}
   const waveMinute=Math.floor(minute);if(waveMinute>this.waveMinute){this.waveMinute=waveMinute;const arrivals=Object.entries(ENEMIES).filter(([,s])=>s.minute===waveMinute&&(s.region||'ashwood')===this.region);for(const [id]of arrivals)for(let i=0;i<2&&this.enemies.length<difficulty.cap;i++)this.spawn(id);if(arrivals.length)this.emit('warning',{text:`MINUTE ${waveMinute} · ${arrivals.map(([,s])=>s.name).join(' & ')} arrive`});}
   this.coinClock+=dt;if(this.coinClock>=5){this.gainGold(2);this.coinClock-=5;}
-  for(const e of this.enemies){if(e.hp<=0)continue;if(guardSite(this,e,dt))continue;e.slow=Math.max(0,e.slow-dt);e.flash=Math.max(0,e.flash-dt);e.attack-=dt;let dx=p.x-e.x,dy=p.y-e.y,d=Math.hypot(dx,dy)||1,spd=e.speed*(e.slow>0?.35:1);
+  for(const e of this.enemies){if(e.hp<=0)continue;if(guardSite(this,e,dt))continue;e.slow=Math.max(0,e.slow-dt);e.flash=Math.max(0,e.flash-dt);if(e.reaper&&(e.frozenUntil||0)>this.time){e.attackLabel='FROZEN · ATTACK WHILE IT CANNOT MOVE';e.attackUntil=this.time+2;continue;}e.attack-=dt;let dx=p.x-e.x,dy=p.y-e.y,d=Math.hypot(dx,dy)||1,spd=e.speed*(e.slow>0?.35:1);
    spd=stepRegional(this,e,dt,dx,dy,d,spd);
    if(e.type==='shooter'&&d<620){spd=d<480?-spd:0;if(e.attack<=0){this.hazards.push({kind:'shot',x:e.x,y:e.y,vx:dx/d*170,vy:dy/d*170,r:5,life:6});e.attack=2.8;}}
    if(e.type==='charger'){if(e.attack<.7&&e.attack>0){spd=0;e.phase=1;e.ax=dx/d;e.ay=dy/d;}else if(e.attack<=0&&e.attack>-.55){e.phase=2;e.x+=e.ax*260*dt;e.y+=e.ay*260*dt;spd=0;}else if(e.attack<=-.55){e.attack=3.5;e.phase=0;}}

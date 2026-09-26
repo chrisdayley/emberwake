@@ -1,11 +1,11 @@
-import {EXTRA_WEAPONS,EXTRA_HEROES,SPECIAL_STAGES} from './chronicle.js?v=19';
-import {REGIONAL_ENEMIES} from './bestiary.js?v=19';
+import {EXTRA_WEAPONS,EXTRA_HEROES,SPECIAL_STAGES} from './chronicle.js?v=20';
+import {REGIONAL_ENEMIES} from './bestiary.js?v=20';
 export const WEAPONS = [
  {id:'bolt',name:'Ember bolt',icon:'↗',color:'#ffc477',desc:'Seeks the nearest enemy. Reliable, piercing firepower.',base:'22 damage · fires every 0.8s',upgrade:'More damage, more bolts, deeper piercing.',evo:'Sunpiercer',pair:'power',evoDesc:'Seven blazing sunbolts pierce the horde.'},
  {id:'orbit',name:'Moon blades',icon:'✧',color:'#b6a7ff',desc:'Blades circle you and cut through nearby enemies.',base:'18 damage · 2 orbiting blades',upgrade:'Another blade and a wider, stronger orbit.',evo:'Lunar covenant',pair:'reach',evoDesc:'Twelve blades carve a circle of protection.'},
  {id:'chain',name:'Storm thread',icon:'ϟ',color:'#8bdaf5',desc:'Lightning leaps between enemies. Loves a crowd.',base:'30 damage · chains to 3 targets',upgrade:'More damage and another lightning jump.',evo:'Skybreaker',pair:'haste',evoDesc:'Rapid lightning leaps across sixteen targets.'},
  {id:'nova',name:'Hollow bell',icon:'◎',color:'#d9eaba',desc:'A shockwave pushes back everything around you.',base:'38 damage · 105 radius · every 3s',upgrade:'A wider, more powerful shockwave.',evo:'Worldsong',pair:'vitality',evoDesc:'Huge shockwaves heal you when they find a crowd.'},
- {id:'frost',name:'Winter bloom',icon:'❄',color:'#a2e9e8',desc:'Chills a ring of enemies to give you breathing room.',base:'16 damage · slows enemies by 65%',upgrade:'More damage, reach, and freeze duration.',evo:'Stillwinter',pair:'magnet',evoDesc:'A sweeping blizzard slows the entire near field.'},
+ {id:'frost',name:'Winter bloom',icon:'❄',color:'#a2e9e8',desc:'Chills a ring of enemies to give you breathing room.',base:'16 damage · slows enemies by 65%',upgrade:'More damage, reach, and freeze duration.',evo:'Stillwinter',pair:'magnet',evoDesc:'A sweeping blizzard chills the near field and briefly freezes the Last Eclipse.'},
  {id:'flame',name:'Dragon breath',icon:'♨',color:'#ff9676',desc:'Burns a wide cone toward the nearest enemy.',base:'36 damage · 150 reach · every 1.4s',upgrade:'A longer, wider, hotter flame.',evo:'Phoenix wake',pair:'regen',evoDesc:'An inferno in every direction, with burning ground.'},
  {id:'dagger',name:'Ghost knives',icon:'⋗',color:'#c9e5ce',desc:'A quick fan of blades shreds a path through the swarm.',base:'16 damage · 3 knives · every 1.1s',upgrade:'More knives, damage, and piercing.',evo:'Thousand cuts',pair:'luck',evoDesc:'An eleven-blade fan that tears through entire packs.'},
  {id:'meteor',name:'Falling star',icon:'✦',color:'#edb1de',desc:'Calls a meteor onto a distant enemy cluster.',base:'65 damage · 65 blast radius · every 3.2s',upgrade:'Larger blasts that hit harder, more often.',evo:'Starfall',pair:'wisdom',evoDesc:'Three enormous meteors rain on the battlefield.'},
@@ -30,7 +30,7 @@ export const PASSIVES=[
  {id:'wisdom',name:'Old knowledge',icon:'▥',color:'#e3b5db',desc:'+20% experience per rank.',max:3},
  {id:'precision',name:'Deadeye',icon:'⌖',color:'#ffe2a3',desc:'Critical hits deal +35% base damage per rank.',max:3},
  {id:'force',name:'Heavy hands',icon:'✊',color:'#ffa778',desc:'+30% knockback and +4% damage per rank.',max:3},
- {id:'guard',name:'Stone oath',icon:'◈',color:'#dfc7a8',desc:'Reduce damage taken by 1 per rank.',max:3},
+ {id:'guard',name:'Stone oath',icon:'◈',color:'#dfc7a8',desc:'+1 armor and 8% damage reduction per rank.',max:3},
  {id:'agility',name:'Windstep',icon:'»',color:'#b3e7f0',desc:'+4% movement speed; dash recharges 0.12s faster per rank.',max:3}
 ];
 export const HEROES=[

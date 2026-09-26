@@ -19,13 +19,14 @@ Briar, Lyra and Sol now unlock from 50 lifetime kills, level 12, and surviving f
 
 ## The Last Eclipse
 
-Arrives once at 30:00 with 3,000,000 HP, even if another boss is alive. Ordinary builds cannot damage its ward. Three covenants break the ward, add a bounded percentage-health strike and protect against single lethal hits:
+Arrives once at 30:00 with 3,000,000 HP, even if another boss is alive. **Every weapon deals normal damage.** There is no ward, required recipe, automatic health regeneration, secret damage multiplier or percentage-health shortcut.
 
-- Hourglass covenant: evolved Clock needle + evolved Frost aegis.
-- Solar judgment: evolved Solar writ + evolved Prism ray + Stone oath rank 3.
-- Midnight pact: evolved Crimson bloom + evolved Reaping crescent + Springwater rank 3.
+- Contact damage starts at roughly 430 before defenses in Ashwood; regional damage scaling still applies. Red pursuit strikes deal 280, rising to 340 below half health. Movement and attack frequency also increase when enraged.
+- Winter bloom and Clock needle can freeze its movement, contact hits and new casts for up to 1.6 seconds. A 0.65-second thaw prevents an effortless permanent lock; chill still slows pursuit by 45%. Previously cast red strikes remain dangerous.
+- Stone oath adds 8% damage reduction per rank alongside its existing armor. Evolved Frost aegis adds 30% reduction and its refreshing shield. These effects work independently against all damage, with no boss-specific hit cap.
+- Health, recovery, life-stealing equipment, recharge, damage and Ascensions support freely chosen builds. The Unlocks page offers strategy suggestions rather than mandatory combinations.
 
-Each evolution requires weapon rank 8, its documented rank-2 passive partner, and a treasure chest. Recipes remain visible before unlocking spells. The boss uses red pursuit strikes, increased attacks and speed under half health. Victory grants 3,000 expedition gold and Eclipse Throne. Running past 30 minutes or banking early remains optional.
+Existing boss saves keep current HP, position, rewards and spawn state. Freeze timers persist with the enemy. Victory still grants 3,000 expedition gold and Eclipse Throne. Banking early remains optional.
 
 ## Research and original design
 
@@ -40,4 +41,4 @@ Sources consulted:
 
 ## Verification
 
-15 Node suites cover legacy-save migration/import, locked pools/forge purchases, six stage reward paths, terrain clearance, ranged caps, all 22 spells at rank one and evolved, existing region balance, soundtrack/menu continuity, and boss spawn/persistence. Three controlled moving-combat pilots defeat the boss with legal late-game loadouts in approximately 172, 41 and 60 seconds; these isolate the boss from ambient hordes and do not represent full expedition difficulty. Browser sandbox uses actual game/renderer modules without accessing localStorage.
+16 Node suites cover legacy saves, unlocks, all weapons, stage terrain, balance, audio continuity and the boss. Boss-specific tests check normal damage from all 22 weapons, no regeneration or hidden bonuses, freeze/thaw behavior, saved freeze state, still-dangerous pre-cast attacks, independent damage reduction/shielding and legal six-weapon combat pilots. Pilots isolate the boss from ambient hordes and do not represent full expedition difficulty. Browser sandbox uses actual game/renderer modules without accessing localStorage.

@@ -1,5 +1,5 @@
-import {drawChallengeWorld} from './challenge-art.js?v=19';
-import {obstacles,cell,riftAt} from './world.js?v=19';
+import {drawChallengeWorld} from './challenge-art.js?v=20';
+import {obstacles,cell,riftAt} from './world.js?v=20';
 const TAU=Math.PI*2;
 export function drawWorld(c,g,b){const {left,top,right,bottom}=b;
  if(g.region!=='ashwood'){
