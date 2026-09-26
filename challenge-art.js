@@ -1,5 +1,5 @@
-import {CHALLENGE_ENEMIES,challengeStage,challengeWalls,challengeHazard} from './challenge.js?v=21';
-import {EXTRA_HEROES} from './chronicle.js?v=21';
+import {CHALLENGE_ENEMIES,challengeStage,challengeWalls,challengeHazard} from './challenge.js?v=22';
+import {EXTRA_HEROES} from './chronicle.js?v=22';
 const TAU=Math.PI*2,cache=new Map();
 export function challengeSprite(id){if(cache.has(id))return cache.get(id);const e=CHALLENGE_ENEMIES[id],hero=EXTRA_HEROES.find(h=>h.id===id);if(!e&&!hero)return null;const canvas=document.createElement('canvas');canvas.width=120;canvas.height=150;const c=canvas.getContext('2d'),color=hero?.color||challengeStage(e.region).color,shape=hero?4:e.shape;
  c.translate(60,120);c.lineJoin='round';c.strokeStyle='#090f20';c.lineWidth=5;

@@ -1,12 +1,12 @@
-import {challengeStage,stepChallengeWorld,spawnReaper,fireLostWeapon,challengeHazard} from './challenge.js?v=21';
-import {weaponUnlocked} from './chronicle.js?v=21';
-import {stepDiscoveries,guardSite,unlockSite} from './discoveries.js?v=21';
-import {REGIONAL_ENEMIES,ROSTERS,regionalType,regionalPool} from './bestiary.js?v=21';
-import {stepRegional,regionalDeath} from './region-combat.js?v=21';
-import {resolveTerrain,lavaAt,riftAt,safePoint} from './world.js?v=21';
-import {stepWorld,stepObjective,spawnOverlord,attackOverlord} from './expedition.js?v=21';
-import {equippedItem,gearItem,gearStats,rollGear} from './gear.js?v=21';
-import {WEAPONS,PASSIVES,RELICS,HEROES,byId,ENEMIES,WEAPON_SLOTS,PASSIVE_SLOTS} from './data.js?v=21';
+import {challengeStage,stepChallengeWorld,spawnReaper,fireLostWeapon,challengeHazard} from './challenge.js?v=22';
+import {weaponUnlocked} from './chronicle.js?v=22';
+import {stepDiscoveries,guardSite,unlockSite} from './discoveries.js?v=22';
+import {REGIONAL_ENEMIES,ROSTERS,regionalType,regionalPool} from './bestiary.js?v=22';
+import {stepRegional,regionalDeath} from './region-combat.js?v=22';
+import {resolveTerrain,lavaAt,riftAt,safePoint} from './world.js?v=22';
+import {stepWorld,stepObjective,spawnOverlord,attackOverlord} from './expedition.js?v=22';
+import {equippedItem,gearItem,gearStats,rollGear} from './gear.js?v=22';
+import {WEAPONS,PASSIVES,RELICS,HEROES,byId,ENEMIES,WEAPON_SLOTS,PASSIVE_SLOTS} from './data.js?v=22';
 export const MAX_RANGED_ENEMIES=5;
 const TAU=Math.PI*2,clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 export class Game {
