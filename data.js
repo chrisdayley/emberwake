@@ -1,5 +1,5 @@
-import {EXTRA_WEAPONS,EXTRA_HEROES,SPECIAL_STAGES} from './chronicle.js?v=23';
-import {REGIONAL_ENEMIES} from './bestiary.js?v=23';
+import {EXTRA_WEAPONS,EXTRA_HEROES,SPECIAL_STAGES} from './chronicle.js?v=24';
+import {REGIONAL_ENEMIES} from './bestiary.js?v=24';
 export const WEAPONS = [
  {id:'bolt',name:'Ember bolt',icon:'↗',color:'#ffc477',desc:'Seeks the nearest enemy. Reliable, piercing firepower.',base:'22 damage · fires every 0.8s',upgrade:'More damage, more bolts, deeper piercing.',evo:'Sunpiercer',pair:'power',evoDesc:'Seven blazing sunbolts pierce the horde.'},
  {id:'orbit',name:'Moon blades',icon:'✧',color:'#b6a7ff',desc:'Blades circle you and cut through nearby enemies.',base:'18 damage · 2 orbiting blades',upgrade:'Another blade and a wider, stronger orbit.',evo:'Lunar covenant',pair:'reach',evoDesc:'Twelve blades carve a circle of protection.'},

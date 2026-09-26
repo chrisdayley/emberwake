@@ -1,5 +1,5 @@
-import {CHALLENGE_ENEMIES} from './challenge.js?v=23';
-import {SPECIAL_STAGES} from './chronicle.js?v=23';
+import {CHALLENGE_ENEMIES} from './challenge.js?v=24';
+import {SPECIAL_STAGES} from './chronicle.js?v=24';
 // Every region owns its roster, guardian schedule, silhouettes and combat roles.
 const creature=(name,hp,speed,r,damage,xp,minute,behavior,extra={})=>({name,hp,speed,r,damage,xp,minute,behavior,...extra});
 const hollow={

@@ -42,7 +42,7 @@ Sources consulted:
 
 ## Verification
 
-19 Node suites cover legacy saves, unlocks, all weapons, stage terrain, balance, audio continuity and the boss. Boss-specific tests check normal damage from all 22 weapons, no regeneration or hidden bonuses, freeze/thaw behavior, saved freeze and charge state, attack tells and locked aim, projectile caps and swept collision, predictable versus reactive movement, still-dangerous pre-cast attacks, independent damage reduction/shielding and legal six-weapon combat pilots. Pilots isolate the boss from ambient hordes and do not represent full expedition difficulty. Browser sandbox uses actual game/renderer modules without accessing localStorage.
+20 Node suites cover legacy saves, unlocks, all weapons, stage terrain, balance, audio continuity and the boss. Boss-specific tests check normal damage from all 22 weapons, no regeneration or hidden bonuses, freeze/thaw behavior, saved freeze and charge state, attack tells and locked aim, projectile caps and swept collision, predictable versus reactive movement, still-dangerous pre-cast attacks, independent damage reduction/shielding and legal six-weapon combat pilots. Pilots isolate the boss from ambient hordes and do not represent full expedition difficulty. Browser sandbox uses actual game/renderer modules without accessing localStorage.
 
 ## Spell signatures and rewarding treasure (v23)
 
@@ -51,3 +51,17 @@ Every spell has two signature investment tracks alongside the unchanged Potency,
 All 48 signature tracks are covered by combat-effect tests. Real save import validation roundtrips maximum investments and a suspended run. Spell refunds include both old and new spending.
 
 Loot rarity rises much faster over survival time. At 30 minutes, ordinary gear drops are 35% Epic, 25% Legendary, 8% Mythic and 2% Godly. Bosses guarantee gear and improve rarity further by encounter class and starting health. Minimums: ordinary boss Uncommon; overlord Rare; treasure vault guardian Epic (Legendary from 250,000 starting HP); Last Eclipse Mythic. Defeated enemy reward context persists with the chest/site through saves. Odds shown in the Armory are generated from the actual loot function. Gear temper levels and duplicate compensation are unchanged.
+
+## Boss trophy weapons (v24)
+
+Five guaranteed victory unlocks add combat weapons to the level-up pool, not to the equipment inventory. They can roll in the same expedition after its next checkpoint if a weapon slot remains, or on later expeditions. Existing six-slot/rank-eight/evolution rules apply. All five have damage/recharge/opening mastery plus two signature upgrades. There are now 27 combat weapons and 58 signature tracks including health passives.
+
+| Weapon | Guaranteed unlock | Behavior | Evolution pair |
+|---|---|---|---|
+| Thunder crown | Defeat the 20-minute overlord on any map | Multiple independent lightning impacts | Cinder heart |
+| Hourglass cannon | Defeat the 25-minute overlord on any map | Heavy piercing shells apply chill and Eclipse freeze | Quickening |
+| Reaper’s verdict | Defeat the Last Eclipse on any map | Crossing spectral blades through a target and its surroundings | Deadeye |
+| Briar vengeance | Defeat Ashwood's Sealed vault guardian | Bramble pulses and free retaliation, limited to once per 2 seconds | Stone oath |
+| Furnace comet | Defeat Cinder's Sealed vault guardian | Impact blast plus lingering burning fields | Wide horizon |
+
+The new milestone encounters queue at 20:00 and 25:00 and wait for an existing live boss to be cleared. They appear once each per expedition; flags and living encounter identity survive saves. Merely surviving or holding an earlier boss until the threshold does not count. Existing recorded Eclipse victories receive Reaper’s verdict retroactively; earlier guardian/milestone kills cannot be inferred and require the matching new victory record. Guardian state is made ready before the defeat checkpoint so an immediate reload retains the unsealed vault.

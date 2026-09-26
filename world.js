@@ -1,4 +1,4 @@
-import {challengeWalls,challengeSafe} from './challenge.js?v=23';
+import {challengeWalls,challengeSafe} from './challenge.js?v=24';
 // Deterministic terrain shared by combat, objectives, and drawing.
 export const cell=(v,size)=>Math.floor((v+size/2)/size);
 const wallCache=new Map();

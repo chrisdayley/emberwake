@@ -6,6 +6,11 @@ const shots=(name,max=3,amount=1)=>track('projectiles',name,`+${amount} projecti
 const pierce=(name,amount=2)=>track('pierce',name,`Pierce ${amount} additional enemies per rank`,4,180);
 const duration=name=>track('duration',name,'+20% chill and freeze duration per rank; Eclipse freeze limit also grows');
 export const SIGNATURE_TRACKS={
+ tempest:[track('projectiles','Storm fronts','+1 lightning strike per cast per rank',3,450,2.2),radius('Thunderhead')],
+ hourglass:[shots('Split timelines',2),duration('Suspended moment')],
+ verdict:[track('projectiles','Final appeals','+1 crossing blade per cast per rank',2,600,2.2),track('width','Execution edge','+15% spectral blade width per rank')],
+ briar:[radius('Wild dominion'),track('retaliation','Spiteful thorns','+15% retaliation damage per rank; retaliation can trigger once every 2 seconds')],
+ inferno:[radius('Furnace heart'),track('duration','Undying coals','Burning fields last +0.6 seconds per rank')],
  bolt:[shots('Split embers'),pierce('Bodkin flame')],
  orbit:[track('projectiles','Moon choir','+1 orbiting blade per rank',3,350,2.2),radius('Lunar reach')],
  chain:[track('jumps','Storm relay','+2 lightning jumps per rank',4,250,1.8),radius('Arc bridge')],

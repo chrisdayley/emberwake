@@ -21,7 +21,7 @@ Each tier retains all earlier boosts. Numeric bonuses scale with rarity and temp
 - Forge any missing Common family for 150 gold.
 - Temper owned gear ten times. Cost: `round(65 × (tierIndex + 1) × 1.48^currentTemper)`.
 - Ascend to the next rarity for 300 / 850 / 2,400 / 6,500 / 18,000 / 55,000 gold. Temper level is retained. Every character using that item follows its upgrade. Ascension is unavailable if the next variant is already owned, preventing accidental overwrite.
-- Each of 22 spells has two signature tracks plus Potency (10 ranks, +4% damage per rank), Fluency (5 ranks, 2% shorter cooldown per rank), and Awakening (2 ranks, +1 initial spell rank per rank). These are permanent account upgrades applied to new runs. Awakening and Legendary gear stack, capped at spell rank 8.
+- Each of 27 spells has two signature tracks plus Potency (10 ranks, +4% damage per rank), Fluency (5 ranks, 2% shorter cooldown per rank), and Awakening (2 ranks, +1 initial spell rank per rank). These are permanent account upgrades applied to new runs. Awakening and Legendary gear stack, capped at spell rank 8.
 - Potency costs start at 80 gold and multiply by 1.6 per rank; Fluency starts at 100 and multiplies by 1.7; Awakening costs 450 then 1,575. Spellcraft can be fully refunded independently of character traits. Equipment purchases remain in the collection.
 
 ## Treasure odds
@@ -49,4 +49,4 @@ Inventory illustrations, character previews, and in-combat held weapons use the 
 
 The abrupt bonuses at minutes three/four and the periodic 1.4× surge were removed. Wave size now carries fractional spawn credit between ticks and grows continuously. Enemy cap also grows gradually. New enemy types keep their arrival times and ease into the random spawn mix over their first minute. The global five-shooter cap remains.
 
-Signature track details live in `spellcraft.js`; all 48 have combat-effect tests. Existing generic purchases and spent gold persist unchanged. Springwater and Ironbark also have unique health/recovery tracks that require acquiring their passive during a run.
+Signature track details live in `spellcraft.js`; all 58 have combat-effect tests. Existing generic purchases and spent gold persist unchanged. Springwater and Ironbark also have unique health/recovery tracks that require acquiring their passive during a run.

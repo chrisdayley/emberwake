@@ -31,6 +31,14 @@ check('regen','recovery',g=>{g.player.hp=10;g.step(.05);return g.player.hp;});
 check('regen','surge',g=>{g.player.hp=10;g.step(.05);return g.player.hp;});
 check('vitality','health',g=>g.maxHp());
 check('vitality','healing',g=>{g.skills.vitality=2;g.player.hp=10;g.upgrade('vitality');return g.player.hp;});
+for(const id of ['hourglass'])check(id,'projectiles',g=>{g.fire(id);return g.bullets.length;});
+check('verdict','projectiles',g=>{g.fire('verdict');return g.effects.filter(e=>e.kind==='beam').length;});
+check('verdict','width',g=>{g.fire('verdict');return g.effects.find(e=>e.kind==='beam').width;});
+check('tempest','projectiles',g=>{g.fire('tempest');return g.effects.filter(e=>e.kind==='chain').length;});
+for(const id of ['tempest','briar'])check(id,'radius',g=>{g.fire(id);return Math.max(...g.effects.map(e=>e.r||0));});
+check('briar','retaliation',g=>{g.hurt(1);return g.damageDone.briar;});
+check('hourglass','duration',g=>{const e=g.enemies[0];e.reaper=e.boss=true;g.fire('hourglass');g.step(.05);return e.frozenUntil;});
+for(const key of ['radius','duration'])check('inferno',key,g=>{g.fire('inferno');g.step(.05);const pool=g.effects.find(e=>e.kind==='pool');assert(pool);return key==='radius'?pool.r:pool.life;});
 assert.equal(covered.size,Object.values(SIGNATURE_TRACKS).flat().length);
 // Health investment is dormant before the relevant passive is acquired.
 for(const id of ['regen','vitality']){const g=game(id,Object.fromEntries(SIGNATURE_TRACKS[id].map(t=>[t.id,t.max])));g.skills={};g.player.hp=10;g.step(.05);assert.equal(g.player.hp,10);assert.equal(g.maxHp(),100);}
