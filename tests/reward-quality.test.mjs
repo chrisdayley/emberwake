@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {Game} from '../engine.js';
+import {freshSave} from '../data.js';
+import {rarityOdds,lootProfile,rollGear,gearItem,claimPendingGear} from '../gear.js';
+import {awakenSite,claimSite} from '../discoveries.js';
+import {spawnReaper} from '../challenge.js';
+const tail=(a,n)=>a.slice(n).reduce((s,v)=>s+v,0),contexts=[false,true,{source:'overlord',bossHp:100000},{source:'guardian',bossHp:100000},{source:'guardian',bossHp:500000},{source:'eclipse',bossHp:3000000}];
+for(const context of contexts)for(let t=0;t<=3600;t+=23){const a=rarityOdds(t,context),b=rarityOdds(t+1,context);assert(Math.abs(tail(a,0)-100)<1e-8);for(let n=1;n<7;n++)assert(tail(b,n)>=tail(a,n)-1e-8);assert(a.every(x=>x>=0));}
+for(const context of contexts){const floor=lootProfile(context).floor;for(const r of [0,.1,.5,.9,.999999]){let rs=[0,r,.5];const item=rollGear(600,context,()=>rs.shift());assert(gearItem(item.id).tier>=floor);}}
+for(const n of [3,4,5,6]){assert(tail(rarityOdds(1200),n)>tail(rarityOdds(300),n));assert(tail(rarityOdds(600,{source:'guardian',bossHp:500000}),n)>=tail(rarityOdds(600,{source:'guardian',bossHp:10000}),n));}
+assert(tail(rarityOdds(600,{source:'guardian',bossHp:100000}),4)>tail(rarityOdds(600,true),4));
+for(const source of ['boss','overlord','eclipse']){const g=new Game(freshSave());g.time=1800;g.skills={};if(source==='eclipse')spawnReaper(g);else g.spawn('brute',false,true);const e=g.enemies[0];e.lateBoss=source==='overlord';g.hit(e,e.hp*100,'bolt');const chest=g.pickups.find(p=>p.kind==='chest');assert.equal(chest.loot.source,source);assert.equal(chest.loot.bossHp,e.maxHp);const restored=new Game(freshSave(),()=>{},g.snapshot());assert.deepEqual(restored.pickups.find(p=>p.kind==='chest').loot,chest.loot);}
+const s=freshSave(),g=new Game(s);g.region='cinder';g.time=600;g.skills={};const site={id:1,kind:'vault',state:'sealed',x:0,y:0,discovered:true,guardianId:null};g.discoveries=[site];assert(awakenSite(g,site));const e=g.enemies[0];assert(e.maxHp>=250000);g.hit(e,e.hp*100,'bolt');assert.equal(site.state,'ready');assert.equal(site.loot.bossHp,e.maxHp);const restored=new Game(s,()=>{},g.snapshot());restored.mode='playing';assert(claimSite(restored,restored.discoveries[0]));assert(gearItem(restored.chestReward.gear.id).tier>=4);claimPendingGear(s,restored);const inventory=JSON.stringify(s.inventory),gold=s.gold;claimPendingGear(s,restored);assert.equal(JSON.stringify(s.inventory),inventory);assert.equal(s.gold,gold);assert(!claimSite(restored,restored.discoveries[0]));
+const legacy=new Game(freshSave());legacy.random=()=>0;legacy.openChest({boss:true,gold:100,rewards:3});assert(gearItem(legacy.chestReward.gear.id).tier>=1);
+console.log(JSON.stringify({checks:['Rarity tails improve continuously over time for every reward source','Harder bosses improve quality; guardian floors are Epic or Legendary','Boss and guardian reward context survives defeat and save/resume','Guaranteed guardian drop claims only once; legacy boss chests still open'],ordinary30:rarityOdds(1800),guardian10:rarityOdds(600,{source:'guardian',bossHp:100000})},null,2));

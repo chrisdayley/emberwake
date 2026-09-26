@@ -1,7 +1,7 @@
-import {safePoint} from './world.js?v=22';
-import {GUARDIANS,REGIONAL_ENEMIES} from './bestiary.js?v=22';
+import {safePoint} from './world.js?v=23';
+import {GUARDIANS,REGIONAL_ENEMIES} from './bestiary.js?v=23';
 export const DISCOVERIES={
- vault:{name:'Sealed vault',icon:'▣',color:'#ffd17e',reward:'Gold + 5 upgrades + gear'},
+ vault:{name:'Sealed vault',icon:'▣',color:'#ffd17e',reward:'Gold + 5 upgrades + Epic-or-better gear'},
  altar:{name:'Spell altar',icon:'✦',color:'#cfadff',reward:'Choose an Ascension + gold'},
  spring:{name:'Life sanctuary',icon:'♥',color:'#9df1c6',reward:'Full healing + 30 max health + revive'}
 };
@@ -39,11 +39,11 @@ export function guardSite(g,e,dt){if(!e.siteId)return false;const s=g.discoverie
  // Retreat is allowed. No healing/reset, no chasing you across the whole map.
  s.guardianHp=e.hp;s.guardianMaxHp=e.maxHp;s.guardianId=null;s.state='sealed';e.hp=0;return true;
 }
-export function unlockSite(g,e){if(!e.siteId)return;const s=g.discoveries.find(s=>s.id===e.siteId);if(!s||s.state!=='guarded')return;s.state='ready';s.guardianId=null;g.emit('warning',{text:DISCOVERIES[s.kind].name+' unsealed · Return to claim '+DISCOVERIES[s.kind].reward.toLowerCase()});}
+export function unlockSite(g,e){if(!e.siteId)return;const s=g.discoveries.find(s=>s.id===e.siteId);if(!s||s.state!=='guarded')return;s.state='ready';s.guardianId=null;s.loot={source:'guardian',bossHp:e.maxHp};g.emit('warning',{text:DISCOVERIES[s.kind].name+' unsealed · Return to claim '+DISCOVERIES[s.kind].reward.toLowerCase()});}
 export function claimSite(g,s){if(s.state!=='ready'||g.mode!=='playing'||g.player.hp<=0)return false;
  // Mark before rewarding: save callbacks and repeated pickup frames cannot duplicate it.
  s.state='claimed';g.discoveriesCleared++;g.invuln=Math.max(g.invuln,3);
- if(s.kind==='vault'){g.openChest({kind:'chest',boss:true,rewards:5,gold:180+Math.floor(g.time/60)*18});}
+ if(s.kind==='vault'){g.openChest({kind:'chest',boss:true,loot:s.loot||{source:'guardian',bossHp:s.guardianMaxHp||0},rewards:5,gold:180+Math.floor(g.time/60)*18});}
  else if(s.kind==='altar'){g.gainGold(80+Math.floor(g.time/60)*8);g.objectiveChoice=true;g.discoveryChoice=true;g.offers();g.mode='levelup';g.emit('levelup');}
  else {g.upgrade('ascend_vigor');g.upgrade('ascend_vigor');g.player.hp=g.maxHp();g.revives++;g.gainGold(40);g.emit('warning',{text:'Sanctuary blessing · Fully healed · +30 max health · +1 revive (this run)'});}
  g.emit('discovery');return true;

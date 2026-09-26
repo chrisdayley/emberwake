@@ -1,5 +1,5 @@
-import {stepEclipse} from './eclipse-combat.js?v=22';
-import {SPECIAL_STAGES} from './chronicle.js?v=22';
+import {stepEclipse} from './eclipse-combat.js?v=23';
+import {SPECIAL_STAGES} from './chronicle.js?v=23';
 const TAU=Math.PI*2;
 export const challengeStage=id=>SPECIAL_STAGES.find(s=>s.id===id);
 const NAMES={frostmarch:['Rime hounds','Crystal moths','Icebound knights','Snow oracles','The White Hunt','Glacier Empress'],drowned:['Ink leeches','Coral skimmers','Anchor hulks','Pearl sirens','The Librarian Below','Leviathan of Ink'],clockwork:['Gear mites','Brass hornets','Pendulum knights','Clock sentries','The Broken Hour','Grand Automaton'],briarheart:['Thornlings','Rose wasps','Briar ogres','Bloom witches','The Rose Widow','Heartwood Devourer'],sunforge:['Solar scarabs','Flare hawks','Gilded titans','Sun acolytes','The Golden Judge','Crown of the Sun'],eclipse:['Voidlings','Star serpents','Eclipse knights','Night choirs','The Unnamed Star','Sovereign of Nothing']};
@@ -33,12 +33,12 @@ export function stepChallengeEnemy(g,e,dt,dx,dy,d,spd){if(e.reaper)return stepEc
  return spd;
 }
 export function spawnReaper(g){if(g.reaperSpawned)return;g.reaperSpawned=true;const e=g.spawn('nightreaper',false,true);e.reaper=true;e.title='The Last Eclipse';e.hp=e.maxHp=3000000;e.speed=165;e.r=38;e.attack=2;g.emit('warning',{text:'THE LAST ECLIPSE · 3 MILLION HEALTH · Freeze, defend and keep moving'});}
-export function fireLostWeapon(g,id){const rank=g.rank(id),ev=g.evolved.includes(id),p=g.player,target=g.nearest(),area=g.area();if(!['aegis','chrono','torrent','blood','solar','void'].includes(id))return false;
- if(id==='aegis'){const shield=(8+rank*3)*(ev?2:1);g.shield=Math.max(g.shield,shield);g.aoe(p.x,p.y,(95+rank*8)*area,24+rank*10,id,22);g.burst(p.x,p.y,(95+rank*8)*area,'#b8eeff',.5);g.cd[id]=5*g.haste(id);}
- if(id==='chrono'){const r=(140+rank*15)*(ev?1.4:1)*area;g.aoe(p.x,p.y,r,32+rank*12,id);for(const e of g.enemies)if(Math.hypot(e.x-p.x,e.y-p.y)<r)g.chill(e,ev?5:2,ev?3:.6+rank*.13);g.burst(p.x,p.y,r,'#ffe1a0',.6);g.cd[id]=(ev?2.5:4)*g.haste(id);}
- if(id==='torrent'){for(let j=0;j<(ev?6:3);j++){const a=g.time+j*TAU/(ev?6:3);g.hazards.push({kind:'wave',x:p.x+Math.cos(a)*45,y:p.y+Math.sin(a)*45,r:(140+rank*13)*area,damage:28+rank*10,life:1.3,max:1.3,id,hit:[]});}g.cd[id]=3*g.haste(id);}
- if(id==='blood'){if(target){const r=(ev?170:55+rank*6)*area;g.aoe(target.x,target.y,r,42+rank*16,id);p.hp=Math.min(g.maxHp(),p.hp+(ev?5:1+rank*.2));g.effects.push({kind:'chain',points:[p,{x:target.x,y:target.y}],color:'#f3a7d4',life:.35,max:.35});}g.cd[id]=2*g.haste(id);}
- if(id==='solar'){if(target){const a=Math.atan2(target.y-p.y,target.x-p.x),count=ev?9:4+Math.floor(rank/3);for(let j=0;j<count;j++)g.bullets.push({x:p.x,y:p.y,vx:Math.cos(a+(j-(count-1)/2)*.13)*370,vy:Math.sin(a+(j-(count-1)/2)*.13)*370,r:6,life:2,damage:38+rank*15,id,pierce:ev?18:7,hit:[],color:'#ffe499'});}g.cd[id]=2*g.haste(id);}
- if(id==='void'){if(target)for(let j=0;j<(ev?3:1);j++){const x=target.x+Math.cos(j*TAU/3)*j*70,y=target.y+Math.sin(j*TAU/3)*j*70,r=(90+rank*12)*area;for(const e of g.enemies)if(!e.boss&&Math.hypot(e.x-x,e.y-y)<r){e.x+=(x-e.x)*.4;e.y+=(y-e.y)*.4;}g.hazards.push({kind:'meteor',x,y,r,damage:80+rank*35,life:1,max:1,id});}g.cd[id]=4*g.haste(id);}
+export function fireLostWeapon(g,id){const rank=g.rank(id),ev=g.evolved.includes(id),p=g.player,target=g.nearest(),area=g.spellArea(id);if(!['aegis','chrono','torrent','blood','solar','void'].includes(id))return false;
+ if(id==='aegis'){const shield=(8+rank*3)*(ev?2:1)*(1+g.craft(id,'shield')*.2);g.shield=Math.max(g.shield,shield);g.aoe(p.x,p.y,(95+rank*8)*area,24+rank*10,id,22);g.burst(p.x,p.y,(95+rank*8)*area,'#b8eeff',.5);g.cd[id]=5*g.haste(id);}
+ if(id==='chrono'){const r=(140+rank*15)*(ev?1.4:1)*area;g.aoe(p.x,p.y,r,32+rank*12,id);for(const e of g.enemies)if(Math.hypot(e.x-p.x,e.y-p.y)<r)g.chill(e,ev?5:2,ev?3:.6+rank*.13,1+g.craft(id,'duration')*.2);g.burst(p.x,p.y,r,'#ffe1a0',.6);g.cd[id]=(ev?2.5:4)*g.haste(id);}
+ if(id==='torrent'){for(let j=0;j<(ev?6:3)+g.craft(id,'projectiles');j++){const a=g.time+j*TAU/((ev?6:3)+g.craft(id,'projectiles'));g.hazards.push({kind:'wave',x:p.x+Math.cos(a)*45,y:p.y+Math.sin(a)*45,r:(140+rank*13)*area,damage:28+rank*10,life:1.3,max:1.3,id,hit:[]});}g.cd[id]=3*g.haste(id);}
+ if(id==='blood'){if(target){const r=(ev?170:55+rank*6)*area;g.aoe(target.x,target.y,r,42+rank*16,id);p.hp=Math.min(g.maxHp(),p.hp+(ev?5:1+rank*.2)*(1+g.craft(id,'healing')*.2));g.effects.push({kind:'chain',points:[p,{x:target.x,y:target.y}],color:'#f3a7d4',life:.35,max:.35});}g.cd[id]=2*g.haste(id);}
+ if(id==='solar'){if(target){const a=Math.atan2(target.y-p.y,target.x-p.x),count=(ev?9:4+Math.floor(rank/3))+g.craft(id,'projectiles');for(let j=0;j<count;j++)g.bullets.push({x:p.x,y:p.y,vx:Math.cos(a+(j-(count-1)/2)*.13)*370,vy:Math.sin(a+(j-(count-1)/2)*.13)*370,r:6,life:2,damage:38+rank*15,id,pierce:(ev?18:7)+g.craft(id,'pierce')*2,hit:[],color:'#ffe499'});}g.cd[id]=2*g.haste(id);}
+ if(id==='void'){if(target)for(let j=0;j<(ev?3:1)+g.craft(id,'projectiles');j++){const x=target.x+Math.cos(j*TAU/3)*j*70,y=target.y+Math.sin(j*TAU/3)*j*70,r=(90+rank*12)*area;for(const e of g.enemies)if(!e.boss&&Math.hypot(e.x-x,e.y-y)<r){e.x+=(x-e.x)*.4;e.y+=(y-e.y)*.4;}g.hazards.push({kind:'meteor',x,y,r,damage:80+rank*35,life:1,max:1,id});}g.cd[id]=4*g.haste(id);}
  return true;
 }

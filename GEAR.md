@@ -21,23 +21,23 @@ Each tier retains all earlier boosts. Numeric bonuses scale with rarity and temp
 - Forge any missing Common family for 150 gold.
 - Temper owned gear ten times. Cost: `round(65 × (tierIndex + 1) × 1.48^currentTemper)`.
 - Ascend to the next rarity for 300 / 850 / 2,400 / 6,500 / 18,000 / 55,000 gold. Temper level is retained. Every character using that item follows its upgrade. Ascension is unavailable if the next variant is already owned, preventing accidental overwrite.
-- Each of 16 spells has Potency (10 ranks, +4% damage per rank), Fluency (5 ranks, 2% shorter cooldown per rank), and Awakening (2 ranks, +1 initial spell rank per rank). These are permanent account upgrades applied to new runs. Awakening and Legendary gear stack, capped at spell rank 8.
+- Each of 22 spells has two signature tracks plus Potency (10 ranks, +4% damage per rank), Fluency (5 ranks, 2% shorter cooldown per rank), and Awakening (2 ranks, +1 initial spell rank per rank). These are permanent account upgrades applied to new runs. Awakening and Legendary gear stack, capped at spell rank 8.
 - Potency costs start at 80 gold and multiply by 1.6 per rank; Fluency starts at 100 and multiplies by 1.7; Awakening costs 450 then 1,575. Spellcraft can be fully refunded independently of character traits. Equipment purchases remain in the collection.
 
 ## Treasure odds
 
-Guardian chests always contain one gear drop. Ancient chests start at a 35% gear chance, rising linearly to 65% after 30 minutes. Gear is additional to existing chest gold, upgrades, and evolutions. Every family is equally likely within its rarity. Gold, Fortune, and region bonuses do not alter rarity odds.
+Boss chests always contain one gear drop. Vault guardians guarantee Epic or better (Legendary from 250,000 starting HP); overlords guarantee Rare, ordinary bosses Uncommon, and the Last Eclipse Mythic. Ancient chests start at a 35% gear chance, rising linearly to 65% after 30 minutes. Gear is additional to existing chest gold, upgrades, and evolutions. Every family is equally likely within its rarity. Encounter class and actual starting boss health improve rarity odds further, so stronger regional bosses reward better equipment. Gold and Fortune do not change the odds.
 
-Percentages below are conditional on a gear drop. They use the current run’s active survival time, interpolate continuously between rows, and cap at the 60-minute row. Earlier chests use the time when opened.
+Percentages below are ordinary Ancient-chest odds, conditional on a gear drop. Boss and guardian tables receive additional quality bonuses and rarity floors. They use the current run’s active survival time, interpolate continuously between rows, and cap at the 60-minute row. Earlier chests use the time when opened.
 
 | Minutes | Common | Uncommon | Rare | Epic | Legendary | Mythic | Godly |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| 0 | 78 | 18 | 3.6 | 0.38 | 0.019 | 0.001 | 0 |
-| 5 | 60 | 28 | 10 | 1.8 | 0.18 | 0.019 | 0.001 |
-| 10 | 44 | 32 | 18 | 5 | 0.9 | 0.095 | 0.005 |
-| 20 | 27 | 31 | 27 | 12 | 2.5 | 0.45 | 0.05 |
-| 30 | 18 | 27 | 30 | 18 | 5.8 | 1.05 | 0.15 |
-| 60 | 8 | 18 | 31 | 27 | 12 | 3.4 | 0.6 |
+| 0 | 60 | 27 | 10 | 2.5 | 0.45 | 0.049 | 0.001 |
+| 5 | 35 | 30 | 23 | 9 | 2.5 | 0.45 | 0.05 |
+| 10 | 18 | 24 | 30 | 20 | 6.5 | 1.35 | 0.15 |
+| 20 | 6 | 14 | 27 | 32 | 16 | 4.3 | 0.7 |
+| 30 | 2 | 8 | 20 | 35 | 25 | 8 | 2 |
+| 60 | 0 | 2 | 10 | 28 | 38 | 17 | 5 |
 
 Duplicates pay 30 / 60 / 120 / 280 / 700 / 1,800 / 5,000 banked gold by rarity. A chest's gear reward is granted to the collection and saved together with the run snapshot. Reloading a chest does not grant it again.
 
@@ -48,3 +48,5 @@ Inventory illustrations, character previews, and in-combat held weapons use the 
 ## Spawn pacing
 
 The abrupt bonuses at minutes three/four and the periodic 1.4× surge were removed. Wave size now carries fractional spawn credit between ticks and grows continuously. Enemy cap also grows gradually. New enemy types keep their arrival times and ease into the random spawn mix over their first minute. The global five-shooter cap remains.
+
+Signature track details live in `spellcraft.js`; all 48 have combat-effect tests. Existing generic purchases and spent gold persist unchanged. Springwater and Ironbark also have unique health/recovery tracks that require acquiring their passive during a run.

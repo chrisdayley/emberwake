@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {SIGNATURE_TRACKS} from '../spellcraft.js';
 import {Game} from '../engine.js';
 import {freshSave,WEAPONS,PASSIVES,HEROES,REGIONS,META,MILESTONES,RELICS,ENEMIES,byId} from '../data.js';
 import {ensureChronicle,recordChronicle,validChronicle,EXTRA_WEAPONS,SPECIAL_STAGES,weaponUnlocked} from '../chronicle.js';
@@ -21,3 +22,5 @@ for(const region of SPECIAL_STAGES){const g=new Game({...s,region:region.id});fo
 checks.push('six unique rosters and guardian attacks, five-ranged cap, safe terrain placement');
 q=new Game(s);q.time=1799.98;q.nextBoss=1e9;q.spawn('brute',false,true);q.step(.01);assert(!q.reaperSpawned);q.step(.02);assert(q.reaperSpawned);assert.equal(q.enemies.filter(e=>e.reaper).length,1);let r=q.enemies.find(e=>e.reaper);q.hit(r,100,'bolt');assert(r.hp<r.maxHp);const wounded=r.hp;const snap=q.snapshot();context.validate({...s,run:snap});q=new Game(s,()=>{},snap);q.mode='playing';q.step(.01);assert.equal(q.enemies.filter(e=>e.reaper).length,1);checks.push('30:00 spawn occurs once beside an existing boss; ordinary damage works; save/resume preserves boss');
 console.log(JSON.stringify({checks},null,2));
+
+const upgraded=JSON.parse(JSON.stringify(s));upgraded.spellcraft=Object.fromEntries(Object.entries(SIGNATURE_TRACKS).map(([id,tracks])=>[id,Object.fromEntries(tracks.map(t=>[t.id,t.max]))]));upgraded.run=new Game(upgraded).snapshot();const exported=JSON.stringify({spellcraft:upgraded.spellcraft,run:upgraded.run.spellcraft,gold:upgraded.gold,spent:upgraded.spellSpent});context.validate(upgraded);assert.equal(JSON.stringify({spellcraft:upgraded.spellcraft,run:upgraded.run.spellcraft,gold:upgraded.gold,spent:upgraded.spellSpent}),exported);console.log('All 48 signature tracks survive the real export/import validator, including a suspended run');
