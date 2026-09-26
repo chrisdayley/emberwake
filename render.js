@@ -1,10 +1,11 @@
-import {challengeHazard} from './challenge.js?v=20';
-import {challengeSprite,drawChallengeWorld} from './challenge-art.js?v=20';
-import {drawDanger,DANGER_RED} from './danger.js?v=20';
-import {drawDiscoveries,drawDiscoveryCompass} from './discovery-render.js?v=20';
-import {REGIONAL_ENEMIES} from './bestiary.js?v=20';
-import {drawWorld,drawObjectiveArrows,enemyCrown} from './world-render.js?v=20';
-import {drawGear} from './gear-art.js?v=20';
+import {drawEclipseTell} from './eclipse-combat.js?v=21';
+import {challengeHazard} from './challenge.js?v=21';
+import {challengeSprite,drawChallengeWorld} from './challenge-art.js?v=21';
+import {drawDanger,DANGER_RED} from './danger.js?v=21';
+import {drawDiscoveries,drawDiscoveryCompass} from './discovery-render.js?v=21';
+import {REGIONAL_ENEMIES} from './bestiary.js?v=21';
+import {drawWorld,drawObjectiveArrows,enemyCrown} from './world-render.js?v=21';
+import {drawGear} from './gear-art.js?v=21';
 const TAU=Math.PI*2;
 const atlas=new Image();atlas.src='sprites.png';const enemyAtlas=new Image();enemyAtlas.src='enemies-v7.png';const regionAtlases={hollow:new Image(),cinder:new Image()};for(const [region,img]of Object.entries(regionAtlases))img.src=region+'-v11.png';export const artReady=Promise.all([atlas.decode(),enemyAtlas.decode(),...Object.values(regionAtlases).map(img=>img.decode())]).catch(()=>{});
 const enemyRects={ironhide:[12,16,495,480],reaver:[531,10,493,482],revenant:[1060,0,454,492],juggernaut:[0,496,512,512],leech:[529,510,495,494],champion:[1050,500,464,506]};
@@ -35,7 +36,7 @@ export class Renderer {
  for(let gx=Math.floor(left/85);gx<=Math.ceil(right/85);gx++)for(let gy=Math.floor(top/85);gy<=Math.ceil(bottom/85);gy++){let r=hash(gx,gy),x=gx*85+r*55,y=gy*85+hash(gy,gx)*55;c.fillStyle=game.region==='hollow'?'#283044':game.region==='cinder'?'#45332a':'#223c37';c.fillRect(x,y,3,8);c.fillRect(x-5,y+3,3,5);c.fillRect(x+5,y+2,3,4);if(r>.8){c.fillStyle='#456057';c.globalAlpha=.35;c.fillRect(x+20,y+15,8,3);c.globalAlpha=1;}if(r<.12){c.strokeStyle='#294341';c.lineWidth=2;c.beginPath();c.ellipse(x,y,34,16,0,0,TAU);c.stroke();}}
  // Ancient circular trail markers lend the endless field its bearings.
  for(let gx=Math.floor(left/440);gx<=Math.ceil(right/440);gx++)for(let gy=Math.floor(top/440);gy<=Math.ceil(bottom/440);gy++){let x=gx*440+110,y=gy*440+90;c.strokeStyle='#456153';c.globalAlpha=.17;c.lineWidth=7;c.beginPath();c.arc(x,y,47,0,TAU);c.stroke();c.lineWidth=2;c.beginPath();c.arc(x,y,36,0,TAU);c.stroke();c.globalAlpha=1;}
- drawWorld(c,game,{left,top,right,bottom});drawDiscoveries(c,game,{left,top,right,bottom},paint);
+ drawWorld(c,game,{left,top,right,bottom});for(const e of game.enemies)if(e.reaper&&e.hp>0)drawEclipseTell(c,e);drawDiscoveries(c,game,{left,top,right,bottom},paint);
  c.imageSmoothingEnabled=true;
  for(let gx=Math.floor(left/380);gx<=Math.ceil(right/380);gx++)for(let gy=Math.floor(top/380);gy<=Math.ceil(bottom/380);gy++){const x=gx*380+hash(gx,gy)*210,y=gy*380+hash(gy,gx)*210;if(game.region==='ashwood'&&hash(gx+9,gy)>.46){c.globalAlpha=.75;paint(c,'rune',x,y,54);c.globalAlpha=1;}}
  for(let i=0;i<24;i++){const x=left+((i*157.3+Math.sin(now*.3+i)*18)%(right-left)),y=top+((i*79.7+now*3)%(bottom-top));c.globalAlpha=(.2+Math.sin(now*1.5+i)*.15);c.fillStyle='#ccebb5';c.beginPath();c.arc(x,y,1.4,0,TAU);c.fill();}c.globalAlpha=1;

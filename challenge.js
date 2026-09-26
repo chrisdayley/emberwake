@@ -1,4 +1,5 @@
-import {SPECIAL_STAGES} from './chronicle.js?v=20';
+import {stepEclipse} from './eclipse-combat.js?v=21';
+import {SPECIAL_STAGES} from './chronicle.js?v=21';
 const TAU=Math.PI*2;
 export const challengeStage=id=>SPECIAL_STAGES.find(s=>s.id===id);
 const NAMES={frostmarch:['Rime hounds','Crystal moths','Icebound knights','Snow oracles','The White Hunt','Glacier Empress'],drowned:['Ink leeches','Coral skimmers','Anchor hulks','Pearl sirens','The Librarian Below','Leviathan of Ink'],clockwork:['Gear mites','Brass hornets','Pendulum knights','Clock sentries','The Broken Hour','Grand Automaton'],briarheart:['Thornlings','Rose wasps','Briar ogres','Bloom witches','The Rose Widow','Heartwood Devourer'],sunforge:['Solar scarabs','Flare hawks','Gilded titans','Sun acolytes','The Golden Judge','Crown of the Sun'],eclipse:['Voidlings','Star serpents','Eclipse knights','Night choirs','The Unnamed Star','Sovereign of Nothing']};
@@ -19,7 +20,7 @@ export function stepChallengeWorld(g,dt){const spec=challengeStage(g.region);if(
  if(g.region==='briarheart'&&g.time>=g.nextChallengeStrike){strike(g,p.x,p.y,70,g.enemyDamage(26),2.2);g.nextChallengeStrike=g.time+9;}
  if(g.region==='eclipse'&&g.time>=g.nextChallengeStrike){g.spawn('eclipse_2',true);g.nextChallengeStrike=g.time+35;}
 }
-export function stepChallengeEnemy(g,e,dt,dx,dy,d,spd){if(e.reaper)return stepReaper(g,e,dt,dx,dy,d);const spec=CHALLENGE_ENEMIES[e.type];if(!spec)return spd;const p=g.player,i=spec.shape;
+export function stepChallengeEnemy(g,e,dt,dx,dy,d,spd){if(e.reaper)return stepEclipse(g,e,dt);const spec=CHALLENGE_ENEMIES[e.type];if(!spec)return spd;const p=g.player,i=spec.shape;
  if(e.boss&&e.attack<=0){const damage=g.enemyDamage(38+g.time/90),a=Math.atan2(dy,dx),style=SPECIAL_STAGES.findIndex(s=>s.id===g.region);e.attackLabel=['ICE SPEARS · DODGE THE CROSS','TIDAL SHELVES · SLIP THROUGH','PENDULUM · STEP ASIDE','HUNTING PETALS · KEEP MOVING','SUNFALL · LEAVE THE LIGHT','VOID CROWN · FIND THE GAP'][style]||'WATCH THE GROUND';e.attackUntil=g.time+3;
   if(style===0||style===2)for(let j=-2;j<=2;j++)strike(g,p.x+Math.cos(a+Math.PI/2)*j*85,p.y+Math.sin(a+Math.PI/2)*j*85,32,damage,1.8+Math.abs(j)*.2);
   else if(style===1||style===4)for(let j=0;j<4;j++)strike(g,p.x+g.lastDir.x*j*80,p.y+g.lastDir.y*j*80,48,damage,1.6+j*.4);
@@ -32,10 +33,6 @@ export function stepChallengeEnemy(g,e,dt,dx,dy,d,spd){if(e.reaper)return stepRe
  return spd;
 }
 export function spawnReaper(g){if(g.reaperSpawned)return;g.reaperSpawned=true;const e=g.spawn('nightreaper',false,true);e.reaper=true;e.title='The Last Eclipse';e.hp=e.maxHp=3000000;e.speed=165;e.r=38;e.attack=2;g.emit('warning',{text:'THE LAST ECLIPSE · 3 MILLION HEALTH · Freeze, defend and keep moving'});}
-function stepReaper(g,e,dt,dx,dy,d){const fury=e.hp<e.maxHp*.5;e.attackLabel=e.slow>0?'CHILLED · KEEP DEALING DAMAGE':fury?'ENRAGED · DODGE ITS PURSUIT':'RELENTLESS · FREEZE OR OUTRUN IT';e.attackUntil=g.time+2;
- if(e.attack<=0){const p=g.player;for(let j=0;j<(fury?5:3);j++)strike(g,p.x+g.lastDir.x*j*95,p.y+g.lastDir.y*j*95,52,fury?340:280,1.5+j*.25);e.attack=fury?3.5:5;}
- return (fury?195:165)*(e.slow>0?.55:1);
-}
 export function fireLostWeapon(g,id){const rank=g.rank(id),ev=g.evolved.includes(id),p=g.player,target=g.nearest(),area=g.area();if(!['aegis','chrono','torrent','blood','solar','void'].includes(id))return false;
  if(id==='aegis'){const shield=(8+rank*3)*(ev?2:1);g.shield=Math.max(g.shield,shield);g.aoe(p.x,p.y,(95+rank*8)*area,24+rank*10,id,22);g.burst(p.x,p.y,(95+rank*8)*area,'#b8eeff',.5);g.cd[id]=5*g.haste(id);}
  if(id==='chrono'){const r=(140+rank*15)*(ev?1.4:1)*area;g.aoe(p.x,p.y,r,32+rank*12,id);for(const e of g.enemies)if(Math.hypot(e.x-p.x,e.y-p.y)<r)g.chill(e,ev?5:2,ev?3:.6+rank*.13);g.burst(p.x,p.y,r,'#ffe1a0',.6);g.cd[id]=(ev?2.5:4)*g.haste(id);}

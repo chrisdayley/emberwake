@@ -1,12 +1,12 @@
-import {challengeStage,stepChallengeWorld,spawnReaper,fireLostWeapon,challengeHazard} from './challenge.js?v=20';
-import {weaponUnlocked} from './chronicle.js?v=20';
-import {stepDiscoveries,guardSite,unlockSite} from './discoveries.js?v=20';
-import {REGIONAL_ENEMIES,ROSTERS,regionalType,regionalPool} from './bestiary.js?v=20';
-import {stepRegional,regionalDeath} from './region-combat.js?v=20';
-import {resolveTerrain,lavaAt,riftAt,safePoint} from './world.js?v=20';
-import {stepWorld,stepObjective,spawnOverlord,attackOverlord} from './expedition.js?v=20';
-import {equippedItem,gearItem,gearStats,rollGear} from './gear.js?v=20';
-import {WEAPONS,PASSIVES,RELICS,HEROES,byId,ENEMIES,WEAPON_SLOTS,PASSIVE_SLOTS} from './data.js?v=20';
+import {challengeStage,stepChallengeWorld,spawnReaper,fireLostWeapon,challengeHazard} from './challenge.js?v=21';
+import {weaponUnlocked} from './chronicle.js?v=21';
+import {stepDiscoveries,guardSite,unlockSite} from './discoveries.js?v=21';
+import {REGIONAL_ENEMIES,ROSTERS,regionalType,regionalPool} from './bestiary.js?v=21';
+import {stepRegional,regionalDeath} from './region-combat.js?v=21';
+import {resolveTerrain,lavaAt,riftAt,safePoint} from './world.js?v=21';
+import {stepWorld,stepObjective,spawnOverlord,attackOverlord} from './expedition.js?v=21';
+import {equippedItem,gearItem,gearStats,rollGear} from './gear.js?v=21';
+import {WEAPONS,PASSIVES,RELICS,HEROES,byId,ENEMIES,WEAPON_SLOTS,PASSIVE_SLOTS} from './data.js?v=21';
 export const MAX_RANGED_ENEMIES=5;
 const TAU=Math.PI*2,clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 export class Game {
@@ -114,7 +114,7 @@ export class Game {
   if(this.rank('orbit')){const rank=this.rank('orbit'),ev=this.evolved.includes('orbit'),count=ev?12:rank+1,r=(65+rank*5)*this.area();this.cd.orbit=(this.cd.orbit||0)-dt;if(this.cd.orbit<=0){for(let i=0;i<count;i++){const a=this.time*2.1+i*TAU/count,x=p.x+Math.cos(a)*r,y=p.y+Math.sin(a)*r;this.aoe(x,y,20,18+(rank-1)*7,'orbit',5);}this.cd.orbit=.18*this.haste('orbit');}}
   for(const b of this.bullets){b.life-=dt;b.age=(b.age||0)+dt;if(b.id==='scythe'&&b.age>.8){if(!b.returning){b.returning=true;b.hit=[];}const d=Math.hypot(p.x-b.x,p.y-b.y)||1;b.vx=(p.x-b.x)/d*300;b.vy=(p.y-b.y)/d*300;if(d<14)b.life=0;}if(b.id==='wisp'){const t=this.nearest(b.x,b.y);if(t){const d=Math.hypot(t.x-b.x,t.y-b.y)||1;b.vx+=(t.x-b.x)/d*600*dt;b.vy+=(t.y-b.y)/d*600*dt;const speed=Math.hypot(b.vx,b.vy)||1;b.vx=b.vx/speed*220;b.vy=b.vy/speed*220;}}b.x+=b.vx*dt;b.y+=b.vy*dt;for(const e of this.enemies){if(e.hp<=0||b.hit.includes(e.id)||b.pierce<=0)continue;if((e.x-b.x)**2+(e.y-b.y)**2<(e.r+b.r+3)**2){b.hit.push(e.id);b.pierce--;this.hit(e,b.damage,b.id);}}}
   this.bullets=this.bullets.filter(b=>b.life>0&&b.pierce>0);
-  for(const h of this.hazards){h.life-=dt;if(h.kind==='shot'){h.x+=h.vx*dt;h.y+=h.vy*dt;if(Math.hypot(h.x-p.x,h.y-p.y)<h.r+10&&this.invuln<=0){this.hurt(Math.max(3,this.enemyDamage(18+minute*.65)-this.armor()));h.life=0;}}else if(h.kind==='mine'){h.arm-=dt;if(h.arm<=0&&(h.life<=0||this.enemies.some(e=>e.hp>0&&Math.hypot(e.x-h.x,e.y-h.y)<h.trigger))){this.aoe(h.x,h.y,h.r,h.damage,h.id,25);this.burst(h.x,h.y,h.r,'#ffa778');h.life=0;}}else if(h.kind==='wave'){const radius=h.r*(1-h.life/h.max);for(const e of this.enemies)if(e.hp>0&&!h.hit.includes(e.id)&&Math.hypot(e.x-h.x,e.y-h.y)<radius+e.r){h.hit.push(e.id);this.hit(e,h.damage,h.id,35+this.rank('tide')*3);}}else if(h.kind==='eruption'){if(h.life<=0){if(Math.hypot(h.x-p.x,h.y-p.y)<h.r+10&&this.invuln<=0){this.hurt(Math.max(8,h.damage-this.armor()));}this.burst(h.x,h.y,h.r,'#ff354d',.35);}}else if(h.life<=0){this.aoe(h.x,h.y,h.r,h.damage,h.id,20);this.burst(h.x,h.y,h.r,'#ecb3e5',.5);}}
+  for(const h of this.hazards){h.life-=dt;if(h.kind==='shot'){const ox=h.x,oy=h.y;h.x+=h.vx*dt;h.y+=h.vy*dt;const sx=h.x-ox,sy=h.y-oy,t=Math.max(0,Math.min(1,((p.x-ox)*sx+(p.y-oy)*sy)/(sx*sx+sy*sy||1))),touch=h.eclipse?Math.hypot(ox+sx*t-p.x,oy+sy*t-p.y):Math.hypot(h.x-p.x,h.y-p.y);if(touch<h.r+10&&this.invuln<=0){this.hurt(Math.max(3,(h.eclipse?h.damage:this.enemyDamage(18+minute*.65))-this.armor()));h.life=0;}}else if(h.kind==='mine'){h.arm-=dt;if(h.arm<=0&&(h.life<=0||this.enemies.some(e=>e.hp>0&&Math.hypot(e.x-h.x,e.y-h.y)<h.trigger))){this.aoe(h.x,h.y,h.r,h.damage,h.id,25);this.burst(h.x,h.y,h.r,'#ffa778');h.life=0;}}else if(h.kind==='wave'){const radius=h.r*(1-h.life/h.max);for(const e of this.enemies)if(e.hp>0&&!h.hit.includes(e.id)&&Math.hypot(e.x-h.x,e.y-h.y)<radius+e.r){h.hit.push(e.id);this.hit(e,h.damage,h.id,35+this.rank('tide')*3);}}else if(h.kind==='eruption'){if(h.life<=0){if(Math.hypot(h.x-p.x,h.y-p.y)<h.r+10&&this.invuln<=0){this.hurt(Math.max(8,h.damage-this.armor()));}this.burst(h.x,h.y,h.r,'#ff354d',.35);}}else if(h.life<=0){this.aoe(h.x,h.y,h.r,h.damage,h.id,20);this.burst(h.x,h.y,h.r,'#ecb3e5',.5);}}
   this.hazards=this.hazards.filter(h=>h.life>0);
   for(const fx of this.effects){fx.life-=dt;if(fx.kind==='fire'||fx.kind==='pool'){fx.tick-=dt;if(fx.tick<=0){this.aoe(fx.x,fx.y,fx.r,fx.damage||15,fx.id||'flame');if(fx.slow)for(const e of this.enemies)if(Math.hypot(e.x-fx.x,e.y-fx.y)<fx.r)e.slow=Math.max(e.slow,.7);fx.tick=.5;}}}this.effects=this.effects.filter(f=>f.life>0);
   for(const t of this.texts){t.life-=dt;t.y-=dt*20;}this.texts=this.texts.filter(t=>t.life>0);

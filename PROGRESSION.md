@@ -21,8 +21,9 @@ Briar, Lyra and Sol now unlock from 50 lifetime kills, level 12, and surviving f
 
 Arrives once at 30:00 with 3,000,000 HP, even if another boss is alive. **Every weapon deals normal damage.** There is no ward, required recipe, automatic health regeneration, secret damage multiplier or percentage-health shortcut.
 
+- The rotating moveset includes two predictive dart bursts, a fast straight rush, a projectile wheel with a gap, and ground pursuit marks. Dart/rush aim tracks early, then locks for 0.4 seconds; dashed red tells become solid. Changing direction, sidestepping and gap positioning require different responses. Below half health, volleys/wheels get denser and recovery falls from 1.4 to 0.9 seconds. At most 36 Eclipse projectiles can coexist.
 - Contact damage starts at roughly 430 before defenses in Ashwood; regional damage scaling still applies. Red pursuit strikes deal 280, rising to 340 below half health. Movement and attack frequency also increase when enraged.
-- Winter bloom and Clock needle can freeze its movement, contact hits and new casts for up to 1.6 seconds. A 0.65-second thaw prevents an effortless permanent lock; chill still slows pursuit by 45%. Previously cast red strikes remain dangerous.
+- Winter bloom and Clock needle can freeze its movement, contact hits and new casts for up to 1.6 seconds. A 0.65-second thaw prevents an effortless permanent lock; chill still slows pursuit by 45%. Previously cast red strikes and projectiles remain dangerous.
 - Stone oath adds 8% damage reduction per rank alongside its existing armor. Evolved Frost aegis adds 30% reduction and its refreshing shield. These effects work independently against all damage, with no boss-specific hit cap.
 - Health, recovery, life-stealing equipment, recharge, damage and Ascensions support freely chosen builds. The Unlocks page offers strategy suggestions rather than mandatory combinations.
 
@@ -41,4 +42,4 @@ Sources consulted:
 
 ## Verification
 
-16 Node suites cover legacy saves, unlocks, all weapons, stage terrain, balance, audio continuity and the boss. Boss-specific tests check normal damage from all 22 weapons, no regeneration or hidden bonuses, freeze/thaw behavior, saved freeze state, still-dangerous pre-cast attacks, independent damage reduction/shielding and legal six-weapon combat pilots. Pilots isolate the boss from ambient hordes and do not represent full expedition difficulty. Browser sandbox uses actual game/renderer modules without accessing localStorage.
+17 Node suites cover legacy saves, unlocks, all weapons, stage terrain, balance, audio continuity and the boss. Boss-specific tests check normal damage from all 22 weapons, no regeneration or hidden bonuses, freeze/thaw behavior, saved freeze and charge state, attack tells and locked aim, projectile caps and swept collision, predictable versus reactive movement, still-dangerous pre-cast attacks, independent damage reduction/shielding and legal six-weapon combat pilots. Pilots isolate the boss from ambient hordes and do not represent full expedition difficulty. Browser sandbox uses actual game/renderer modules without accessing localStorage.
