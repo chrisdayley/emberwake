@@ -25,6 +25,6 @@ export function stepEclipse(g,e,dt){const fury=e.hp<e.maxHp*.5,p=g.player;
 }
 function finish(e,fury){e.eclipseAction=null;e.attack=fury?.9:1.4;}
 export function drawEclipseTell(c,e){const a=e.eclipseAction;if(!a||a.kind==='ground')return;c.save();c.translate(e.x,e.y);c.rotate(a.angle);c.strokeStyle='#ff354d';c.fillStyle='#ff354d22';c.lineWidth=a.locked?4:2;c.setLineDash(a.locked?[]:[10,7]);
- if(a.kind==='charge'){const length=(e.hp<e.maxHp*.5?700:610)*.58*(e.slow>0?.7:1);c.fillRect(0,-44,length,88);c.strokeRect(0,-44,length,88);c.beginPath();c.moveTo(length-25,-16);c.lineTo(length,0);c.lineTo(length-25,16);c.stroke();}
+ if(a.kind==='charge'){const length=(e.hp<e.maxHp*.5?700:610)*(a.phase==='rush'?Math.max(0,a.timer):.58)*(e.slow>0?.7:1);c.fillRect(0,-44,length,88);c.strokeRect(0,-44,length,88);c.beginPath();c.moveTo(length-25,-16);c.lineTo(length,0);c.lineTo(length-25,16);c.stroke();}
  else if(a.kind==='volley'){for(const angle of [-.28,0,.28]){c.beginPath();c.moveTo(0,0);c.lineTo(Math.cos(angle)*330,Math.sin(angle)*330);c.stroke();}c.beginPath();c.arc(0,0,40,0,TAU);c.stroke();}
  else{const count=e.hp<e.maxHp*.5?20:16;c.beginPath();c.arc(0,0,75,TAU*2/count,TAU*(count-2)/count);c.stroke();}c.restore();}
