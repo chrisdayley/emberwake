@@ -1,16 +1,13 @@
 import assert from 'node:assert/strict';
-import {THEMES,scoreState,scoreNotes,scorePosition} from '../dist/music.js';
-const results=[];
+import {THEMES,scoreState,scoreNotes,scorePosition} from '../music.js';
+const signatures=new Set(),reports=[];
 for(const region of Object.keys(THEMES)){
- const blocks=[],bars=[],events=[];let t=0;
- for(let block=0;block<32;block++)blocks.push(JSON.stringify(Array.from({length:64},(_,j)=>scoreNotes(region,0,block*64+j))));
- for(let bar=0;bar<128;bar++)bars.push(JSON.stringify(Array.from({length:16},(_,j)=>scoreNotes(region,0,bar*16+j).filter(n=>n.voice==='lead'))));
- assert(new Set(blocks).size>=28,region+' needs distinct four-bar passages');assert(new Set(bars).size>=60,region+' needs varied melody bars');
- const levels=[0,120,240,420,600,900,1200,1500].map(seconds=>{let count=0;const voices=new Set();for(let s=0;s<2048;s++){for(const n of scoreNotes(region,seconds,s)){count++;voices.add(n.voice);assert(Number.isFinite(n.midi)&&n.midi>=0&&n.midi<110);assert(n.duration>0&&n.duration<8);assert(n.gain>0&&n.gain<=.2);}}return {seconds,count,voices:[...voices]};});
- for(let j=1;j<levels.length;j++)assert(levels[j].count>levels[j-1].count||(levels[j].seconds===1500&&levels[j].count===levels[j-1].count),region+' must develop at each survival milestone');
- for(let step=0;step<2048;step++){for(const n of scoreNotes(region,1500,step)){events.push([t+(n.delay||0),1]);events.push([t+(n.delay||0)+n.duration+.02,-1]);}t+=60/scoreState(region,1500).bpm/4;}
- events.sort((a,b)=>a[0]-b[0]||a[1]-b[1]);let concurrent=0,max=0;for(const [,delta]of events){concurrent+=delta;max=Math.max(max,concurrent);}assert(max<64,'Composition must fit voice cap without dropping music');
- assert.equal(new Set(Array.from({length:8},(_,i)=>scorePosition(i*256).section)).size,8);
- results.push({region,openingLoopSeconds:128*4*60/THEMES[region].bpm,distinctFourBarPassages:new Set(blocks).size,distinctMelodyBars:new Set(bars).size,maxConcurrentVoices:max,levels});
-}
-console.log(JSON.stringify(results,null,2));
+ const melody=(seconds,start=0)=>Array.from({length:64},(_,i)=>scoreNotes(region,seconds,start+i).filter(n=>n.voice==='lead').map(n=>[n.midi,n.duration]));
+ // Catchiness now deliberately uses recurring hooks; random-looking bar diversity was the old failure.
+ assert.deepEqual(melody(0,0),melody(0,512),'refrain returns intact');
+ assert.notDeepEqual(melody(0,0),melody(0,256),'answer is a distinct melody');
+ assert.notDeepEqual(melody(0,0),melody(600,0),'nightfall has a new battle refrain, not just added volume');
+ signatures.add(JSON.stringify(melody(0)));
+ const acts=[];for(const seconds of [0,300,600,900,1200,1500]){let t=0;const events=[],signature=[];for(let step=0;step<2048;step++){const notes=scoreNotes(region,seconds,step);signature.push(notes);for(const n of notes){assert(Number.isFinite(n.midi)&&n.midi>=0&&n.midi<110);assert(n.duration>0&&n.duration<8);assert(n.gain>0&&n.gain<=.2);events.push([t+(n.delay||0),1],[t+(n.delay||0)+n.duration+.02,-1]);}t+=60/scoreState(region,seconds).bpm/4;}events.sort((a,b)=>a[0]-b[0]||a[1]-b[1]);let live=0,peak=0;for(const [,d]of events){live+=d;peak=Math.max(peak,live);}assert(peak<64,'score fits mobile voice budget');acts.push(JSON.stringify(signature));}
+ assert.equal(new Set(acts).size,6);assert.equal(new Set(Array.from({length:8},(_,i)=>scorePosition(i*256).section)).size,8);reports.push({region,loopSeconds:128*240/THEMES[region].bpm,arrangements:6});
+}assert.equal(signatures.size,Object.keys(THEMES).length);console.log(JSON.stringify(reports));

@@ -1,6 +1,6 @@
-import {stepChallengeEnemy} from './challenge.js?v=24';
-import {REGIONAL_ENEMIES} from './bestiary.js?v=24';
-import {safePoint} from './world.js?v=24';
+import {stepChallengeEnemy} from './challenge.js?v=25';
+import {REGIONAL_ENEMIES} from './bestiary.js?v=25';
+import {safePoint} from './world.js?v=25';
 const TAU=Math.PI*2;
 // Shared cap covers delayed ground attacks as well as death bursts, not only bullets.
 export function regionStrike(g,e,x,y,r=45,warning=1.6,damage=24){

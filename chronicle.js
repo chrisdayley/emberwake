@@ -1,4 +1,5 @@
-import {RELIC_WEAPONS,WEAPON_FEATS} from './relic-weapons.js?v=24';
+import {SECRET_STAGE,SECRET_WEAPONS} from './secrets.js?v=25';
+import {RELIC_WEAPONS,WEAPON_FEATS} from './relic-weapons.js?v=25';
 // Achievement progression is additive: already-owned characters, spells and maps stay owned.
 export const SPECIAL_STAGES=[
  {id:'frostmarch',name:'Frostmarch',color:'#9de8f4',floor:'#142d39',tag:'Blizzards · Shelter at braziers',desc:'Icebound avenues, hunting crystal beasts and blizzards. Stay near a brazier when the snow closes in.',requirement:'Defeat a guardian in Ashwood',music:'ashwood',strength:1.5,hero:'winter',weapon:'aegis'},
@@ -8,6 +9,7 @@ export const SPECIAL_STAGES=[
  {id:'sunforge',name:'Sunforge Citadel',color:'#ffce80',floor:'#352720',tag:'Crossing lava canals · Solar eruptions',desc:'Solar constructs guard crossing lava canals. Safe stone squares connect a lattice of narrow bridges.',requirement:'Survive 10 minutes in Cinder Wastes',music:'cinder',strength:4,hero:'sunwarden',weapon:'solar'},
  {id:'eclipse',name:'Eclipse Throne',color:'#d2b4fc',floor:'#171326',tag:'Endgame · Void wells · Accelerated elite waves',desc:'Defeat the Last Eclipse to open its throne. Void wells, living constellations and relentless elites test your strongest equipment.',requirement:'Defeat the Last Eclipse at 30:00',music:'hollow',strength:6,hero:'eclipseborn',weapon:'void'}
 ];
+SPECIAL_STAGES.push(SECRET_STAGE);
 export const EXTRA_WEAPONS=[
  {id:'aegis',name:'Frost aegis',icon:'⬡',color:'#b8eeff',desc:'A protective frost pulse grants a small shield and strikes nearby enemies.',base:'24 damage · shield every 5s',upgrade:'More shielding, damage and range.',evo:'Everglass mantle',pair:'guard',evoDesc:'A larger shield, powerful frost pulse and 30% damage reduction. Stacks with Stone oath.',unlock:'Survive 10 minutes in Frostmarch'},
  {id:'torrent',name:'Coral chorus',icon:'≋',color:'#8fefdf',desc:'Three spiralling currents sweep outward and push enemies away.',base:'28 damage · 3 waves every 3s',upgrade:'Wider, stronger currents.',evo:'Leviathan hymn',pair:'reach',evoDesc:'Six sweeping currents scour the battlefield.',unlock:'Survive 10 minutes in Drowned Archive'},
@@ -16,7 +18,7 @@ export const EXTRA_WEAPONS=[
  {id:'solar',name:'Solar writ',icon:'☀',color:'#ffe499',desc:'Four radiant bolts fan toward the horde with deep piercing.',base:'38 damage · 4 bolts every 2s',upgrade:'More piercing, damage and rays.',evo:'Judgment dawn',pair:'power',evoDesc:'Nine deeply piercing rays. Combine freely with damage, critical and recharge upgrades.',unlock:'Survive 10 minutes in Sunforge Citadel'},
  {id:'void',name:'Night singularity',icon:'◉',color:'#c9b5ff',desc:'A collapsing well draws distant enemies together before detonating.',base:'80 damage · every 4s',upgrade:'A larger pull and stronger implosion.',evo:'Event horizon',pair:'wisdom',evoDesc:'Three void collapses devour clustered enemies.',unlock:'Survive 10 minutes in Eclipse Throne'}
 ];
-EXTRA_WEAPONS.push(...RELIC_WEAPONS);
+EXTRA_WEAPONS.push(...RELIC_WEAPONS,...SECRET_WEAPONS);
 export const EXTRA_HEROES=[
  {id:'winter',name:'Eira',title:'The winter knight',weapon:'frost',color:'#a1e5f4',bonus:'+45 health · +2 armor · Winter bloom',health:45,armor:2},
  {id:'diver',name:'Neris',title:'The tidekeeper',weapon:'tide',color:'#87ddcd',bonus:'+25 pickup radius · +12% area · Undertow',magnet:25,area:.12},
@@ -39,7 +41,7 @@ export const UNLOCKS=[
  {id:'map_sun',name:'A furnace beyond',desc:stage('sunforge').requirement,kind:'stage',reward:'sunforge',label:'Sunforge Citadel',target:600,value:s=>s.regionBest.cinder||0},
  {id:'map_eclipse',name:'Death is not the end',desc:stage('eclipse').requirement,kind:'stage',reward:'eclipse',label:'Eclipse Throne',target:1,value:s=>any(s,'reaper')},
  ...RELIC_WEAPONS.map(w=>({id:'weapon_'+w.id,name:'Boss trophy · '+w.name,desc:w.unlock,kind:'weapon',reward:w.id,label:w.name,target:1,value:s=>any(s,w.feat)})),
- ...SPECIAL_STAGES.flatMap(s=>[
+ ...SPECIAL_STAGES.filter(s=>!s.secret).flatMap(s=>[
   {id:'hero_'+s.hero,name:s.name+' · The captive',desc:'Claim a guarded discovery in '+s.name,kind:'hero',reward:s.hero,label:EXTRA_HEROES.find(h=>h.id===s.hero).name,target:1,value:save=>rec(save,s.id).sites||0},
   {id:'weapon_'+s.weapon,name:s.name+' · The lost art',desc:'Survive 10 minutes in '+s.name,kind:'weapon',reward:s.weapon,label:EXTRA_WEAPONS.find(w=>w.id===s.weapon).name,target:600,value:save=>save.regionBest[s.id]||0}
  ])

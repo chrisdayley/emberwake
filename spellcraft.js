@@ -6,6 +6,8 @@ const shots=(name,max=3,amount=1)=>track('projectiles',name,`+${amount} projecti
 const pierce=(name,amount=2)=>track('pierce',name,`Pierce ${amount} additional enemies per rank`,4,180);
 const duration=name=>track('duration',name,'+20% chill and freeze duration per rank; Eclipse freeze limit also grows');
 export const SIGNATURE_TRACKS={
+ hush:[radius('Echo chamber'),shots('Resonant seals',2)],
+ compass:[shots('Wandering chorus'),track('duration','Long voyage','Stars fly +0.4 seconds per rank')],
  tempest:[track('projectiles','Storm fronts','+1 lightning strike per cast per rank',3,450,2.2),radius('Thunderhead')],
  hourglass:[shots('Split timelines',2),duration('Suspended moment')],
  verdict:[track('projectiles','Final appeals','+1 crossing blade per cast per rank',2,600,2.2),track('width','Execution edge','+15% spectral blade width per rank')],

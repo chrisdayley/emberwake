@@ -1,0 +1,19 @@
+import assert from 'node:assert/strict';
+import {Game} from '../engine.js';
+import {Game as Previous} from '../work/arsenal-baseline-engine.mjs';
+import {freshSave,WEAPONS,ENEMIES} from '../data.js';
+const checks=[];
+function maxRankPicks(Engine,seed){const g=new Engine(freshSave());g.rng=seed;for(let pick=1;pick<100;pick++){g.offers();g.mode='levelup';g.choose(g.choices.includes('bolt')?'bolt':g.choices[0]);if(Object.entries(g.skills).some(([id,n])=>WEAPONS.some(w=>w.id===id)&&n===8))return pick;}return 100;}
+const seeds=Array.from({length:200},(_,i)=>101+i*571),mean=a=>a.reduce((n,v)=>n+v,0)/a.length;
+const progression={previousMeanPicksToFirstMax:mean(seeds.map(s=>maxRankPicks(Previous,s))),newMeanPicksToFirstMax:mean(seeds.map(s=>maxRankPicks(Game,s)))};
+assert(progression.newMeanPicksToFirstMax>progression.previousMeanPicksToFirstMax*1.25);checks.push('Focused upgrade selection takes materially longer to max a weapon across 200 seeds');
+const pressure=[];
+for(const minute of [2,3,4]){const g=new Game(freshSave());g.skills={};g.time=minute*60;g.waveMinute=minute;g.nextBoss=g.nextElite=g.nextCache=g.nextHeal=1e8;g.invuln=1e8;const old=new Previous(freshSave());old.time=g.time;let spawned=0;const spawn=g.spawn.bind(g);g.spawn=(...args)=>{spawned++;return spawn(...args)};for(let frame=0;frame<600;frame++)g.step(1/60);pressure.push({minute,spawnedIn10s:spawned,currentCap:g.difficulty().cap,previousCap:old.difficulty().cap});assert(g.rangedCount()<=5);}
+assert(pressure[1].spawnedIn10s>=pressure[0].spawnedIn10s*1.05);assert(pressure[2].spawnedIn10s>pressure[1].spawnedIn10s);checks.push('Real spawn loop ramps gradually at minutes 3 and 4 while retaining five-shooter cap');
+for(let minute=1;minute<=8;minute++){let events=[];const g=new Game(freshSave(),(type,data)=>events.push({type,...data}));g.skills={};g.time=minute*60-.01;g.waveMinute=minute-1;g.invuln=1e6;g.step(.02);for(const [id,spec]of Object.entries(ENEMIES).filter(([,s])=>s.minute===minute&&!s.region)){assert(g.enemies.some(e=>e.type===id),`${id} arrives at minute ${minute}`);g.time=minute*60-1;for(let i=0;i<500;i++)assert.notEqual(g.enemyType(),id,`${id} must not arrive early`);}}checks.push('New enemy types arrive at every minute 1 through 8 and never in earlier random waves');
+const g=new Game(freshSave());g.random=()=>1;g.time=180;const beetle=g.spawn('ironhide');const brute=g.spawn('brute');assert(beetle.hp>brute.hp*1.9);const initial=beetle.hp;g.hit(beetle,100,'bolt');assert.equal(Math.round(initial-beetle.hp),Math.round(100*g.damage()*.8));checks.push('Minute-three armor has twice brute health plus damage resistance');
+const regen=new Game(freshSave());regen.skills={};regen.spawnClock=100;regen.time=420;regen.waveMinute=7;regen.nextElite=regen.nextBoss=regen.nextHeal=regen.nextCache=1e9;const leech=regen.spawn('leech');leech.hp=leech.maxHp/2;const hp=leech.hp;regen.step(.05);assert(leech.hp>hp);checks.push('Thorn leeches regenerate');
+const chest=new Game(freshSave());chest.skills={bolt:1,spear:1,mine:1};chest.random=()=>0;chest.openChest({rewards:3,gold:100});assert.equal(new Set(chest.chestReward.rewards.map(r=>r.id)).size,3);checks.push('Chest upgrades spread across available equipment before repeating');
+for(const weapon of WEAPONS){const q=new Game(freshSave());q.skills={[weapon.id]:1};q.invuln=1e6;q.spawnClock=1e6;const e=q.spawn('brute');e.x=65;e.y=0;e.speed=0;e.hp=e.maxHp=1e6;for(let frame=0;frame<300;frame++)q.step(1/60);assert(q.damageDone[weapon.id]>0,`${weapon.id} rank one must damage enemies`);}checks.push('All 16 weapons work at rank one, before evolution');
+const restored=new Game(freshSave(),()=>{},regen.snapshot());assert.equal(restored.enemies[0].type,'leech');assert.equal(restored.waveMinute,7);checks.push('New enemy state survives save and resume');
+console.log(JSON.stringify({checks,progression,pressure},null,2));

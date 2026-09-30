@@ -39,6 +39,7 @@ for(const id of ['tempest','briar'])check(id,'radius',g=>{g.fire(id);return Math
 check('briar','retaliation',g=>{g.hurt(1);return g.damageDone.briar;});
 check('hourglass','duration',g=>{const e=g.enemies[0];e.reaper=e.boss=true;g.fire('hourglass');g.step(.05);return e.frozenUntil;});
 for(const key of ['radius','duration'])check('inferno',key,g=>{g.fire('inferno');g.step(.05);const pool=g.effects.find(e=>e.kind==='pool');assert(pool);return key==='radius'?pool.r:pool.life;});
+check('hush','radius',g=>{g.fire('hush');return g.hazards[0].r;});check('hush','projectiles',g=>{g.fire('hush');return g.hazards.length;});check('compass','projectiles',g=>{g.fire('compass');return g.bullets.length;});check('compass','duration',g=>{g.fire('compass');return g.bullets[0].life;});
 assert.equal(covered.size,Object.values(SIGNATURE_TRACKS).flat().length);
 // Health investment is dormant before the relevant passive is acquired.
 for(const id of ['regen','vitality']){const g=game(id,Object.fromEntries(SIGNATURE_TRACKS[id].map(t=>[t.id,t.max])));g.skills={};g.player.hp=10;g.step(.05);assert.equal(g.player.hp,10);assert.equal(g.maxHp(),100);}

@@ -12,7 +12,7 @@ const signatures=[];
 for(const region of Object.keys(THEMES)){
  const opening=Array.from({length:64},(_,i)=>scoreNotes(region,0,i)),late=Array.from({length:64},(_,i)=>scoreNotes(region,1200,i));signatures.push(JSON.stringify(opening));assert(late.flat().length>opening.flat().length);assert(scoreState(region,1200).bpm>scoreState(region,0).bpm);assert.deepEqual(scoreState(region,1500),scoreState(region,1e6));
  for(const note of [...opening.flat(),...late.flat()]){assert(note.gain>0&&note.gain<=.2);assert(note.duration>0&&Number.isFinite(note.duration));}
-}assert.equal(new Set(signatures).size,9);checks.push('Nine distinct scores gain tempo and instruments with survival time; intensity remains bounded in endless runs');
+}assert.equal(new Set(signatures).size,10);checks.push('Ten distinct scores gain tempo and instruments with survival time; intensity remains bounded in endless runs');
 class Param{constructor(){this.value=0;}setValueAtTime(v){assert(Number.isFinite(v));}exponentialRampToValueAtTime(v){assert(v>0&&Number.isFinite(v));}setTargetAtTime(v){assert(Number.isFinite(v));}cancelScheduledValues(){}}
 class Node{constructor(){this.gain=this.frequency=this.threshold=this.ratio=new Param();}connect(){}disconnect(){this.disconnected=true;}start(t){assert(t>=0);}stop(t){assert(t>=0);this.stops=(this.stops||0)+1;}}
 const ctx={currentTime:0,state:'running',sampleRate:8000,destination:{},createGain:()=>new Node(),createBiquadFilter:()=>new Node(),createDynamicsCompressor:()=>new Node(),createOscillator:()=>new Node(),createBufferSource:()=>new Node(),createBuffer:()=>({getChannelData:()=>new Float32Array(8000)})};
