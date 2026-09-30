@@ -1,5 +1,5 @@
-import {safePoint} from './world.js?v=25';
-import {GUARDIANS,REGIONAL_ENEMIES} from './bestiary.js?v=25';
+import {safePoint} from './world.js?v=26';
+import {GUARDIANS,REGIONAL_ENEMIES} from './bestiary.js?v=26';
 export const DISCOVERIES={
  vault:{name:'Sealed vault',icon:'▣',color:'#ffd17e',reward:'Gold + 5 upgrades + Epic-or-better gear'},
  altar:{name:'Spell altar',icon:'✦',color:'#cfadff',reward:'Choose an Ascension + gold'},

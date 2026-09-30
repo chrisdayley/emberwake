@@ -1,5 +1,5 @@
-import {THEMES,scoreState,scoreNotes,scorePosition} from './score.js?v=25';
-export {THEMES,scoreState,scoreNotes,scorePosition} from './score.js?v=25';
+import {THEMES,scoreState,scoreNotes,scorePosition} from './score.js?v=26';
+export {THEMES,scoreState,scoreNotes,scorePosition} from './score.js?v=26';
 export function musicSettings(settings={}){return {enabled:typeof settings.music==='boolean'?settings.music:settings.sound!==false,volume:Number.isFinite(settings.musicVolume)?Math.max(0,Math.min(1,settings.musicVolume)):.4};}
 const frequency=midi=>440*2**((midi-69)/12);
 export class AdaptiveMusic{

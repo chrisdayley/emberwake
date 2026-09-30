@@ -12,7 +12,7 @@ A character equips one persistent weapon. The collection is shared, while each c
 | Epic | Another family-specific boost such as critical chance, knockback, pickup radius, damage, area, or recharge |
 | Legendary | Every acquired spell starts one rank higher, including starting spells; maximum rank remains 8 |
 | Mythic | Life steal, periodic shielding, reflected contact damage, or critical damage |
-| Godly | One additional free revive per expedition |
+| Godly | Unique family power: offensive, defensive, control, summon or dash mechanic |
 
 Each tier retains all earlier boosts. Numeric bonuses scale with rarity and temper level. Stat scale is `1 + 0.18 × tierIndex + 0.08 × temperLevel`. Shields refill every 20 active-combat seconds. Life steal uses actual damage dealt, excluding excess overkill. Reflected damage is triggered by contact hits; it does not reflect ranged hazards.
 
@@ -50,3 +50,13 @@ Inventory illustrations, character previews, and in-combat held weapons use the 
 The abrupt bonuses at minutes three/four and the periodic 1.4× surge were removed. Wave size now carries fractional spawn credit between ticks and grows continuously. Enemy cap also grows gradually. New enemy types keep their arrival times and ease into the random spawn mix over their first minute. The global five-shooter cap remains.
 
 Signature track details live in `spellcraft.js`; all 58 have combat-effect tests. Existing generic purchases and spent gold persist unchanged. Springwater and Ironbark also have unique health/recovery tracks that require acquiring their passive during a run.
+
+## Godly identity (v26)
+
+Each of the 16 families now grants a named seventh power, documented in `godly.js` and previewed by the Armory at every rarity. Existing Godly inventory automatically gains it with no repurchase; IDs, temper levels, gold, and character equipment references stay unchanged. Suspended runs recalculate the family power while preserving remaining revives, HP, gear, and progress. New expeditions receive the standard revive and any character revive, without the old universal gear revive.
+
+Power cooldowns, hit/kill counters, buff expiry, blight stacks and dragonfire pools are saved. Equipment powers use no spell slot and continue after weapon unions. Procs cannot trigger themselves; periodic effects and targets are bounded. Offensive ability base damage scales by 8% per temper level, then by character damage and criticals. Flat percent powers use their stated values. Bosses resist the long ordinary freeze and cannot be executed. Tidal projectile clearing leaves ground warnings intact.
+
+Life steal remains rate-limited to 2 + 1.2% maximum health per second. The new powers do not increase passive regeneration. A periodic Mythic ward now never overwrites a larger active shield.
+
+Validation: `tests/godly.test.mjs` exercises all 16 real effects, cooldowns, bounded state, saves, legacy remaining revives, ascension spending and temper scaling. The Eclipse shield pilot uses a Godly maul plus fully invested shield/healing spell signatures now that the shared extra revive is gone.

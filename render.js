@@ -1,14 +1,15 @@
-import {drawUnions} from './unions.js?v=25';
-import {drawSecrets} from './secrets.js?v=25';
-import {safePoint} from './world.js?v=25';
-import {drawEclipseTell} from './eclipse-combat.js?v=25';
-import {challengeHazard} from './challenge.js?v=25';
-import {challengeSprite,drawChallengeWorld} from './challenge-art.js?v=25';
-import {drawDanger,DANGER_RED} from './danger.js?v=25';
-import {drawDiscoveries,drawDiscoveryCompass} from './discovery-render.js?v=25';
-import {REGIONAL_ENEMIES} from './bestiary.js?v=25';
-import {drawWorld,drawObjectiveArrows,enemyCrown} from './world-render.js?v=25';
-import {drawGear} from './gear-art.js?v=25';
+import {drawGodly} from './godly.js?v=26';
+import {drawUnions} from './unions.js?v=26';
+import {drawSecrets} from './secrets.js?v=26';
+import {safePoint} from './world.js?v=26';
+import {drawEclipseTell} from './eclipse-combat.js?v=26';
+import {challengeHazard} from './challenge.js?v=26';
+import {challengeSprite,drawChallengeWorld} from './challenge-art.js?v=26';
+import {drawDanger,DANGER_RED} from './danger.js?v=26';
+import {drawDiscoveries,drawDiscoveryCompass} from './discovery-render.js?v=26';
+import {REGIONAL_ENEMIES} from './bestiary.js?v=26';
+import {drawWorld,drawObjectiveArrows,enemyCrown} from './world-render.js?v=26';
+import {drawGear} from './gear-art.js?v=26';
 const TAU=Math.PI*2;
 const atlas=new Image();atlas.src='sprites.png';const enemyAtlas=new Image();enemyAtlas.src='enemies-v7.png';const regionAtlases={hollow:new Image(),cinder:new Image()};for(const [region,img]of Object.entries(regionAtlases))img.src=region+'-v11.png';export const artReady=Promise.all([atlas.decode(),enemyAtlas.decode(),...Object.values(regionAtlases).map(img=>img.decode())]).catch(()=>{});
 const enemyRects={ironhide:[12,16,495,480],reaver:[531,10,493,482],revenant:[1060,0,454,492],juggernaut:[0,496,512,512],leech:[529,510,495,494],champion:[1050,500,464,506]};
@@ -53,7 +54,7 @@ export class Renderer {
  c.globalAlpha=1;
  for(const b of game.bullets){if(b.x<left-30||b.x>right+30||b.y<top-30||b.y>bottom+30)continue;c.globalAlpha=settings.fx;if(b.id==='scythe'||b.id==='axe'){c.save();c.translate(b.x,b.y);c.rotate(now*11);const size=1+game.craft(b.id,'width')*.12;c.scale(size,size);c.strokeStyle=b.color;c.fillStyle=b.color;c.lineWidth=4;if(b.id==='scythe'){c.beginPath();c.arc(0,0,14,-1.5,1.2);c.stroke();c.strokeStyle='#fff2ff';c.lineWidth=2;c.beginPath();c.arc(0,0,11,-1.5,1.2);c.stroke();}else{c.fillRect(-2,-15,4,30);c.beginPath();c.moveTo(-12,-12);c.lineTo(11,-9);c.lineTo(14,1);c.lineTo(-12,2);c.closePath();c.fill();c.strokeStyle='#fff3cf';c.lineWidth=2;c.stroke();}c.restore();continue;}if(b.id==='wisp'){c.fillStyle=b.color;c.beginPath();c.arc(b.x,b.y,7,0,TAU);c.fill();c.fillStyle='#effff9';c.beginPath();c.arc(b.x,b.y,3,0,TAU);c.fill();}c.drawImage(glow,b.x-20,b.y-20,40,40);c.strokeStyle=b.color;c.lineWidth=b.r+2;c.lineCap='round';c.beginPath();c.moveTo(b.x-b.vx*.045,b.y-b.vy*.045);c.lineTo(b.x,b.y);c.stroke();c.strokeStyle='#fff8de';c.lineWidth=2;c.beginPath();c.moveTo(b.x-b.vx*.022,b.y-b.vy*.022);c.lineTo(b.x,b.y);c.stroke();c.lineCap='butt';}c.globalAlpha=1;
  if(game.rank('orbit')){let rank=game.rank('orbit'),ev=game.evolved.includes('orbit'),n=(ev?12:rank+1)+game.craft('orbit','projectiles'),r=(65+rank*5)*game.spellArea('orbit');c.strokeStyle='#b2acf1';c.globalAlpha=.13;c.lineWidth=1;c.beginPath();c.arc(p.x,p.y,r,0,TAU);c.stroke();c.globalAlpha=1;for(let i=0;i<n;i++){let a=game.time*2.1+i*TAU/n;c.save();c.translate(p.x+Math.cos(a)*r,p.y+Math.sin(a)*r);c.rotate(a+Math.PI/4);c.strokeStyle=ev?'#f0d9ff':'#bfb3ff';c.lineWidth=5;c.beginPath();c.arc(0,0,13,-1.5,1.1);c.stroke();c.strokeStyle='#fff7ff';c.lineWidth=2;c.beginPath();c.arc(0,0,11,-1.4,1);c.stroke();c.restore();}}
- drawUnions(c,game,settings.fx);
+ drawUnions(c,game,settings.fx);drawGodly(c,game,settings.fx);
   // Hostile tells stay readable over player spell effects, at every FX setting.
  drawDanger(c,game.hazards,now);for(const e of game.enemies)if(e.reaper&&e.hp>0)drawEclipseTell(c,e);
  // Player outline and indicator always render above effects.

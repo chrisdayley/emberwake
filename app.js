@@ -1,17 +1,18 @@
-import {ensureSecrets,validSecrets,traderFound,recordSecrets,buyTrade,equipCharm} from './secrets.js?v=25';
-import {UNIONS,unionFor,validUnionRun} from './unions.js?v=25';
-import {traderUI,unionRecipes} from './adventure-ui.js?v=25';
-import {WEAPON_FEATS} from './relic-weapons.js?v=25';
-import {ensureChronicle,recordChronicle,validChronicle,weaponUnlocked,heroRequirement,regionRequirement} from './chronicle.js?v=25';
-import {chronicleUI} from './chronicle-ui.js?v=25';
-import {AdaptiveMusic,musicSettings} from './music.js?v=25';
-import {ensureRegions,recordRegion,regionUnlocked} from './world.js?v=25';
-import {TIERS,gearItem,equippedItem,ensureProgression,validProgression,claimPendingGear,buyCommon,equipGear,temperGear,ascendGear,buySpell} from './gear.js?v=25';
-import {gearIcon} from './gear-art.js?v=25';
-import {armory,spellforge} from './equipment-ui.js?v=25';
-import {WEAPONS,PASSIVES,RELICS,HEROES,META,REGIONS,MILESTONES,byId,costOf,freshSave,ENEMIES,WEAPON_SLOTS,PASSIVE_SLOTS} from './data.js?v=25';
-import {Game} from './engine.js?v=25';
-import {Renderer,heroSprite,artReady,equippedPortrait} from './render.js?v=25';
+import {validGodly} from './godly.js?v=26';
+import {ensureSecrets,validSecrets,traderFound,recordSecrets,buyTrade,equipCharm} from './secrets.js?v=26';
+import {UNIONS,unionFor,validUnionRun} from './unions.js?v=26';
+import {traderUI,unionRecipes} from './adventure-ui.js?v=26';
+import {WEAPON_FEATS} from './relic-weapons.js?v=26';
+import {ensureChronicle,recordChronicle,validChronicle,weaponUnlocked,heroRequirement,regionRequirement} from './chronicle.js?v=26';
+import {chronicleUI} from './chronicle-ui.js?v=26';
+import {AdaptiveMusic,musicSettings} from './music.js?v=26';
+import {ensureRegions,recordRegion,regionUnlocked} from './world.js?v=26';
+import {TIERS,gearItem,equippedItem,ensureProgression,validProgression,claimPendingGear,buyCommon,equipGear,temperGear,ascendGear,buySpell} from './gear.js?v=26';
+import {gearIcon} from './gear-art.js?v=26';
+import {armory,spellforge} from './equipment-ui.js?v=26';
+import {WEAPONS,PASSIVES,RELICS,HEROES,META,REGIONS,MILESTONES,byId,costOf,freshSave,ENEMIES,WEAPON_SLOTS,PASSIVE_SLOTS} from './data.js?v=26';
+import {Game} from './engine.js?v=26';
+import {Renderer,heroSprite,artReady,equippedPortrait} from './render.js?v=26';
 const $=s=>document.querySelector(s),root=$('#app'),KEY='emberwake-save-v1';let save=freshSave(),storageOK=true;
 try {const raw=localStorage.getItem(KEY);if(raw){let old=JSON.parse(raw);validateSave(old);save={...save,...old,settings:{...save.settings,...old.settings},stats:{...save.stats,...old.stats}}}}catch{storageOK=false;}
 ensureSecrets(save);ensureProgression(save);ensureRegions(save);ensureChronicle(save);recordChronicle(save,save.run);
@@ -101,7 +102,7 @@ function validateSave(s){
  if(r.relics!==undefined&&(!r.relics||Array.isArray(r.relics)||typeof r.relics!=='object'||Object.entries(r.relics).some(([id,n])=>!RELICS.some(a=>a.id===id&&Number.isInteger(n)&&n>=0&&n<=a.max))))fail();
  if(r.objective!==undefined&&r.objective!==null&&(!r.objective||!Array.isArray(r.objective.nodes)||r.objective.nodes.length!==3||!num(r.objective.expires)||r.objective.nodes.some(n=>!n||!Number.isFinite(n.x)||!Number.isFinite(n.y)||typeof n.taken!=='boolean')))fail();
  for(const k of ['nextObjective','nextWorldStrike','objectivesCompleted'])if(r[k]!==undefined&&!num(r[k]))fail();
- if(!validUnionRun(r))fail();
+ if(!validUnionRun(r)||!validGodly(r))fail();
  if(r.banished!==undefined&&(!Array.isArray(r.banished)||r.banished.length>100||r.banished.some(id=>!byId(id))))fail();
  if(r.secretClaims!==undefined&&(!Array.isArray(r.secretClaims)||!validSecrets({secrets:{found:r.secretClaims,purchases:{},charm:'',unions:[]}})))fail();
  if(r.charm!==undefined&&!['','glass','storm','wander','gilt'].includes(r.charm))fail();
@@ -129,5 +130,5 @@ function validateSave(s){
  }
  ensureProgression(s);ensureRegions(s);ensureChronicle(s);return true;
 }
-function registerTools(){const ctx=document.modelContext;if(!ctx?.registerTool)return;for(const tool of [{name:'read_emberwake_audio',title:'Read soundtrack status',description:'Read music playback status and settings without changing the expedition.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:true},execute:()=>({settings:musicSettings(save.settings),...(music?.status()||{playing:false,context:'not-started',scheduledNotes:0})})},{name:'read_emberwake_progress',title:'Read Emberwake progress',description:'Read gold, permanent upgrades, unlocked characters, and the active run without changing them.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:true},execute:()=>({build:'odyssey-25',savedRun:save.run?{time:save.run.time,health:save.run.player.hp,level:save.run.level,kills:save.run.kills,skills:save.run.skills,enemies:save.run.enemies.length,gold:save.run.gold}:null,unlockedWeapons:[...save.unlockedWeapons],chronicle:save.chronicle,unlockedRegions:[...save.unlockedRegions],regionBest:{...save.regionBest},inventory:{...save.inventory},equipment:{...save.equipment},spellcraft:{...save.spellcraft},gold:save.gold,secrets:save.secrets,meta:{...save.meta},heroes:[...save.heroes],stats:{...save.stats},run:game?{time:game.time,region:game.region,relics:{...game.relics},objective:game.objective,objectivesCompleted:game.objectivesCompleted,discoveriesCleared:game.discoveriesCleared,discoveries:game.discoveries.map(s=>({id:s.id,kind:s.kind,state:s.state,discovered:s.discovered,x:s.x,y:s.y})),enemies:game.enemies.length,enemyTypes:[...new Set(game.enemies.map(e=>e.type))],rangedEnemies:game.rangedCount(),bosses:game.enemies.filter(e=>e.boss).map(e=>({type:e.type,title:e.title,attack:e.attackLabel})),overlords:game.enemies.filter(e=>e.lateBoss).map(e=>({title:e.title,hp:e.hp,maxHp:e.maxHp})),level:game.level,mode:game.mode,health:game.player.hp,maxHealth:game.maxHp(),position:{x:game.player.x,y:game.player.y},kills:game.kills,chestsOpened:game.chestsOpened,bossesKilled:game.bossesKilled,dawnReached:game.dawnReached,reaperSpawned:game.reaperSpawned,reaperDefeated:game.reaperDefeated,skills:{...game.skills},gear:game.gear,shield:game.shield}:null})},{name:'pause_emberwake_run',title:'Pause expedition',description:'Pause the current playing expedition and save its progress. Fails if no expedition is playing.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:false},execute:()=>{if(!game||game.mode!=='playing')throw Error('No expedition is playing');pause();return{mode:game.mode,saved:storageOK};}}])try{Promise.resolve(ctx.registerTool(tool)).catch(()=>{});}catch{}}
+function registerTools(){const ctx=document.modelContext;if(!ctx?.registerTool)return;for(const tool of [{name:'read_emberwake_audio',title:'Read soundtrack status',description:'Read music playback status and settings without changing the expedition.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:true},execute:()=>({settings:musicSettings(save.settings),...(music?.status()||{playing:false,context:'not-started',scheduledNotes:0})})},{name:'read_emberwake_progress',title:'Read Emberwake progress',description:'Read gold, permanent upgrades, unlocked characters, and the active run without changing them.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:true},execute:()=>({build:'divinity-26',savedRun:save.run?{time:save.run.time,health:save.run.player.hp,level:save.run.level,kills:save.run.kills,skills:save.run.skills,enemies:save.run.enemies.length,gold:save.run.gold}:null,unlockedWeapons:[...save.unlockedWeapons],chronicle:save.chronicle,unlockedRegions:[...save.unlockedRegions],regionBest:{...save.regionBest},inventory:{...save.inventory},equipment:{...save.equipment},spellcraft:{...save.spellcraft},gold:save.gold,secrets:save.secrets,meta:{...save.meta},heroes:[...save.heroes],stats:{...save.stats},run:game?{time:game.time,region:game.region,relics:{...game.relics},objective:game.objective,objectivesCompleted:game.objectivesCompleted,discoveriesCleared:game.discoveriesCleared,discoveries:game.discoveries.map(s=>({id:s.id,kind:s.kind,state:s.state,discovered:s.discovered,x:s.x,y:s.y})),enemies:game.enemies.length,enemyTypes:[...new Set(game.enemies.map(e=>e.type))],rangedEnemies:game.rangedCount(),bosses:game.enemies.filter(e=>e.boss).map(e=>({type:e.type,title:e.title,attack:e.attackLabel})),overlords:game.enemies.filter(e=>e.lateBoss).map(e=>({title:e.title,hp:e.hp,maxHp:e.maxHp})),level:game.level,mode:game.mode,health:game.player.hp,maxHealth:game.maxHp(),position:{x:game.player.x,y:game.player.y},kills:game.kills,chestsOpened:game.chestsOpened,bossesKilled:game.bossesKilled,dawnReached:game.dawnReached,reaperSpawned:game.reaperSpawned,reaperDefeated:game.reaperDefeated,skills:{...game.skills},gear:game.gear,shield:game.shield}:null})},{name:'pause_emberwake_run',title:'Pause expedition',description:'Pause the current playing expedition and save its progress. Fails if no expedition is playing.',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:false},execute:()=>{if(!game||game.mode!=='playing')throw Error('No expedition is playing');pause();return{mode:game.mode,saved:storageOK};}}])try{Promise.resolve(ctx.registerTool(tool)).catch(()=>{});}catch{}}
 render();requestAnimationFrame(frame);registerTools();if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});

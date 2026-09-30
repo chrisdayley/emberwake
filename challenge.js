@@ -1,5 +1,5 @@
-import {stepEclipse} from './eclipse-combat.js?v=25';
-import {SPECIAL_STAGES} from './chronicle.js?v=25';
+import {stepEclipse} from './eclipse-combat.js?v=26';
+import {SPECIAL_STAGES} from './chronicle.js?v=26';
 const TAU=Math.PI*2;
 export const challengeStage=id=>SPECIAL_STAGES.find(s=>s.id===id);
 const NAMES={astral:["Stardust mites","Orbit skates","Astrolabe hulks","Comet heralds","The Lost Navigator","The Star That Watches"],frostmarch:['Rime hounds','Crystal moths','Icebound knights','Snow oracles','The White Hunt','Glacier Empress'],drowned:['Ink leeches','Coral skimmers','Anchor hulks','Pearl sirens','The Librarian Below','Leviathan of Ink'],clockwork:['Gear mites','Brass hornets','Pendulum knights','Clock sentries','The Broken Hour','Grand Automaton'],briarheart:['Thornlings','Rose wasps','Briar ogres','Bloom witches','The Rose Widow','Heartwood Devourer'],sunforge:['Solar scarabs','Flare hawks','Gilded titans','Sun acolytes','The Golden Judge','Crown of the Sun'],eclipse:['Voidlings','Star serpents','Eclipse knights','Night choirs','The Unnamed Star','Sovereign of Nothing']};

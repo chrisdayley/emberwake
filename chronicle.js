@@ -1,5 +1,5 @@
-import {SECRET_STAGE,SECRET_WEAPONS} from './secrets.js?v=25';
-import {RELIC_WEAPONS,WEAPON_FEATS} from './relic-weapons.js?v=25';
+import {SECRET_STAGE,SECRET_WEAPONS} from './secrets.js?v=26';
+import {RELIC_WEAPONS,WEAPON_FEATS} from './relic-weapons.js?v=26';
 // Achievement progression is additive: already-owned characters, spells and maps stay owned.
 export const SPECIAL_STAGES=[
  {id:'frostmarch',name:'Frostmarch',color:'#9de8f4',floor:'#142d39',tag:'Blizzards · Shelter at braziers',desc:'Icebound avenues, hunting crystal beasts and blizzards. Stay near a brazier when the snow closes in.',requirement:'Defeat a guardian in Ashwood',music:'ashwood',strength:1.5,hero:'winter',weapon:'aegis'},
