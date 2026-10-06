@@ -24,7 +24,7 @@ for url in PLAN['catalogPages']:
         a=re.search(r'<a[^>]+href=[\"\x27]([^\"\x27]+)[\"\x27][^>]*>(.*?)</a>',block,re.S)
         if a:links[norm(clean(a[2]))]=html.unescape(a[1])
 for url in PLAN['extraPages']:
-    page=get(url).decode(); title=clean(re.search(r'<h1\b[^>]*>(.*?)</h1>',page,re.S)[1]);links[norm(title)]=url
+    page=get(url).decode(); title=clean(re.search(r'<h1\b[^>]*>(.*?)</h1>',page,re.S)[1]);links[norm(title)]=url;links[norm(url.rstrip('/').split('/')[-1])]=url
 names=sorted({x for stages in PLAN['suites'].values() for stage in stages for x in stage})
 missing=[x for x in names if norm(x) not in links]
 assert not missing, f'Missing catalog pages: {missing}'
@@ -39,6 +39,13 @@ def prepare(name):
     print(f'SOURCE {name}: {seconds:.2f}s',flush=True)
     return name,dict(title=name,slug=slug,url=url,download=source,seconds=seconds,sha256=hashlib.sha256(path.read_bytes()).hexdigest(),author='Scott Buckley',license='CC BY 4.0',licenseURL='https://creativecommons.org/licenses/by/4.0/',path=str(path))
 with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:tracks=dict(pool.map(prepare,names))
+# Fail before expensive rendering if a movement selection is too short.
+for region,stages in PLAN['suites'].items():
+    for phase,names in enumerate(stages):
+        needed=(604 if phase<3 else 300)+4*(len(names)-1)
+        total=sum(tracks[n]['seconds']-1 for n in names)
+        print(f'CAPACITY {region} / {phase}: {total:.2f} / {needed}',flush=True)
+        assert total>=needed, f'{region} phase {phase} short: {total} < {needed}'
 credits=[]
 for region,stages in PLAN['suites'].items():
     seen=[];movements=[];stagefiles=[];start=0
@@ -73,7 +80,7 @@ for region,stages in PLAN['suites'].items():
     print(f'SUITE {region}: {actual:.2f}s / {output.stat().st_size} bytes',flush=True)
 # Bring the already licensed Oathfire foley banks over intact, with their provenance.
 sfx=OUT/'sfx';sfx.mkdir(exist_ok=True)
-base='https://raw.githubusercontent.com/chrisdayley/oathfire/main/'
+base='https://raw.githubusercontent.com/chrisdayley/oathfire/main/public/'
 manifest=json.loads(get(base+'sfx/foley.json'))
 (sfx/'foley.json').write_text(json.dumps(manifest,indent=2))
 for bank in manifest['banks'].values():
