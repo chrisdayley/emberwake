@@ -1,0 +1,228 @@
+{
+  "version": 27,
+  "seconds": 2100,
+  "crossfade": 4,
+  "catalogPages": [
+    "https://www.scottbuckley.com.au/library/",
+    "https://www.scottbuckley.com.au/library/mood/epic/",
+    "https://www.scottbuckley.com.au/library/mood/adventurous/",
+    "https://www.scottbuckley.com.au/library/mood/brooding/",
+    "https://www.scottbuckley.com.au/library/instrumentation/drums-epic/"
+  ],
+  "extraPages": [
+    "https://www.scottbuckley.com.au/library/undertow/",
+    "https://www.scottbuckley.com.au/library/the-fury/"
+  ],
+  "suites": {
+    "ashwood": [
+      [
+        "Echoes Of Home",
+        "Memories Of Stone",
+        "Path Through The Mountains"
+      ],
+      [
+        "Three Sheets to the Wind",
+        "Call To Adventure",
+        "Into The Wilds"
+      ],
+      [
+        "Pathfinder",
+        "Age of Wonder",
+        "Sentinel"
+      ],
+      [
+        "Goliath",
+        "Victor Lux"
+      ]
+    ],
+    "hollow": [
+      [
+        "A Dragon\u2019s Lullaby (2023 Remaster)",
+        "Sanctuary",
+        "The Weight of Air \u2013 Anabasis I"
+      ],
+      [
+        "Balefire",
+        "The Weight of Air \u2013 Katabasis II",
+        "The Weight of Air \u2013 Anabasis II"
+      ],
+      [
+        "Uprising",
+        "Juggernaut",
+        "Vanguard"
+      ],
+      [
+        "Eyes In The Void",
+        "The Fury"
+      ]
+    ],
+    "cinder": [
+      [
+        "The Weight of Air \u2013 Katabasis I",
+        "Balefire",
+        "Path Through The Mountains"
+      ],
+      [
+        "Song Of The Forge",
+        "Ignis",
+        "Legionnaire (2022 Remaster)"
+      ],
+      [
+        "Catalyst",
+        "Vanguard",
+        "Goliath"
+      ],
+      [
+        "Juggernaut",
+        "Terminus"
+      ]
+    ],
+    "frostmarch": [
+      [
+        "Penumbra",
+        "Memories Of Stone",
+        "Sanctuary"
+      ],
+      [
+        "Path Through The Mountains",
+        "The Great Sea",
+        "Artemis"
+      ],
+      [
+        "Where Stars Fall",
+        "Hyperion",
+        "Rise Above"
+      ],
+      [
+        "Vanguard",
+        "Goliath"
+      ]
+    ],
+    "drowned": [
+      [
+        "Undertow",
+        "The Great Sea",
+        "A Dragon\u2019s Lullaby (2023 Remaster)"
+      ],
+      [
+        "Ride The Wind",
+        "Three Sheets to the Wind",
+        "Call To Adventure"
+      ],
+      [
+        "Into The Unknown",
+        "Pathfinder",
+        "Terminus"
+      ],
+      [
+        "The Fury",
+        "Eyes In The Void"
+      ]
+    ],
+    "clockwork": [
+      [
+        "The Weight of Air \u2013 Anabasis I",
+        "The Weight of Air \u2013 Katabasis II",
+        "Artemis"
+      ],
+      [
+        "The Weight of Air \u2013 Anabasis II",
+        "Ignis",
+        "Catalyst"
+      ],
+      [
+        "Legacy",
+        "Into The Unknown",
+        "Terminus"
+      ],
+      [
+        "Simulacra",
+        "Vanguard"
+      ]
+    ],
+    "briarheart": [
+      [
+        "Memories Of Stone",
+        "Echoes Of Home",
+        "The Weight of Air \u2013 Katabasis I"
+      ],
+      [
+        "Balefire",
+        "Sanctuary",
+        "Into The Wilds"
+      ],
+      [
+        "Sentinel",
+        "Uprising",
+        "Pathfinder"
+      ],
+      [
+        "Eyes In The Void",
+        "Juggernaut"
+      ]
+    ],
+    "sunforge": [
+      [
+        "Shoulders Of Giants",
+        "Clear Skies",
+        "Path Through The Mountains"
+      ],
+      [
+        "Song Of The Forge",
+        "Call To Adventure",
+        "Ride The Wind"
+      ],
+      [
+        "Age of Wonder",
+        "Hyperion",
+        "Victor Lux"
+      ],
+      [
+        "Sentinel",
+        "Ignis"
+      ]
+    ],
+    "eclipse": [
+      [
+        "Sanctuary",
+        "The Weight of Air \u2013 Katabasis I",
+        "The Weight of Air \u2013 Anabasis I"
+      ],
+      [
+        "Balefire",
+        "Artemis",
+        "The Weight of Air \u2013 Anabasis II"
+      ],
+      [
+        "Juggernaut",
+        "Uprising",
+        "Vanguard"
+      ],
+      [
+        "The Fury",
+        "Goliath"
+      ]
+    ],
+    "astral": [
+      [
+        "Aphelion",
+        "Penumbra",
+        "Shoulders Of Giants"
+      ],
+      [
+        "Artemis",
+        "Starfire",
+        "Where Stars Fall"
+      ],
+      [
+        "Legacy",
+        "Into The Unknown",
+        "Hyperion"
+      ],
+      [
+        "Terminus",
+        "Simulacra"
+      ]
+    ]
+  }
+}

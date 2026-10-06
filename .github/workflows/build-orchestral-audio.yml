@@ -1,0 +1,31 @@
+name: Build orchestral audio v27
+on:
+  push:
+    paths:
+      - 'scripts/build-suites.py'
+      - 'scripts/suite-plan.json'
+      - '.github/workflows/build-orchestral-audio.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: orchestral-audio
+  cancel-in-progress: false
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install audio tools
+        run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
+      - name: Render and verify ten continuous suites
+        run: python3 scripts/build-suites.py
+      - name: Publish verified audio assets
+        run: |
+          git config user.name 'Emberwake audio builder'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add audio
+          git commit -m 'Add ten verified 35-minute orchestral suites and recorded foley'
+          git pull --rebase origin main
+          git push origin HEAD:main
