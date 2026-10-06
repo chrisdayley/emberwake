@@ -1,21 +1,45 @@
-import {THEMES,scoreState,scoreNotes,scorePosition} from './score.js?v=26';
-export {THEMES,scoreState,scoreNotes,scorePosition} from './score.js?v=26';
-export function musicSettings(settings={}){return {enabled:typeof settings.music==='boolean'?settings.music:settings.sound!==false,volume:Number.isFinite(settings.musicVolume)?Math.max(0,Math.min(1,settings.musicVolume)):.4};}
-const frequency=midi=>440*2**((midi-69)/12);
+import {SUITE_SECONDS,THEMES,suiteFor,scoreState,validMusicCheckpoint} from './score.js?v=27';
+export {THEMES,scoreState,validMusicCheckpoint};
+const SILENCE='data:audio/wav;base64,UklGRiYAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQIAAAAAAA==';
+export function musicSettings(s={}){return {enabled:typeof s.music==='boolean'?s.music:s.sound!==false,volume:typeof s.musicVolume==='number'&&Number.isFinite(s.musicVolume)?Math.max(0,Math.min(1,s.musicVolume)):.4};}
+// One streamed, pre-crossfaded recording. Never decode an entire 35-minute score into phone RAM.
 export class AdaptiveMusic{
- constructor(context){this.context=context;this.master=context.createGain();this.master.gain.value=0;this.filter=context.createBiquadFilter();this.filter.type='lowpass';this.filter.frequency.value=6000;this.compressor=context.createDynamicsCompressor();this.compressor.threshold.value=-18;this.compressor.ratio.value=5;this.master.connect(this.filter);this.filter.connect(this.compressor);this.compressor.connect(context.destination);if(context.createConvolver){const room=context.createConvolver(),wet=context.createGain(),ir=context.createBuffer(2,Math.floor(context.sampleRate*1.3),context.sampleRate);for(let ch=0;ch<2;ch++){const a=ir.getChannelData(ch);let seed=177+ch*71;for(let j=0;j<a.length;j++){seed=(seed*16807)%2147483647;a[j]=(seed/2147483647*2-1)*Math.exp(-j/context.sampleRate*6)*.28;}}room.buffer=ir;wet.gain.value=.18;this.filter.connect(room);room.connect(wet);wet.connect(this.compressor);}this.voices=new Set();this.running=false;this.region=null;this.step=0;this.next=0;this.scheduled=0;this.seconds=0;this.scoreSeconds=0;this.sectionStart=0;this.timbres=new Map();this.volume=0;this.noise=context.createBuffer(1,context.sampleRate,context.sampleRate);const data=this.noise.getChannelData(0);let seed=7341;for(let i=0;i<data.length;i++){seed=(seed*16807)%2147483647;data[i]=(seed/2147483647)*2-1;}}
- update(region,seconds,playing,settings,hidden=false){const options=musicSettings(settings);this.seconds=seconds||0;this.volume=options.volume;if(!playing||hidden||!options.enabled||options.volume===0||this.context.state!=='running'){this.stop();return;}
-  const now=this.context.currentTime;if(!this.running||this.region!==region){this.stop();this.running=true;this.region=region;this.step=0;this.sectionStart=0;this.scoreSeconds=seconds;this.next=now+.035;this.master.gain.cancelScheduledValues(now);this.master.gain.setValueAtTime(0,now);}
-  this.master.gain.setTargetAtTime(options.volume*.55,now,.12);
-  // Do not replay a backlog after an interrupted audio device or background tab.
-  if(this.next<now-.2)this.next=now+.035;
-  let budget=8;while(this.next<now+.18&&budget-->0){if(this.step%64===0&&scoreState(region,seconds).act!==scoreState(region,this.scoreSeconds).act){this.scoreSeconds=seconds;this.sectionStart=this.step;}for(const note of scoreNotes(region,this.scoreSeconds,this.step-this.sectionStart))this.note(note,this.next+(note.delay||0));this.step++;this.next+=60/scoreState(region,this.scoreSeconds).bpm/4;}
+ constructor(ctx,{createAudio=()=>new Audio(),now=()=>Date.now()}={}){
+  this.ctx=ctx;this.now=now;this.media=createAudio();this.media.preload='metadata';this.media.loop=false;this.media.playsInline=true;this.media.setAttribute?.('playsinline','');
+  this.bus=ctx.createGain();this.bus.gain.value=0;this.source=ctx.createMediaElementSource(this.media);this.source.connect(this.bus);this.bus.connect(ctx.destination);
+  this.region='';this.runKey='';this.position=0;this.pendingSeek=null;this.wanted=false;this.pending=false;this.serial=0;this.error='';this.retryAt=0;this.playCalls=0;this.ended=false;
+  this.media.addEventListener('loadedmetadata',()=>this.seekPending());
+  this.media.addEventListener('ended',()=>{if(!this.region||this.media.duration<2000)return;this.ended=true;this.position=SUITE_SECONDS;this.wanted=false;});
+  this.media.addEventListener('error',()=>{this.error='Music unavailable; tap to retry when connected.';this.retryAt=this.now()+5000;this.pending=false;});
  }
- note(n,when){if(this.voices.size>=64)return;const c=this.context,gain=c.createGain(),filter=c.createBiquadFilter();let source;const noisy=['hat','snare','cymbal'].includes(n.voice);filter.type=noisy?'highpass':'lowpass';filter.frequency.value=n.voice==='hat'?6500:n.voice==='snare'?1400:n.voice==='bass'?1200:THEMES[this.region]?.cutoff||1800;
-  if(noisy){source=c.createBufferSource();source.buffer=this.noise;}else{source=c.createOscillator();source.type=n.wave;const partials={reed:[1,.38,.22,.13,.07],flute:[1,.12,.2,.04],bell:[1,.05,.45,.02,.2],pluck:[1,.55,.26,.14,.08,.03],marimba:[1,.02,.34,.01,.08],strings:[1,.5,.32,.21,.15,.1,.07],brass:[1,.7,.5,.32,.22,.14],choir:[1,.15,.4,.1,.2],bass:[1,.25,.1]}[n.instrument];if(partials&&c.createPeriodicWave&&source.setPeriodicWave){if(!this.timbres.has(n.instrument))this.timbres.set(n.instrument,c.createPeriodicWave(new Float32Array(partials.length+1),new Float32Array([0,...partials])));source.setPeriodicWave(this.timbres.get(n.instrument));}source.frequency.setValueAtTime(n.voice==='kick'?125:frequency(n.midi),when);if(n.voice==='kick')source.frequency.exponentialRampToValueAtTime(42,when+.17);}
-  const attack=n.attack??(n.voice==='pad'?.16:({strings:.06,reed:.02,flute:.035,brass:.022,choir:.1,pluck:.004,marimba:.004,bell:.004}[n.instrument]||.008));gain.gain.setValueAtTime(.0001,when);gain.gain.exponentialRampToValueAtTime(n.gain,when+Math.min(attack,n.duration/3));if(n.hold)gain.gain.setValueAtTime(n.gain*.7,when+n.duration*n.hold);gain.gain.exponentialRampToValueAtTime(.0001,when+n.duration);source.connect(filter);filter.connect(gain);const pan=c.createStereoPanner?.();if(pan){pan.pan.value=n.pan||0;gain.connect(pan);pan.connect(this.master);}else gain.connect(this.master);
-  const voice={source,gain,filter};this.voices.add(voice);source.onended=()=>{source.disconnect();filter.disconnect();gain.disconnect();pan?.disconnect();this.voices.delete(voice);};source.start(when);source.stop(when+n.duration+.02);this.scheduled++;
+ begin(region,checkpoint=null,runSeconds=0,runKey=''){
+  const theme=suiteFor(region),saved=validMusicCheckpoint(checkpoint);
+  this.stop();this.serial++;this.pending=false;this.region=theme.id;this.runKey=runKey;
+  this.position=saved?.region===theme.id?saved.seconds:Math.max(0,Math.min(SUITE_SECONDS,Number(runSeconds)||0));
+  this.ended=this.position>=SUITE_SECONDS;this.pendingSeek=this.position;this.error='';this.retryAt=0;
+  this.media.src=theme.file;this.media.load();
  }
- stop(){if(!this.running)return;const now=this.context.currentTime;this.master.gain.cancelScheduledValues(now);this.master.gain.setTargetAtTime(0,now,.025);for(const v of this.voices){try{v.source.stop(now+.1);}catch{}}this.running=false;}
- status(){const s=scoreState(this.region,this.scoreSeconds);return {playing:this.running,context:this.context.state,region:this.region,theme:this.region?s.theme.name:null,intensity:s.intensity,act:s.actName,bpm:s.bpm,volume:this.volume,...scorePosition(this.step-this.sectionStart),voices:this.voices.size,scheduledNotes:this.scheduled};}
+ seekPending(){if(this.pendingSeek===null||!Number.isFinite(this.media.duration))return;try{this.media.currentTime=Math.min(this.pendingSeek,Math.max(0,this.media.duration-.03));this.pendingSeek=null;}catch{}}
+ unlock(){// Called on real user gestures; retries autoplay/network failures without rewinding.
+  if(this.now()-(this.lastUnlock??-Infinity)<500)return;this.lastUnlock=this.now();this.retryAt=0;if(!this.region&&!this.primed){this.primed=true;this.media.src=SILENCE;const serial=this.serial;try{Promise.resolve(this.media.play()).then(()=>{if(serial===this.serial&&!this.wanted)this.media.pause();}).catch(()=>{});}catch{}}if(this.wanted)this.play();
+ }
+ play(){
+  if(this.pending||this.ended||!this.wanted||this.now()<this.retryAt)return;
+  if(!this.media.paused)return;
+  if(this.media.error){this.pendingSeek=this.position;this.media.load();}
+  this.seekPending();this.pending=true;const serial=this.serial;this.playCalls++;
+  try{Promise.resolve(this.media.play()).then(()=>{if(serial!==this.serial)return;this.pending=false;this.error='';this.seekPending();if(!this.wanted)this.media.pause();}).catch(()=>{if(serial!==this.serial)return;this.pending=false;this.error='Tap to enable music.';this.retryAt=this.now()+5000;});}catch{this.pending=false;this.retryAt=this.now()+5000;}
+ }
+ update(region,seconds,playing,settings={},hidden=false){
+  if(!this.region||this.region!==suiteFor(region).id)this.begin(region,null,seconds);
+  const config=musicSettings(settings);
+  this.wanted=!!playing&&config.enabled&&!hidden&&this.ctx.state==='running'&&!this.ended;
+  this.bus.gain.setTargetAtTime(config.volume*.8,this.ctx.currentTime,.06);
+  if(this.wanted)this.play();else this.stop();
+  if(this.pendingSeek===null&&Number.isFinite(this.media.currentTime))this.position=Math.min(SUITE_SECONDS,this.media.currentTime);
+ }
+ stop(){this.wanted=false;if(!this.media.paused)this.media.pause();if(this.pendingSeek===null&&Number.isFinite(this.media.currentTime))this.position=Math.min(SUITE_SECONDS,this.media.currentTime);}
+ checkpoint(){return this.region?{version:27,region:this.region,seconds:this.ended?SUITE_SECONDS:this.pendingSeek??this.position}:null;}
+ status(){return {...scoreState(this.region,this.position),playing:!this.media.paused&&!this.ended,context:this.ctx.state,format:'recorded-orchestral-suite',loop:false,readyState:this.media.readyState,recordingDuration:Number.isFinite(this.media.duration)?this.media.duration:null,buffered:this.media.buffered?.length||0,error:this.error,playCalls:this.playCalls,source:this.media.currentSrc||this.media.src,runKey:this.runKey};}
+ dispose(){this.stop();this.serial++;this.media.removeAttribute?.('src');this.media.load();this.source.disconnect();this.bus.disconnect();}
 }

@@ -1,8 +1,8 @@
-import {GODLY} from './godly.js?v=26';
-import {spellTracks,HEALTH_SPELLS} from './spellcraft.js?v=26';
-export {SPELL_TRACKS,spellTracks,HEALTH_SPELLS} from './spellcraft.js?v=26';
-import {weaponUnlocked} from './chronicle.js?v=26';
-import {WEAPONS,HEROES} from './data.js?v=26';
+import {GODLY} from './godly.js?v=27';
+import {spellTracks,HEALTH_SPELLS} from './spellcraft.js?v=27';
+export {SPELL_TRACKS,spellTracks,HEALTH_SPELLS} from './spellcraft.js?v=27';
+import {weaponUnlocked} from './chronicle.js?v=27';
+import {WEAPONS,HEROES} from './data.js?v=27';
 export const TIERS=[
  {name:'Common',color:'#bcc8c6',prefix:'Wayfarer'},
  {name:'Uncommon',color:'#8cdb9b',prefix:'Verdant'},

@@ -52,3 +52,7 @@ Cinder Wastes v15 is tuned for leveled equipment and permanent spellcraft: new e
 ## Red danger markers and adaptive music
 
 Enemy AOE attacks now use red warning circles and exclamation marks. Each map has its own original soundtrack that builds with survival time. Music and sound effects have separate controls in Settings. Existing saves and combat balance are preserved. See [SOUNDSCAPE.md](SOUNDSCAPE.md).
+
+## Orchestral audio v27
+
+Ten continuous 35-minute recorded orchestral suites replace the synthesized score. Each map has its own arrangement, with stronger orchestration toward the 30-minute encounter and no repeated cues within its suite. Recorded combat, spell, movement and reward effects replace the old beeps. Saves and existing audio preferences are preserved. See [ORCHESTRAL-AUDIO.md](ORCHESTRAL-AUDIO.md) and the in-game music credits for source attribution and playback details.

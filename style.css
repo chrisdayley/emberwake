@@ -46,3 +46,5 @@
 .signature-label{color:var(--spell-color,#a7ddd5);font-size:10px;letter-spacing:1.6px;margin:15px 0 5px}.spell-mastery{border-top:1px solid #41514c;margin-top:12px;padding-top:12px}.spell-mastery summary{cursor:pointer;font-size:11px;color:#c7d8cf;line-height:1.6}.spell-track>div{min-width:0}.spellcraft-page h2{margin-top:24px}
 
 .banish-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:12px 0;font-size:11px}.banish-row button{font-size:10px;padding:7px 10px}@media(max-width:740px){.topbar nav{overflow-x:auto;max-width:60vw;flex-shrink:1}.topbar nav button{white-space:nowrap}.banish-row{gap:4px}}
+
+.footnote a{color:var(--gold);text-underline-offset:3px}
