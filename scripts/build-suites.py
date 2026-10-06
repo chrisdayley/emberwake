@@ -67,6 +67,7 @@ for region,stages in PLAN['suites'].items():
         prev='a0'
         for i in range(1,len(names)):
             filters.append(f'[{prev}][a{i}]acrossfade=d=4:c1=qsin:c2=qsin[x{i}]');prev=f'x{i}'
+        filters.append(f'[{prev}]apad=whole_dur={target},atrim=duration={target}[exact]');prev='exact'
         output=CACHE/f'{region}-{phase}.flac'
         run(args+['-filter_complex',';'.join(filters),'-map',f'[{prev}]','-t',target,'-c:a','flac',output]);stagefiles.append(output)
     args=[]
@@ -74,7 +75,7 @@ for region,stages in PLAN['suites'].items():
     filters='[0:a][1:a]acrossfade=d=4:c1=qsin:c2=qsin[a];[a][2:a]acrossfade=d=4:c1=qsin:c2=qsin[b];[b][3:a]acrossfade=d=4:c1=qsin:c2=qsin,afade=t=in:d=1,afade=t=out:st=2096:d=4,alimiter=limit=0.89:level=false[out]'
     output=OUT/f'{region}-suite-v27.m4a'
     run(args+['-filter_complex',filters,'-map','[out]','-t',2100,'-c:a','aac','-b:a','128k','-ar',32000,'-movflags','+faststart',output])
-    actual=duration(output);assert abs(actual-2100)<.2
+    actual=duration(output);assert abs(actual-2100)<.2, f'{region} actual duration {actual}, phases {[duration(p) for p in stagefiles]}'
     credits.append(dict(region=region,file=output.name,seconds=actual,bytes=output.stat().st_size,sha256=hashlib.sha256(output.read_bytes()).hexdigest(),movements=movements))
     for p in stagefiles:p.unlink()
     print(f'SUITE {region}: {actual:.2f}s / {output.stat().st_size} bytes',flush=True)

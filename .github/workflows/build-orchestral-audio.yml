@@ -17,10 +17,26 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/cache/restore@v4
+        with:
+          path: .audio-build/*.mp3
+          key: orchestral-sources-v27
       - name: Install audio tools
         run: sudo apt-get update -qq && sudo apt-get install -y ffmpeg
       - name: Render and verify ten continuous suites
         run: python3 scripts/build-suites.py
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: .audio-build/*.mp3
+          key: orchestral-sources-v27
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: emberwake-orchestra-v27
+          path: audio
+          compression-level: 0
+          retention-days: 1
       - name: Publish verified audio assets
         run: |
           git config user.name 'Emberwake audio builder'
@@ -29,3 +45,4 @@ jobs:
           git commit -m 'Add ten verified 35-minute orchestral suites and recorded foley'
           git pull --rebase origin main
           git push origin HEAD:main
+          git rev-parse HEAD^{tree}
