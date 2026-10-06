@@ -1,0 +1,1348 @@
+{
+  "version": 27,
+  "changes": "Selected excerpts, loudness-balanced, crossfaded into 35-minute suites; AAC 128 kbps stereo. No source cue repeated within a suite.",
+  "tracks": [
+    {
+      "title": "A Dragon\u2019s Lullaby (2023 Remaster)",
+      "slug": "a-dragons-lullaby-2023",
+      "url": "https://www.scottbuckley.com.au/library/a-dragons-lullaby-2023/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2023/02/ADragonsLullaby2023.mp3",
+      "seconds": 168.176327,
+      "sha256": "fe07f1c8e0b10743c7ed72348bf7fe4692e8471358f0f7f48d0a4e8ca8ae4200",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Age of Wonder",
+      "slug": "age-of-wonder",
+      "url": "https://www.scottbuckley.com.au/library/age-of-wonder/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2022/03/AgeOfWonder.mp3",
+      "seconds": 350.981224,
+      "sha256": "fc22227a67a0d016271107e425204cacc1e59a4c4ae33a9326bc83107f6c760f",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Aphelion",
+      "slug": "aphelion",
+      "url": "https://www.scottbuckley.com.au/library/aphelion/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2026/04/Aphelion.mp3",
+      "seconds": 422.29551,
+      "sha256": "57ae03dbc122f0859e0f9a273e59503e34883728ddb5b06761fbf8244b0eb23e",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Artemis",
+      "slug": "artemis",
+      "url": "https://www.scottbuckley.com.au/library/artemis/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2022/09/Artemis.mp3",
+      "seconds": 375.797551,
+      "sha256": "e46316b663605c9c937181d7802682cea88634aa2e2a489d790617033fb4bbd0",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Balefire",
+      "slug": "balefire",
+      "url": "https://www.scottbuckley.com.au/library/balefire/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2023/06/Balefire.mp3",
+      "seconds": 339.983673,
+      "sha256": "1546693f6381dc44c2cc90e8934aad32fd325bbc7ee26419ca3f2fb78f0809ad",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Call To Adventure",
+      "slug": "call-to-adventure",
+      "url": "https://www.scottbuckley.com.au/library/call-to-adventure/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2023/01/CallToAdventure.mp3",
+      "seconds": 259.892245,
+      "sha256": "ed871ff603184cd40a995f15150237e35f95aeb6257a686a5af9a1abd3b5350f",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Catalyst",
+      "slug": "catalyst",
+      "url": "https://www.scottbuckley.com.au/library/catalyst/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2020/06/sb_catalyst.mp3",
+      "seconds": 277.603265,
+      "sha256": "8dabdc650ed2db00c9b5b685e5c9ddbc9e14e5d9f4a8dcd3f87db3ccf139e41e",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Clear Skies",
+      "slug": "clear-skies",
+      "url": "https://www.scottbuckley.com.au/library/clear-skies/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2024/02/ClearSkies.mp3",
+      "seconds": 195.030204,
+      "sha256": "0b71c4460054e26f3a98cfe3477f3f967b8d5e4df0da1440ccc40d2a01eb31ab",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Echoes Of Home",
+      "slug": "echoes-of-home",
+      "url": "https://www.scottbuckley.com.au/library/echoes-of-home/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2025/05/EchoesOfHome.mp3",
+      "seconds": 291.761633,
+      "sha256": "b980963ac01d5211e2729906e2f5e74915a9d5df22fc8744e2d95045bb120e8e",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Eyes In The Void",
+      "slug": "eyes-in-the-void",
+      "url": "https://www.scottbuckley.com.au/library/eyes-in-the-void/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2025/06/EyesInTheVoid.mp3",
+      "seconds": 264.097959,
+      "sha256": "285e9aea3e24698fda179eba56d2f6c7d6ecd92f0ddc78932633e0641f769335",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Goliath",
+      "slug": "goliath",
+      "url": "https://www.scottbuckley.com.au/library/goliath/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2021/08/sb_goliath.mp3",
+      "seconds": 381.570612,
+      "sha256": "a74f3890ad21d54f125c6caafbeac5efc51fbb8002bc3f23f5a9a23aab41bafe",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Hyperion",
+      "slug": "hyperion",
+      "url": "https://www.scottbuckley.com.au/library/hyperion/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2024/06/Hyperion.mp3",
+      "seconds": 251.611429,
+      "sha256": "559961b869bb3ae223522a740ba25ff04cc2897299595a5afdca348f57edeb9a",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Ignis",
+      "slug": "ignis",
+      "url": "https://www.scottbuckley.com.au/library/ignis/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2024/01/Ignis.mp3",
+      "seconds": 191.843265,
+      "sha256": "cbee0a34d35bd77f14f6f01790a6b0bb4891645433fa433d1ba645e420b2a26b",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Into The Unknown",
+      "slug": "into-the-unknown",
+      "url": "https://www.scottbuckley.com.au/library/into-the-unknown/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2022/06/IntoTheUnknown.mp3",
+      "seconds": 261.929796,
+      "sha256": "94ff76f82df2a40556355571cd497e32cf0fe471f324ddd2bc526811b79de6fb",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Into The Wilds",
+      "slug": "into-the-wilds",
+      "url": "https://www.scottbuckley.com.au/library/into-the-wilds/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2024/11/IntoTheWilds.mp3",
+      "seconds": 246.83102,
+      "sha256": "a06467d9779841950c897e9023984fcf2bbc0ee2609fb15230f660cc922941b8",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Juggernaut",
+      "slug": "juggernaut",
+      "url": "https://www.scottbuckley.com.au/library/juggernaut/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2022/07/Juggernaut.mp3",
+      "seconds": 222.066939,
+      "sha256": "50be286d170f5a08791f1540b110fbbb4c0aa26e841084fceff0c908379e76f6",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Legacy",
+      "slug": "legacy",
+      "url": "https://www.scottbuckley.com.au/library/legacy/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2022/12/Legacy.mp3",
+      "seconds": 389.668571,
+      "sha256": "6cf8094c7277b33190cfd9ccedd04dacc487bd96c7214f26a8d5b7d0e848db07",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Legionnaire (2022 Remaster)",
+      "slug": "legionnaire-2022",
+      "url": "https://www.scottbuckley.com.au/library/legionnaire-2022/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2022/04/sb_legionnaire2022.mp3",
+      "seconds": 187.115102,
+      "sha256": "1e18197d21268fe9467f4f31c8c35ebd3b73a97479ebff486e07ca0c2757d44f",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Memories Of Stone",
+      "slug": "memories-of-stone",
+      "url": "https://www.scottbuckley.com.au/library/memories-of-stone/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2026/02/MemoriesOfStone.mp3",
+      "seconds": 330.370612,
+      "sha256": "1ad908e4c0e0c2a311300f6b69f2587f9161e15990ee01f18e00992f25d1b252",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Path Through The Mountains",
+      "slug": "path-through-the-mountains",
+      "url": "https://www.scottbuckley.com.au/library/path-through-the-mountains/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2022/10/PathThroughTheMountains.mp3",
+      "seconds": 321.018776,
+      "sha256": "9ecf09fa119a52050961dd1fa2714934583b06356be164d4d2686387d7dd0096",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Pathfinder",
+      "slug": "pathfinder",
+      "url": "https://www.scottbuckley.com.au/library/pathfinder/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2021/04/sb_pathfinder.mp3",
+      "seconds": 204.355918,
+      "sha256": "f20e3e9aaac2d947510ec971d7ea477320370091c3ea7b1541792c3fe5683e78",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Penumbra",
+      "slug": "penumbra",
+      "url": "https://www.scottbuckley.com.au/library/penumbra/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2025/07/Penumbra.mp3",
+      "seconds": 449.802449,
+      "sha256": "bc225a79d41107bce3cb31a177adccf0a7c95933b8263473ca0b7ad00d90bec3",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Ride The Wind",
+      "slug": "ride-the-wind",
+      "url": "https://www.scottbuckley.com.au/library/ride-the-wind/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2025/01/RideTheWind.mp3",
+      "seconds": 269.740408,
+      "sha256": "0adeacb87531510d91ab2b88b92ea6625e27d7346de1dc0011a8d9b3bd41388e",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Rise Above",
+      "slug": "rise-above",
+      "url": "https://www.scottbuckley.com.au/library/rise-above/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2023/09/RiseAbove.mp3",
+      "seconds": 267.911837,
+      "sha256": "5c284b7f6fbce91dba8ad5299974edfdf8c4354c5d9c3ea60c5a3bed9e809ea0",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Sanctuary",
+      "slug": "sanctuary",
+      "url": "https://www.scottbuckley.com.au/library/sanctuary/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2021/07/sb_sanctuary.mp3",
+      "seconds": 246.047347,
+      "sha256": "1119b63d91012466e5ff8486fa2f9ad036eab9ebaf2ebf7f2af2a23dc5769f3c",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Sentinel",
+      "slug": "sentinel",
+      "url": "https://www.scottbuckley.com.au/library/sentinel/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2024/04/Sentinel.mp3",
+      "seconds": 203.258776,
+      "sha256": "ca19618bf7eeb95e0798d7a72710695ff45ad1d9731ae8074f5d0f24afd47a0c",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Shoulders Of Giants",
+      "slug": "shoulders-of-giants",
+      "url": "https://www.scottbuckley.com.au/library/shoulders-of-giants/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2024/09/ShouldersOfGiants.mp3",
+      "seconds": 443.245714,
+      "sha256": "a148f8fd320d4a739da3124053fdc3178dcf9b6902507f2c86a83497f0279674",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Simulacra",
+      "slug": "simulacra",
+      "url": "https://www.scottbuckley.com.au/library/simulacra/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2025/03/Simulacra.mp3",
+      "seconds": 234.34449,
+      "sha256": "f65439c7685594e63a9e1d586dc9487b5ac231b3e210e0f5c39c7ee7ddd1a794",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Song Of The Forge",
+      "slug": "song-of-the-forge",
+      "url": "https://www.scottbuckley.com.au/library/song-of-the-forge/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2025/11/SongOfTheForge.mp3",
+      "seconds": 205.897143,
+      "sha256": "5be7859f5846bf80f93c4d936991e76616c8b147c178ba7e77b292191b3b5d48",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Starfire",
+      "slug": "starfire",
+      "url": "https://www.scottbuckley.com.au/library/starfire/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2026/01/Starfire.mp3",
+      "seconds": 341.054694,
+      "sha256": "d97bd4c5256fd4ccceaab1e5660844b92905c66d570c0e40f774b73c711e8c1c",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Terminus",
+      "slug": "terminus",
+      "url": "https://www.scottbuckley.com.au/library/terminus/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2021/05/sb_terminus.mp3",
+      "seconds": 263.444898,
+      "sha256": "33ca786940809d29171d559b9d3f0d4c62e6cd1b977fd6f92c4c8c75ac09913e",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "The Fury",
+      "slug": "the-fury",
+      "url": "https://www.scottbuckley.com.au/library/the-fury/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2019/07/sb_monomyth_11_thefury.mp3",
+      "seconds": 425.874286,
+      "sha256": "c0d266b8af8c2d11f102c79fbdbd3d0156e65b3e0231ebe790ca00eecab1cbe5",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "The Great Sea",
+      "slug": "the-great-sea",
+      "url": "https://www.scottbuckley.com.au/library/the-great-sea/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2024/01/TheGreatSea.mp3",
+      "seconds": 281.939592,
+      "sha256": "f2c2d69a0c89656e676c0fac3da23a201237951c8be7e77dcaa1705dca5b9cf8",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "The Weight of Air \u2013 Anabasis I",
+      "slug": "anabasis-i",
+      "url": "https://www.scottbuckley.com.au/library/anabasis-i/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2026/09/Anabasis_I.mp3",
+      "seconds": 560.770612,
+      "sha256": "964e693611445d808d4cdb748006ae22c7fa8534b126acdca39bcc74de95d76c",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "The Weight of Air \u2013 Anabasis II",
+      "slug": "anabasis-ii",
+      "url": "https://www.scottbuckley.com.au/library/anabasis-ii/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2026/09/Anabasis_II.mp3",
+      "seconds": 329.456327,
+      "sha256": "8350b32a04df1893abc7a2781a64688e5c7a794b5aafa6ee7e35042a790df7a0",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "The Weight of Air \u2013 Katabasis I",
+      "slug": "katabasis-i",
+      "url": "https://www.scottbuckley.com.au/library/katabasis-i/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2026/09/Katabasis_I.mp3",
+      "seconds": 589.766531,
+      "sha256": "bdce0cfde5f900a60b5c7f769261d0f8438a77e6e6bce351071de0c6d25d0f58",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "The Weight of Air \u2013 Katabasis II",
+      "slug": "katabasis-ii",
+      "url": "https://www.scottbuckley.com.au/library/katabasis-ii/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2026/09/Katabasis_II.mp3",
+      "seconds": 411.036735,
+      "sha256": "a98adeb1f2f4271a48a2bf734ec3e0df028a5e4c36f5f34787a6ec5be3607052",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Three Sheets to the Wind",
+      "slug": "three-sheets-to-the-wind",
+      "url": "https://www.scottbuckley.com.au/library/three-sheets-to-the-wind/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2023/03/ThreeSheetsToTheWind.mp3",
+      "seconds": 200.359184,
+      "sha256": "bace0727baafbd9274a58ce08c2b07b04e53c85265c3993d990f37792cd11401",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Undertow",
+      "slug": "undertow",
+      "url": "https://www.scottbuckley.com.au/library/undertow/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2019/12/sb_undertow.mp3",
+      "seconds": 249.965714,
+      "sha256": "4652007dad67295f1f5c87c8cbc8e2df1a530e7671266a29f693a084375d3910",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Uprising",
+      "slug": "uprising",
+      "url": "https://www.scottbuckley.com.au/library/uprising/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2024/07/Uprising.mp3",
+      "seconds": 205.688163,
+      "sha256": "c9b82e7f836c37fdf02899e31c46163f6f20a0a965a7a49c695d2c78f2a60517",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Vanguard",
+      "slug": "vanguard",
+      "url": "https://www.scottbuckley.com.au/library/vanguard/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2023/07/Vanguard.mp3",
+      "seconds": 234.579592,
+      "sha256": "e3eaf7e0e8727f06db9ceb6b93324bee73cf37f44370a1228da516800bffadff",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Victor Lux",
+      "slug": "victor-lux",
+      "url": "https://www.scottbuckley.com.au/library/victor-lux/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2023/05/VictorLux.mp3",
+      "seconds": 202.34449,
+      "sha256": "28c6c03f77c08991f0b10dc0d84aa61e5de6814ea563847cb002cf33cdbeb086",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Where Stars Fall",
+      "slug": "where-stars-fall",
+      "url": "https://www.scottbuckley.com.au/library/where-stars-fall/",
+      "download": "https://www.scottbuckley.com.au/library/wp-content/uploads/2021/02/sb_wherestarsfall.mp3",
+      "seconds": 270.706939,
+      "sha256": "2e7e0f7c1ba5c5dc144f972af6069ce7d4fc828e45bb7c4d7ec6b6abb8f16f49",
+      "author": "Scott Buckley",
+      "license": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0/"
+    }
+  ],
+  "suites": [
+    {
+      "region": "ashwood",
+      "file": "ashwood-suite-v27.m4a",
+      "seconds": 2100.0,
+      "bytes": 33979227,
+      "sha256": "e24ccb78d49808a02cafd9eaf3a859c3dbed2d3e8c3d2aafcccaba0834521aec",
+      "movements": [
+        {
+          "title": "Echoes Of Home",
+          "start": 0,
+          "length": 189.274,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "Memories Of Stone",
+          "start": 185.274,
+          "length": 214.407,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "Path Through The Mountains",
+          "start": 395.681,
+          "length": 208.319,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "Three Sheets to the Wind",
+          "start": 600.0,
+          "length": 173.286,
+          "sourceOffset": 26.073,
+          "phase": 1
+        },
+        {
+          "title": "Call To Adventure",
+          "start": 769.286,
+          "length": 225.033,
+          "sourceOffset": 33.859,
+          "phase": 1
+        },
+        {
+          "title": "Into The Wilds",
+          "start": 990.32,
+          "length": 213.68,
+          "sourceOffset": 32.151,
+          "phase": 1
+        },
+        {
+          "title": "Pathfinder",
+          "start": 1200.0,
+          "length": 164.709,
+          "sourceOffset": 38.646,
+          "phase": 2
+        },
+        {
+          "title": "Age of Wonder",
+          "start": 1360.709,
+          "length": 283.47,
+          "sourceOffset": 66.512,
+          "phase": 2
+        },
+        {
+          "title": "Sentinel",
+          "start": 1640.179,
+          "length": 163.821,
+          "sourceOffset": 38.438,
+          "phase": 2
+        },
+        {
+          "title": "Goliath",
+          "start": 1800.0,
+          "length": 198.815,
+          "sourceOffset": 181.756,
+          "phase": 3
+        },
+        {
+          "title": "Victor Lux",
+          "start": 1994.815,
+          "length": 105.185,
+          "sourceOffset": 96.16,
+          "phase": 3
+        }
+      ]
+    },
+    {
+      "region": "hollow",
+      "file": "hollow-suite-v27.m4a",
+      "seconds": 2100.0,
+      "bytes": 33990212,
+      "sha256": "b410906f876209f142526b478b07f61c3d2494e726a6acb9cf756ce92371f7aa",
+      "movements": [
+        {
+          "title": "A Dragon\u2019s Lullaby (2023 Remaster)",
+          "start": 0,
+          "length": 105.26,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "Sanctuary",
+          "start": 101.26,
+          "length": 154.29,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "The Weight of Air \u2013 Anabasis I",
+          "start": 251.55,
+          "length": 352.45,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "Balefire",
+          "start": 600.0,
+          "length": 192.541,
+          "sourceOffset": 146.443,
+          "phase": 1
+        },
+        {
+          "title": "The Weight of Air \u2013 Katabasis II",
+          "start": 788.541,
+          "length": 232.898,
+          "sourceOffset": 177.138,
+          "phase": 1
+        },
+        {
+          "title": "The Weight of Air \u2013 Anabasis II",
+          "start": 1017.439,
+          "length": 186.561,
+          "sourceOffset": 141.895,
+          "phase": 1
+        },
+        {
+          "title": "Uprising",
+          "start": 1200.0,
+          "length": 189.993,
+          "sourceOffset": 14.695,
+          "phase": 2
+        },
+        {
+          "title": "Juggernaut",
+          "start": 1385.993,
+          "length": 205.196,
+          "sourceOffset": 15.871,
+          "phase": 2
+        },
+        {
+          "title": "Vanguard",
+          "start": 1587.189,
+          "length": 216.811,
+          "sourceOffset": 16.769,
+          "phase": 2
+        },
+        {
+          "title": "Eyes In The Void",
+          "start": 1800.0,
+          "length": 116.257,
+          "sourceOffset": 146.841,
+          "phase": 3
+        },
+        {
+          "title": "The Fury",
+          "start": 1912.257,
+          "length": 187.743,
+          "sourceOffset": 237.132,
+          "phase": 3
+        }
+      ]
+    },
+    {
+      "region": "cinder",
+      "file": "cinder-suite-v27.m4a",
+      "seconds": 2100.0,
+      "bytes": 33968702,
+      "sha256": "e19691d2a09919318e9a95ce4010e7055d6bb2a0b3bfad5d3f51314353c59ac3",
+      "movements": [
+        {
+          "title": "The Weight of Air \u2013 Katabasis I",
+          "start": 0,
+          "length": 288.776,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "Balefire",
+          "start": 284.776,
+          "length": 166.263,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "Path Through The Mountains",
+          "start": 447.039,
+          "length": 156.961,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "Song Of The Forge",
+          "start": 600.0,
+          "length": 160.47,
+          "sourceOffset": 44.427,
+          "phase": 1
+        },
+        {
+          "title": "Ignis",
+          "start": 756.47,
+          "length": 149.463,
+          "sourceOffset": 41.38,
+          "phase": 1
+        },
+        {
+          "title": "Legionnaire (2022 Remaster)",
+          "start": 901.933,
+          "length": 145.76,
+          "sourceOffset": 40.355,
+          "phase": 1
+        },
+        {
+          "title": "Uprising",
+          "start": 1043.694,
+          "length": 160.306,
+          "sourceOffset": 44.382,
+          "phase": 1
+        },
+        {
+          "title": "Catalyst",
+          "start": 1200.0,
+          "length": 190.043,
+          "sourceOffset": 86.561,
+          "phase": 2
+        },
+        {
+          "title": "Vanguard",
+          "start": 1386.043,
+          "length": 160.483,
+          "sourceOffset": 73.097,
+          "phase": 2
+        },
+        {
+          "title": "Goliath",
+          "start": 1542.526,
+          "length": 261.474,
+          "sourceOffset": 119.096,
+          "phase": 2
+        },
+        {
+          "title": "Juggernaut",
+          "start": 1800.0,
+          "length": 138.992,
+          "sourceOffset": 82.075,
+          "phase": 3
+        },
+        {
+          "title": "Terminus",
+          "start": 1934.992,
+          "length": 165.008,
+          "sourceOffset": 97.437,
+          "phase": 3
+        }
+      ]
+    },
+    {
+      "region": "frostmarch",
+      "file": "frostmarch-suite-v27.m4a",
+      "seconds": 2100.0,
+      "bytes": 33973131,
+      "sha256": "fe97fa33fb218a373066b4a81637fa6c2092ca3e69df548b1d714ed3f406eff3",
+      "movements": [
+        {
+          "title": "Penumbra",
+          "start": 0,
+          "length": 268.434,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "Memories Of Stone",
+          "start": 264.434,
+          "length": 197.0,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "Sanctuary",
+          "start": 457.434,
+          "length": 146.566,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "Path Through The Mountains",
+          "start": 600.0,
+          "length": 200.718,
+          "sourceOffset": 119.301,
+          "phase": 1
+        },
+        {
+          "title": "The Great Sea",
+          "start": 796.718,
+          "length": 176.207,
+          "sourceOffset": 104.733,
+          "phase": 1
+        },
+        {
+          "title": "Artemis",
+          "start": 968.925,
+          "length": 235.075,
+          "sourceOffset": 139.722,
+          "phase": 1
+        },
+        {
+          "title": "Where Stars Fall",
+          "start": 1200.0,
+          "length": 209.673,
+          "sourceOffset": 60.034,
+          "phase": 2
+        },
+        {
+          "title": "Hyperion",
+          "start": 1405.673,
+          "length": 194.828,
+          "sourceOffset": 55.784,
+          "phase": 2
+        },
+        {
+          "title": "Rise Above",
+          "start": 1596.5,
+          "length": 207.5,
+          "sourceOffset": 59.412,
+          "phase": 2
+        },
+        {
+          "title": "Vanguard",
+          "start": 1800.0,
+          "length": 115.62,
+          "sourceOffset": 117.959,
+          "phase": 3
+        },
+        {
+          "title": "Goliath",
+          "start": 1911.62,
+          "length": 188.38,
+          "sourceOffset": 192.191,
+          "phase": 3
+        }
+      ]
+    },
+    {
+      "region": "drowned",
+      "file": "drowned-suite-v27.m4a",
+      "seconds": 2100.0,
+      "bytes": 33988538,
+      "sha256": "84aefe49a5487433b4edf490eca9e7b2a1da36add588d747b591c954f0f03a62",
+      "movements": [
+        {
+          "title": "Undertow",
+          "start": 0,
+          "length": 218.578,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "The Great Sea",
+          "start": 214.578,
+          "length": 246.65,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "A Dragon\u2019s Lullaby (2023 Remaster)",
+          "start": 457.228,
+          "length": 146.772,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "Ride The Wind",
+          "start": 600.0,
+          "length": 226.232,
+          "sourceOffset": 42.508,
+          "phase": 1
+        },
+        {
+          "title": "Three Sheets to the Wind",
+          "start": 822.232,
+          "length": 167.826,
+          "sourceOffset": 31.534,
+          "phase": 1
+        },
+        {
+          "title": "Call To Adventure",
+          "start": 986.058,
+          "length": 217.942,
+          "sourceOffset": 40.95,
+          "phase": 1
+        },
+        {
+          "title": "Into The Unknown",
+          "start": 1200.0,
+          "length": 219.736,
+          "sourceOffset": 41.194,
+          "phase": 2
+        },
+        {
+          "title": "Pathfinder",
+          "start": 1415.736,
+          "length": 171.252,
+          "sourceOffset": 32.104,
+          "phase": 2
+        },
+        {
+          "title": "Terminus",
+          "start": 1582.988,
+          "length": 221.012,
+          "sourceOffset": 41.433,
+          "phase": 2
+        },
+        {
+          "title": "The Fury",
+          "start": 1800.0,
+          "length": 187.743,
+          "sourceOffset": 237.132,
+          "phase": 3
+        },
+        {
+          "title": "Eyes In The Void",
+          "start": 1983.743,
+          "length": 116.257,
+          "sourceOffset": 146.841,
+          "phase": 3
+        }
+      ]
+    },
+    {
+      "region": "clockwork",
+      "file": "clockwork-suite-v27.m4a",
+      "seconds": 2100.0,
+      "bytes": 34003838,
+      "sha256": "befeed6d62f377b19739bd85d7192df066e2aea5c9d721be9fe1f91770fc2ae8",
+      "movements": [
+        {
+          "title": "The Weight of Air \u2013 Anabasis I",
+          "start": 0,
+          "length": 254.781,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "The Weight of Air \u2013 Katabasis II",
+          "start": 250.781,
+          "length": 186.629,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "Artemis",
+          "start": 433.41,
+          "length": 170.59,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "The Weight of Air \u2013 Anabasis II",
+          "start": 600.0,
+          "length": 252.563,
+          "sourceOffset": 75.894,
+          "phase": 1
+        },
+        {
+          "title": "Ignis",
+          "start": 848.563,
+          "length": 146.747,
+          "sourceOffset": 44.097,
+          "phase": 1
+        },
+        {
+          "title": "Catalyst",
+          "start": 991.309,
+          "length": 212.691,
+          "sourceOffset": 63.912,
+          "phase": 1
+        },
+        {
+          "title": "Legacy",
+          "start": 1200.0,
+          "length": 260.805,
+          "sourceOffset": 127.864,
+          "phase": 2
+        },
+        {
+          "title": "Into The Unknown",
+          "start": 1456.805,
+          "length": 175.089,
+          "sourceOffset": 85.84,
+          "phase": 2
+        },
+        {
+          "title": "Terminus",
+          "start": 1627.894,
+          "length": 176.106,
+          "sourceOffset": 86.339,
+          "phase": 2
+        },
+        {
+          "title": "Simulacra",
+          "start": 1800.0,
+          "length": 151.923,
+          "sourceOffset": 81.421,
+          "phase": 3
+        },
+        {
+          "title": "Vanguard",
+          "start": 1947.923,
+          "length": 152.077,
+          "sourceOffset": 81.503,
+          "phase": 3
+        }
+      ]
+    },
+    {
+      "region": "briarheart",
+      "file": "briarheart-suite-v27.m4a",
+      "seconds": 2100.0,
+      "bytes": 33978729,
+      "sha256": "9b48d37281e1b11704b4b4bcf5893d4a1619cd0e19837e8d49487cefaf8964e8",
+      "movements": [
+        {
+          "title": "Memories Of Stone",
+          "start": 0,
+          "length": 166.743,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "Echoes Of Home",
+          "start": 162.743,
+          "length": 147.197,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "The Weight of Air \u2013 Katabasis I",
+          "start": 305.939,
+          "length": 298.061,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "Balefire",
+          "start": 600.0,
+          "length": 249.991,
+          "sourceOffset": 88.993,
+          "phase": 1
+        },
+        {
+          "title": "Sanctuary",
+          "start": 845.991,
+          "length": 180.716,
+          "sourceOffset": 64.332,
+          "phase": 1
+        },
+        {
+          "title": "Into The Wilds",
+          "start": 1022.707,
+          "length": 181.293,
+          "sourceOffset": 64.538,
+          "phase": 1
+        },
+        {
+          "title": "Age of Wonder",
+          "start": 1200.0,
+          "length": 282.561,
+          "sourceOffset": 67.42,
+          "phase": 2
+        },
+        {
+          "title": "Uprising",
+          "start": 1478.561,
+          "length": 165.257,
+          "sourceOffset": 39.431,
+          "phase": 2
+        },
+        {
+          "title": "Pathfinder",
+          "start": 1639.818,
+          "length": 164.182,
+          "sourceOffset": 39.174,
+          "phase": 2
+        },
+        {
+          "title": "Eyes In The Void",
+          "start": 1800.0,
+          "length": 165.195,
+          "sourceOffset": 97.903,
+          "phase": 3
+        },
+        {
+          "title": "Juggernaut",
+          "start": 1961.195,
+          "length": 138.805,
+          "sourceOffset": 82.262,
+          "phase": 3
+        }
+      ]
+    },
+    {
+      "region": "sunforge",
+      "file": "sunforge-suite-v27.m4a",
+      "seconds": 2100.0,
+      "bytes": 33979129,
+      "sha256": "2158d81d3ee3468926c23b0dfee15c11bb89fa6332ae49c3e20f15aafaacbd2d",
+      "movements": [
+        {
+          "title": "Shoulders Of Giants",
+          "start": 0,
+          "length": 283.024,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "Clear Skies",
+          "start": 279.024,
+          "length": 124.174,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "Path Through The Mountains",
+          "start": 399.198,
+          "length": 204.802,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "Song Of The Forge",
+          "start": 600.0,
+          "length": 171.184,
+          "sourceOffset": 33.714,
+          "phase": 1
+        },
+        {
+          "title": "Call To Adventure",
+          "start": 767.184,
+          "length": 216.294,
+          "sourceOffset": 42.598,
+          "phase": 1
+        },
+        {
+          "title": "Ride The Wind",
+          "start": 979.478,
+          "length": 224.522,
+          "sourceOffset": 44.218,
+          "phase": 1
+        },
+        {
+          "title": "Age of Wonder",
+          "start": 1200.0,
+          "length": 267.089,
+          "sourceOffset": 82.892,
+          "phase": 2
+        },
+        {
+          "title": "Hyperion",
+          "start": 1463.089,
+          "length": 191.255,
+          "sourceOffset": 59.357,
+          "phase": 2
+        },
+        {
+          "title": "Victor Lux",
+          "start": 1650.344,
+          "length": 153.656,
+          "sourceOffset": 47.688,
+          "phase": 2
+        },
+        {
+          "title": "Sentinel",
+          "start": 1800.0,
+          "length": 156.414,
+          "sourceOffset": 45.845,
+          "phase": 3
+        },
+        {
+          "title": "Ignis",
+          "start": 1952.414,
+          "length": 147.586,
+          "sourceOffset": 43.257,
+          "phase": 3
+        }
+      ]
+    },
+    {
+      "region": "eclipse",
+      "file": "eclipse-suite-v27.m4a",
+      "seconds": 2100.0,
+      "bytes": 33987175,
+      "sha256": "efb2115ad4ecc3f2e4312f6bcac46d8c5424b3e4456f2c87a9f40cfcefde2ce4",
+      "movements": [
+        {
+          "title": "Sanctuary",
+          "start": 0,
+          "length": 107.614,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "The Weight of Air \u2013 Katabasis I",
+          "start": 103.614,
+          "length": 258.56,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "The Weight of Air \u2013 Anabasis I",
+          "start": 358.174,
+          "length": 245.826,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "Balefire",
+          "start": 600.0,
+          "length": 199.051,
+          "sourceOffset": 139.933,
+          "phase": 1
+        },
+        {
+          "title": "Artemis",
+          "start": 795.051,
+          "length": 220.08,
+          "sourceOffset": 154.717,
+          "phase": 1
+        },
+        {
+          "title": "The Weight of Air \u2013 Anabasis II",
+          "start": 1011.131,
+          "length": 192.869,
+          "sourceOffset": 135.587,
+          "phase": 1
+        },
+        {
+          "title": "Juggernaut",
+          "start": 1200.0,
+          "length": 205.196,
+          "sourceOffset": 15.871,
+          "phase": 2
+        },
+        {
+          "title": "Uprising",
+          "start": 1401.196,
+          "length": 189.993,
+          "sourceOffset": 14.695,
+          "phase": 2
+        },
+        {
+          "title": "Vanguard",
+          "start": 1587.189,
+          "length": 216.811,
+          "sourceOffset": 16.769,
+          "phase": 2
+        },
+        {
+          "title": "The Fury",
+          "start": 1800.0,
+          "length": 160.361,
+          "sourceOffset": 264.513,
+          "phase": 3
+        },
+        {
+          "title": "Goliath",
+          "start": 1956.361,
+          "length": 143.639,
+          "sourceOffset": 236.931,
+          "phase": 3
+        }
+      ]
+    },
+    {
+      "region": "astral",
+      "file": "astral-suite-v27.m4a",
+      "seconds": 2100.0,
+      "bytes": 33962648,
+      "sha256": "97759f0b7646ea1964bbee7db368ce794119ad84a4ffe58741db4618ad65d1cf",
+      "movements": [
+        {
+          "title": "Aphelion",
+          "start": 0,
+          "length": 196.467,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "Penumbra",
+          "start": 192.467,
+          "length": 209.295,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "Shoulders Of Giants",
+          "start": 397.763,
+          "length": 206.237,
+          "sourceOffset": 0,
+          "phase": 0
+        },
+        {
+          "title": "Artemis",
+          "start": 600.0,
+          "length": 232.973,
+          "sourceOffset": 141.824,
+          "phase": 1
+        },
+        {
+          "title": "Starfire",
+          "start": 828.973,
+          "length": 211.377,
+          "sourceOffset": 128.677,
+          "phase": 1
+        },
+        {
+          "title": "Where Stars Fall",
+          "start": 1036.351,
+          "length": 167.649,
+          "sourceOffset": 102.058,
+          "phase": 1
+        },
+        {
+          "title": "Legacy",
+          "start": 1200.0,
+          "length": 264.233,
+          "sourceOffset": 124.436,
+          "phase": 2
+        },
+        {
+          "title": "Into The Unknown",
+          "start": 1460.233,
+          "length": 177.391,
+          "sourceOffset": 83.539,
+          "phase": 2
+        },
+        {
+          "title": "Hyperion",
+          "start": 1633.624,
+          "length": 170.376,
+          "sourceOffset": 80.235,
+          "phase": 2
+        },
+        {
+          "title": "Terminus",
+          "start": 1800.0,
+          "length": 160.922,
+          "sourceOffset": 101.523,
+          "phase": 3
+        },
+        {
+          "title": "Simulacra",
+          "start": 1956.922,
+          "length": 143.078,
+          "sourceOffset": 90.266,
+          "phase": 3
+        }
+      ]
+    }
+  ]
+}
